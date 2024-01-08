@@ -22,7 +22,7 @@ function Home() {
   const [pageSize, setPageSize] = useState(15)
   const [pageIndex, setPageIndex] = useState(1)
   const [isMounted, setIsMounted] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobile, setIsMobile] = useState(true)
   const [listOver, setListOver] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(-1)
   const [hitokoto, setHitokoto] = useState({
@@ -93,7 +93,7 @@ function Home() {
     init()
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchData = async () => {
       setShowListBottomLoading(true)
       const {Data} = await fetchArticles()
@@ -115,7 +115,7 @@ function Home() {
     }
   }, [pageIndex, pageSize, selectedCategory]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       const htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
       const innerHeight = window.innerHeight;
@@ -149,43 +149,47 @@ function Home() {
     })}
   >
     <section className='container-wrap'>
-      <div className='special-subject-wrap'>
-        <h2 className='special-subject-title'>专题</h2>
-        <Stack
-          className='special-subject-list'
-          direction={isMobile ? "column" : "row"}
-          spacing={3}
-        >
-          <Paper
-            square={false}
-            elevation={3}
-            className="special-subject-list-item frontend"
-            onClick={() => onPaperClick('frontend')}
+      {
+        !isMobile && <div className='special-subject-wrap'>
+          <h2 className='special-subject-title'>专题</h2>
+          <Stack
+            className='special-subject-list'
+            direction={isMobile ? "column" : "row"}
+            spacing={3}
           >
-            <h3 className='special-subject-list-item-title'>前端</h3>
-            <img
-              className='special-subject-list-item-img'
-              src="https://assest.sablogs.cn/imgs/blog/React.png"
-              alt=""
-            />
-          </Paper>
-          <Paper square={false} elevation={3} className="special-subject-list-item backend"
-                 onClick={() => onPaperClick('backend')}>
-            <h3 className='special-subject-list-item-title'>后端</h3>
-            <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/nodejs.png"
-                 alt=""/>
-          </Paper>
-          <Paper square={false} elevation={3} className="special-subject-list-item algorithm"
-                 onClick={() => onPaperClick('algorithm')}>
-            <h3 className='special-subject-list-item-title'>算法</h3>
-            <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/suanfa.png"
-                 alt=""/>
-          </Paper>
-        </Stack>
-      </div>
+            <Paper
+              square={false}
+              elevation={3}
+              className="special-subject-list-item frontend"
+              onClick={() => onPaperClick('frontend')}
+            >
+              <h3 className='special-subject-list-item-title'>前端</h3>
+              <img
+                className='special-subject-list-item-img'
+                src="https://assest.sablogs.cn/imgs/blog/React.png"
+                alt=""
+              />
+            </Paper>
+            <Paper square={false} elevation={3} className="special-subject-list-item backend"
+                   onClick={() => onPaperClick('backend')}>
+              <h3 className='special-subject-list-item-title'>后端</h3>
+              <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/nodejs.png"
+                   alt=""/>
+            </Paper>
+            <Paper square={false} elevation={3} className="special-subject-list-item algorithm"
+                   onClick={() => onPaperClick('algorithm')}>
+              <h3 className='special-subject-list-item-title'>算法</h3>
+              <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/suanfa.png"
+                   alt=""/>
+            </Paper>
+          </Stack>
+        </div>
+      }
       <div className='article-list-wrap'>
         <Box className="article-list-category" sx={{borderBottom: 1, borderColor: 'divider'}}>
           <Tabs
+            variant="scrollable"
+            scrollButtons="auto"
             value={selectedCategory}
             onChange={onTabsChange}
           >
@@ -256,48 +260,50 @@ function Home() {
       {/*  />*/}
       {/*</div>}*/}
     </section>
-    <aside className='aside-wrap'>
-      <Paper className='statistical-panel' elevation={1}>
-        <div className='heatmap-nums'>
-          <div className="heatmap-nums-item">
-            <div className='heatmap-nums-count'><CountUp end={dayjs().diff('2018-03-07', 'day')}/></div>
-            <div className='heatmap-nums-title'>天</div>
+    {
+      !isMobile && <aside className='aside-wrap'>
+        <Paper className='statistical-panel' elevation={1}>
+          <div className='heatmap-nums'>
+            <div className="heatmap-nums-item">
+              <div className='heatmap-nums-count'><CountUp end={dayjs().diff('2018-03-07', 'day')}/></div>
+              <div className='heatmap-nums-title'>天</div>
+            </div>
+            {/*<Divider orientation="vertical" flexItem/>*/}
+            {/*<div className="heatmap-nums-item">*/}
+            {/*  <div className='heatmap-nums-count'><CountUp end={400}/></div>*/}
+            {/*  <div className='heatmap-nums-title'>PV</div>*/}
+            {/*</div>*/}
+            <Divider orientation="vertical" flexItem/>
+            <div className="heatmap-nums-item">
+              <div className='heatmap-nums-count'><CountUp end={heatmapDataset.TotalCount}/></div>
+              <div className='heatmap-nums-title'>文章</div>
+            </div>
           </div>
-          {/*<Divider orientation="vertical" flexItem/>*/}
-          {/*<div className="heatmap-nums-item">*/}
-          {/*  <div className='heatmap-nums-count'><CountUp end={400}/></div>*/}
-          {/*  <div className='heatmap-nums-title'>PV</div>*/}
-          {/*</div>*/}
-          <Divider orientation="vertical" flexItem/>
-          <div className="heatmap-nums-item">
-            <div className='heatmap-nums-count'><CountUp end={heatmapDataset.TotalCount}/></div>
-            <div className='heatmap-nums-title'>文章</div>
-          </div>
-        </div>
-        <Divider className='statistical-panel-standard-divider'/>
-        <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
-      </Paper>
-      <TimeFlies/>
-      <section className='aside-footer'>
-        <a
-          style={{marginTop: '20px', display: 'block'}}
-          href='https://beian.miit.gov.cn/'
-          rel="noreferrer"
-          target='_blank'
-        >
-          鄂ICP备2022013786号
-        </a>
-        <a
-          style={{marginTop: '20px', display: 'block'}}
-          href='https://beian.miit.gov.cn/'
-          rel="noreferrer"
-          target='_blank'
-        >
-          鄂ICP备2022013786号-1
-        </a>
-        <div style={{marginTop: '20px', display: 'block'}}>© 2023 Saraph1nes Blog</div>
-      </section>
-    </aside>
+          <Divider className='statistical-panel-standard-divider'/>
+          <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
+        </Paper>
+        <TimeFlies/>
+        <section className='aside-footer'>
+          <a
+            style={{marginTop: '20px', display: 'block'}}
+            href='https://beian.miit.gov.cn/'
+            rel="noreferrer"
+            target='_blank'
+          >
+            鄂ICP备2022013786号
+          </a>
+          <a
+            style={{marginTop: '20px', display: 'block'}}
+            href='https://beian.miit.gov.cn/'
+            rel="noreferrer"
+            target='_blank'
+          >
+            鄂ICP备2022013786号-1
+          </a>
+          <div style={{marginTop: '20px', display: 'block'}}>© 2023 Saraph1nes Blog</div>
+        </section>
+      </aside>
+    }
   </main>)
 }
 
