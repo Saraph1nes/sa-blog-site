@@ -90,39 +90,7 @@ const About = () => {
       <Divider className='divider' orientation="vertical" flexItem/>}
     <div className='about-page-right'>
       <div className='about-page-right-article'>
-
         <p>嗨，大家好！我是Saraph1nes</p>
-
-        <p>建立站点的初衷有以下几点</p>
-
-        <p>· 整理自己的知识体系</p>
-
-        <p>· 希望在互联网上有属于自己的一些痕迹</p>
-
-        <p>· 希望通过文字可以帮助到他人</p>
-
-        <p>· 希望结识同好</p>
-
-
-        <h3>TODO</h3>
-        <p>
-          ✅ <del>完善个人页面</del>
-        </p>
-        <p>
-          ✅ <del>移动端适配</del>
-        </p>
-        <p>
-          🔳 搜索功能
-        </p>
-        <p>
-          🔳 文章详情页，标题菜单锚点高亮
-        </p>
-        <p>
-          ✅ 登录功能
-        </p>
-        <p>
-          🔳 评论功能
-        </p>
       </div>
     </div>
   </div>
