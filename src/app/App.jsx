@@ -1,4 +1,3 @@
-import {Analytics} from '@vercel/analytics/react';
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Go2Top from "@/components/Go2Top";
@@ -14,7 +13,6 @@ function App() {
         <Footer/>
         <Go2Top/>
       </DarkModeProvider>
-      <Analytics/>
     </>
   )
 }
