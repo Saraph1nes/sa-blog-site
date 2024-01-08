@@ -1,0 +1,48 @@
+.footer-wrap {
+
+  .footer {
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: flex;
+    max-width: 1100px;
+
+    .m-t-20 {
+      margin-top: 20px;
+    }
+
+    & > div {
+      flex: 1;
+    }
+
+    .copyright-information {
+
+      .copyright-information-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+    .friendly-link {
+      font-size: 14px;
+
+      .friendly-link-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+
+    .contact-information {
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .internet-content-provider {
+      font-size: 14px;
+
+      .internet-content-provider-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
+    }
+  }
+}

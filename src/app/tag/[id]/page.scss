@@ -1,0 +1,39 @@
+$prefix: tag-detail-page;
+
+.#{$prefix} {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  min-height: 100vh;
+
+  .#{$prefix}_title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .#{$prefix}_list {
+    margin-top: 40px;
+
+    .#{$prefix}_list-item {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .#{$prefix}_list-item-title {
+        cursor: pointer;
+        transition: ease-out 300ms;
+
+        &:hover {
+          color: orange;
+        }
+      }
+
+      .#{$prefix}_list-item-date {
+        color: #aaaaaa;
+        font-size: 12px;
+      }
+    }
+  }
+}

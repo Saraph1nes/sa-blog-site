@@ -1,0 +1,5 @@
+const MOBILE_JUDGING_WIDTH = 700;
+
+export {
+  MOBILE_JUDGING_WIDTH
+}

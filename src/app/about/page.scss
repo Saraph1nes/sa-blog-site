@@ -1,0 +1,127 @@
+.about-page {
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  min-height: 100vh;
+  display: flex;
+
+  @media screen and (max-width: 500px) {
+    display: block;
+    padding: 100px 20px;
+  }
+
+  .m-l-7 {
+    margin-left: 7px;
+  }
+
+  .about-page-left {
+    width: 200px;
+
+    @media screen and (max-width: 500px) {
+      width: 100%;
+    }
+
+    .avatar {
+      margin: 0 auto;
+    }
+
+    .name {
+      font-weight: bold;
+      margin-top: 20px;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .located {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .social-media {
+
+      .social-media-nav {
+        margin: 0 auto;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        .social-media-nav-item {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+
+          &:hover {
+            border: 1px dashed orange;
+          }
+        }
+      }
+
+      .social-media-content {
+        margin-top: 20px;
+        text-align: center;
+
+        .wechat-qrcode {
+          width: 100%;
+
+          @media screen and (max-width: 500px) {
+            width: 60%;
+          }
+        }
+
+        .gmail-address {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+
+          .gmail-address-send-btn {
+            margin-left: 20px;
+            cursor: pointer;
+
+            &:hover {
+              color: orange;
+            }
+          }
+        }
+
+        .my-juejin {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  .divider {
+    margin: 0 40px;
+
+    @media screen and (max-width: 500px) {
+      margin: 40px 0;
+    }
+  }
+
+  .about-page-right {
+    flex: 1;
+
+    .about-page-right-article {
+
+      h1, h2, h3 {
+        margin-top: 40px;
+      }
+
+      p {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,44 @@
+
+.comment {
+  width: 100%;
+  position: relative;
+
+  .comment-textarea-wrap {
+    user-select: none;
+    position: relative;
+
+    .comment-textarea {
+      user-select: none;
+      font-family: 'roboto', sans-serif;
+      transition: ease-in-out 200ms;
+      color: #fff;
+      padding: 10px;
+      width: 100%;
+      font-size: 18px;
+      outline: none;
+      background: transparent;
+      resize: none;
+      border-radius: 12px;
+      border: 1px solid #333;
+
+      &:focus {
+        border-color: orange;
+      }
+    }
+
+    .comment-textarea-icon-btn {
+      user-select: none;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+
+  .comment-btn-area {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+}

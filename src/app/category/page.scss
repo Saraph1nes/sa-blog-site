@@ -1,0 +1,23 @@
+.category-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 100px 20px;
+  min-height: 100vh;
+
+  .category-page-accordion {
+
+    .category-article-list {
+
+      .category-article-list-item {
+
+        .category-article-list-item-title {
+
+          &:hover {
+            cursor: pointer;
+            color: orange;
+          }
+        }
+      }
+    }
+  }
+}
