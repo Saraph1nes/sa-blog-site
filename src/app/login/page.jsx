@@ -1,7 +1,4 @@
-'use client'
-
 import {useTheme} from "@mui/material";
-import React, {useState} from "react";
 import classname from 'classname'
 import LoginFormWrap from "@/app/login/LoginFormWrap";
 

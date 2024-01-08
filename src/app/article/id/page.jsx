@@ -1,18 +1,18 @@
 import {useEffect, useState} from "react";
 import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
-import Comment from "@/components/Comment"
+import SaComment from "@/components/SaComment"
 import classname from 'classname'
-import {Skeleton, useTheme} from "@mui/material";
+import {Box, Button, Paper, Skeleton, useTheme} from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
-import loading from "@/components/Loading";
 
 import './page.scss'
 
 function Page() {
+  const navigate = useNavigate()
   const params = useParams()
   const theme = useTheme()
   const [isMount, setIsMount] = useState(false)
@@ -21,24 +21,45 @@ function Page() {
     Name: '',
   })
 
+
+  const UserInfoStr = localStorage.getItem('UserInfo')
+  let UserInfo = null
+  if (UserInfoStr) {
+    UserInfo = JSON.parse(UserInfoStr)
+  }
+
   const fetchArticleById = async (id) => {
     return await service.get(`/article/${id}`)
   }
 
+  const fetchGetArticleComment = async (id) => {
+    return await service.get(`/article/getArticleComment?id=${id}`)
+  }
+
   const init = async () => {
-    loading.hide()
     const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
     setIsMobile(isMob)
-    const {Success, Data} = await fetchArticleById(params.id)
-    if (Success) {
-      setArticle(Data)
-    }
-    setIsMount(true)
+    const [fetchArticleByIdRes, fetchGetArticleCommentRes] = await Promise.all([
+      await fetchArticleById(params.id),
+      await fetchGetArticleComment(params.id)
+    ])
+    console.log('fetchArticleByIdRes,fetchGetArticleCommentRes', fetchArticleByIdRes, fetchGetArticleCommentRes)
+    // if (Success) {
+    //   setArticle(Data)
+    // }
+    // setIsMount(true)
+  }
+
+  const goLogin = () => {
+    navigate(`/login?redirect_to=${window.location.pathname}`)
   }
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+    })
     init()
-  }, [])
+  }, [params.id])
 
   if (!isMount) {
     return <div className={
@@ -74,35 +95,48 @@ function Page() {
       <div className="article-switching">
         {
           !!article?.PrevArticle?.ID &&
-          <Link
-            href={`/article/${article.PrevArticle.ID}`}
+          <Paper
+            elevation={1}
             className="article-switching-item article-switching-prev"
-          >
+            onClick={() => {
+              navigate(`/article/${article.PrevArticle.ID}`)
+            }}>
             <ChevronLeftIcon/>
             <div>
               <div className='article-switching-item-title'>上一篇</div>
               <div className='article-switching-item-name'>{article.PrevArticle.Name}</div>
             </div>
-          </Link>
+          </Paper>
         }
         {
           !!article?.NextArticle?.ID &&
-          <Link
-            href={`/article/${article.NextArticle.ID}`}
+          <Paper
+            elevation={1}
             className="article-switching-item article-switching-next"
+            onClick={() => {
+              navigate(`/article/${article.NextArticle.ID}`)
+            }}
           >
             <div>
               <div className='article-switching-item-title'>下一篇</div>
               <div className='article-switching-item-name'>{article.NextArticle.Name}</div>
             </div>
             <ChevronRightIcon/>
-          </Link>
+          </Paper>
         }
       </div>
     </div>
     <div className="article-comment-wrap">
       <h2 className='article-comment-title'>评论</h2>
-      <Comment/>
+      {
+        UserInfo && <SaComment articleData={article}/>
+      }
+      {
+        !UserInfo && <div className='comment-need-login'>
+          <div>登录后可评论</div>
+          <Button variant='contained' style={{marginTop: '20px'}} onClick={goLogin}>去登录</Button>
+        </div>
+      }
     </div>
   </div>
 }

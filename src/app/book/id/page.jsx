@@ -35,7 +35,6 @@ const Book = () => {
   }
 
   const init = async () => {
-    loading.hide()
     const {Data, Success} = await getTagsByCategoryId();
     const resData = []
     for (let data of Data) {

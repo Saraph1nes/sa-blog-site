@@ -20,7 +20,6 @@ function Page() {
   }
 
   const init = async () => {
-    loading.hide()
     const {Success, Data} = await fetchGetTagById(params.id)
     setData(Data)
   }

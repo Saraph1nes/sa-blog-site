@@ -6,6 +6,9 @@ import TagId from "@/app/tag/id/page";
 import BookId from "@/app/book/id/page";
 import ArticleId from "@/app/article/id/page";
 import About from "@/app/about/page";
+import Login from "@/app/login/page";
+import Register from "@/app/register/page";
+import UserProfile from "@/app/user/profile/page";
 
 const Router = () => {
   const router = [
@@ -36,6 +39,23 @@ const Router = () => {
     {
       path: '/about',
       element: <About />
+    },
+    {
+      path: '/login',
+      element: <Login />
+    },
+    {
+      path: '/register',
+      element: <Register />
+    },
+    {
+      path: '/user',
+      children: [
+        {
+          path: 'profile',
+          element: <UserProfile />
+        }
+      ]
     },
     {
       path:"*",

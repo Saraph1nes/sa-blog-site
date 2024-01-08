@@ -25,7 +25,6 @@ const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [isMounted, setIsMounted] = useState(false)
   const [showNav, setShowNav] = useState(true)
-  const [userInfo, setUserInfo] = useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -70,14 +69,6 @@ const Navbar = () => {
       // 清除滚动事件监听器
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
-
-  useEffect(() => {
-    const UserInfo = localStorage.getItem('UserInfo')
-    if (UserInfo) {
-      const userInfoParse = JSON.parse(UserInfo)
-      setUserInfo(userInfoParse)
-    }
   }, []);
 
   if (!isMounted) {
@@ -128,7 +119,7 @@ const Navbar = () => {
             </a>
           </nav>
           <DarkModeButton/>
-          <UserInfo userInfo={userInfo}></UserInfo>
+          <UserInfo />
         </div>
       </div>
     }

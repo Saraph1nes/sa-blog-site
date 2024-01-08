@@ -31,16 +31,16 @@ const createMessage = ({ content, duration = 1500, type, callback }) => {
 
 const message = {
   dom: null,
-  success({ content, duration = 1500, callback }) {
+  success({ content, duration = 1000, callback }) {
     this.dom = createMessage({ content, duration, callback, type: 'success' });
   },
-  error({ content, duration = 1500, callback }) {
+  error({ content, duration = 1000, callback }) {
     this.dom = createMessage({ content, duration, callback, type: 'error' });
   },
-  warning({ content, duration = 1500, callback }) {
+  warning({ content, duration = 1000, callback }) {
     this.dom = createMessage({ content, duration, callback, type: 'warning' });
   },
-  info({ content, duration = 1500, callback }) {
+  info({ content, duration = 1000, callback }) {
     this.dom = createMessage({ content, duration, callback, type: 'info' });
   }
 };

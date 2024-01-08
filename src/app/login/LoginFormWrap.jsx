@@ -1,14 +1,17 @@
 import {Button, CircularProgress, TextField} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import service from "@/utils/http";
 import {isMobile} from "@/utils/common";
 import message from "@/components/Message";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams, useSearchParams} from "react-router-dom";
 
 const LoginFormWrap = () => {
+  const params = useParams()
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
   const [formData, setFormData] = useState({
-    mobile: '', password: ''
+    mobile: '',
+    password: ''
   })
   const [btnLoading, setBtnLoading] = useState(false)
   const [formError, setFormError] = useState({
@@ -71,16 +74,15 @@ const LoginFormWrap = () => {
     })
     setBtnLoading(false)
     if (Success && localStorage) {
-      console.log('Login Data', Data)
       localStorage.setItem('AccessToken', Data.AccessToken)
       localStorage.setItem('ExpiresIn', Data.ExpiresIn)
       localStorage.setItem('TokenType', Data.TokenType)
       localStorage.setItem('UserInfo', JSON.stringify(Data))
-
+      const redirectTo = searchParams.get('redirect_to');
       message.success({
         content: '登录成功, 正在跳转...',
         callback: () => {
-          navigate('/')
+          window.location.replace(redirectTo || '/')
         }
       })
     }

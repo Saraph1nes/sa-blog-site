@@ -3,7 +3,7 @@ import {BrowserRouter} from "react-router-dom";
 import App from '@/app/App'
 import { inject } from '@vercel/analytics';
 
-import './index.css'
+import './index.scss'
 
 inject();
 

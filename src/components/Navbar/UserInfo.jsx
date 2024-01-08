@@ -1,19 +1,18 @@
-'use client'
-
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Avatar, ListItemIcon, Tooltip} from "@mui/material";
+import {Avatar, Button, ListItemIcon, Tooltip} from "@mui/material";
 import message from "@/components/Message";
-import {redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Logout, Settings} from "@mui/icons-material";
 
 import './UserInfo.scss'
 
-const UserInfo = ({userInfo}) => {
+const UserInfo = () => {
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -35,16 +34,27 @@ const UserInfo = ({userInfo}) => {
 
     handleClose()
 
+    setUserInfo(null)
+
     message.success({
-      content: '登出成功，正在跳转...',
-      callback: () => {
-        redirect('/')
-      }
+      content: '登出成功',
     })
   }
 
+  const onLogin = () => {
+    navigate(`/login?redirect_to=${window.location.pathname}`)
+  }
+
+  useEffect(() => {
+    const UserInfo = localStorage.getItem('UserInfo')
+    if (UserInfo) {
+      const userInfoParse = JSON.parse(UserInfo)
+      setUserInfo(userInfoParse)
+    }
+  }, []);
+
   return <div className='user-info-area'>
-    {/*{!userInfo && <Button variant='contained' href={'/login'}>登录</Button>}*/}
+    {!userInfo && <Button variant='contained' onClick={onLogin}>登录</Button>}
     {userInfo && <Tooltip title="帐户设置">
       <IconButton
         onClick={handleClick}

@@ -8,8 +8,9 @@ import AddReactionIcon from '@mui/icons-material/AddReaction';
 import message from "@/components/Message";
 import './index.scss'
 import classname from "classname";
+import service from "@/utils/http.js";
 
-const Comment = () => {
+const Comment = ({articleData}) => {
   const theme = useTheme()
   const [anchorEl, setAnchorEl] = useState(null);
   const [text, setText] = useState('')
@@ -20,7 +21,7 @@ const Comment = () => {
     endPos: 0
   })
 
-  const onTextareaBlur = e => {
+  const onTextareaBlur = () => {
     const textarea = textareaRef.current;
     const startPos = textarea.selectionStart;
     const endPos = textarea.selectionEnd;
@@ -63,8 +64,37 @@ const Comment = () => {
     })
   }
 
-  const onSubmit = () => {
-    console.log('text', text);
+  const onVerify = () => {
+    if (!text){
+      message.error({
+        content: '评论不能为空'
+      })
+      return false
+    }
+    return true
+  }
+
+  const fetchArticleComment = async (params) => {
+    await service.post('/article/saveArticleComment', params)
+  }
+
+  const onSubmit =async () => {
+    if (!onVerify()){
+      return;
+    }
+    console.log('text', {
+      comment: text,
+      articleId: articleData.ID
+    });
+    const fetchArticleCommentRes =  await fetchArticleComment({
+      comment: text,
+      articleId: articleData.ID
+    })
+    console.log('fetchArticleCommentRes',fetchArticleCommentRes)
+    message.success({
+      content:'评论成功'
+    })
+    setText('')
   }
 
   const open = Boolean(anchorEl);
@@ -86,7 +116,7 @@ const Comment = () => {
         ref={textareaRef}
         value={text}
         onChange={e => setText(e.target.value)} className="comment-textarea"
-        rows={10}
+        rows={5}
         onBlur={onTextareaBlur}
       />
     </div>
