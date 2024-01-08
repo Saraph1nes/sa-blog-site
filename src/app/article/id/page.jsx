@@ -3,13 +3,27 @@ import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
 import SaComment from "@/components/SaComment"
 import classname from 'classname'
-import {Box, Button, Paper, Skeleton, useTheme} from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Paper,
+  Skeleton,
+  useTheme
+} from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 
 import './page.scss'
+import Typography from "@mui/material/Typography";
+import dayjs from "dayjs";
 
 function Page() {
   const navigate = useNavigate()
@@ -19,6 +33,10 @@ function Page() {
   const [isMobile, setIsMobile] = useState(false)
   const [article, setArticle] = useState({
     Name: '',
+  })
+  const [comment, setComment] = useState({
+    Count: 0,
+    Comments: []
   })
 
 
@@ -43,11 +61,9 @@ function Page() {
       await fetchArticleById(params.id),
       await fetchGetArticleComment(params.id)
     ])
-    console.log('fetchArticleByIdRes,fetchGetArticleCommentRes', fetchArticleByIdRes, fetchGetArticleCommentRes)
-    // if (Success) {
-    //   setArticle(Data)
-    // }
-    // setIsMount(true)
+    setArticle(fetchArticleByIdRes.Data)
+    setComment(fetchGetArticleCommentRes.Data)
+    setIsMount(true)
   }
 
   const goLogin = () => {
@@ -127,7 +143,7 @@ function Page() {
       </div>
     </div>
     <div className="article-comment-wrap">
-      <h2 className='article-comment-title'>评论</h2>
+      <h2 className='article-comment-title'>评论({comment.Count})</h2>
       {
         UserInfo && <SaComment articleData={article}/>
       }
@@ -137,6 +153,25 @@ function Page() {
           <Button variant='contained' style={{marginTop: '20px'}} onClick={goLogin}>去登录</Button>
         </div>
       }
+      <List
+        sx={{width: '100%', bgcolor: 'background.paper'}}
+        className="article-comment-list"
+      >
+        {
+          comment?.Comments?.map(item => <div key={item.ID}>
+            <ListItem alignItems="flex-start">
+              <ListItemAvatar>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+              </ListItemAvatar>
+              <ListItemText
+                primary={item.Content}
+                secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+              />
+            </ListItem>
+            <Divider variant="inset" component="li"/>
+          </div>)
+        }
+      </List>
     </div>
   </div>
 }
