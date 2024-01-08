@@ -4,9 +4,9 @@ import React from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Avatar, Button, ListItemIcon, Tooltip} from "@mui/material";
+import {Avatar, ListItemIcon, Tooltip} from "@mui/material";
 import message from "@/components/Message";
-import {useNavigate} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 import {Logout, Settings} from "@mui/icons-material";
 
 import './UserInfo.scss'
@@ -23,7 +23,7 @@ const UserInfo = ({userInfo}) => {
   };
 
   const handleSetting = () => {
-    navigate.push('/user/profile')
+    navigate('/user/profile')
     handleClose()
   }
 
@@ -36,8 +36,9 @@ const UserInfo = ({userInfo}) => {
     handleClose()
 
     message.success({
-      content: '登出成功，正在跳转...', callback: () => {
-        window.location.replace('/')
+      content: '登出成功，正在跳转...',
+      callback: () => {
+        redirect('/')
       }
     })
   }

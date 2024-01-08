@@ -1,6 +1,4 @@
-'use client'
-
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
 import Comment from "@/components/Comment"
@@ -8,13 +6,14 @@ import classname from 'classname'
 import {Skeleton, useTheme} from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Link from "next/link";
+import {Link, useParams} from "react-router-dom";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 import loading from "@/components/Loading";
 
 import './page.scss'
 
-function Page({params}) {
+function Page() {
+  const params = useParams()
   const theme = useTheme()
   const [isMount, setIsMount] = useState(false)
   const [isMobile, setIsMobile] = useState(false)

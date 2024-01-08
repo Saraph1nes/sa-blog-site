@@ -3,11 +3,10 @@ import React, {useEffect, useState} from "react";
 import service from "@/utils/http";
 import {isMobile} from "@/utils/common";
 import message from "@/components/Message";
-import Link from "next/link";
-import {useRouter} from 'next/navigation'
+import {Link, useNavigate} from "react-router-dom";
 
 const LoginFormWrap = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     mobile: '', password: ''
   })
@@ -81,7 +80,7 @@ const LoginFormWrap = () => {
       message.success({
         content: '登录成功, 正在跳转...',
         callback: () => {
-          router.push('/')
+          navigate('/')
         }
       })
     }
@@ -116,7 +115,7 @@ const LoginFormWrap = () => {
     />
     <div className='other-action-bar'>
       <div className='new-vip'>
-        <Link href={'/register'}>
+        <Link to={'/register'}>
           新用户注册
         </Link>
       </div>

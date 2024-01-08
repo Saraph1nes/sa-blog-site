@@ -1,16 +1,15 @@
-'use client'
-
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import service from "@/utils/http";
 import dayjs from "dayjs";
-import Link from "next/link";
+import {Link, useParams} from "react-router-dom";
 import loading from "@/components/Loading";
 
 import './page.scss'
 
 const classPrefix = 'tag-detail-page'
 
-function Page({params}) {
+function Page() {
+  const params = useParams()
   const [data, setData] = useState({
     Name: '',
     ArticleList: []
@@ -35,7 +34,7 @@ function Page({params}) {
     <div className={`${classPrefix}_list`}>
       {
         data.ArticleList.map(item => <div className={`${classPrefix}_list-item`} key={item.ID}>
-          <Link href={`/article/${item.ID}`}><span
+          <Link to={`/article/${item.ID}`}><span
             className={`${classPrefix}_list-item-title`}>{item.Name}</span></Link>
           <span className={`${classPrefix}_list-item-date`}>{dayjs(item.CreatedAt).format('YYYY-MM-DD')}</span>
         </div>)

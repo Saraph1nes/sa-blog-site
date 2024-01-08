@@ -3,10 +3,10 @@ import React, {useEffect, useRef, useState} from "react";
 import {isMobile} from "@/utils/common";
 import service from "@/utils/http";
 import message from "@/components/Message";
-import {useRouter} from "next/navigation";
+import {useNavigate} from "react-router-dom";
 
 const RegisterFormWrap = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const [sendingCodeCount, setSendingCodeCount] = useState(-1)
   const intervalIdRef = useRef(null);
   const [formData, setFormData] = useState({
@@ -125,7 +125,7 @@ const RegisterFormWrap = () => {
       message.success({
         content: '注册成功，正在跳转...',
         callback: () => {
-          router.push('/login')
+          navigate('/login')
         }
       })
     }

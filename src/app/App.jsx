@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Go2Top from "@/components/Go2Top";
 import DarkModeProvider from "@/components/DarkModeProvider";
-import Router from "./router.jsx";
+import Router from "@/app/router";
 
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

@@ -11,7 +11,6 @@ import CountUp from "react-countup";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 import Heatmap from "@/components/Heatmap";
 import TimeFlies from "@/components/TimeFlies";
-import loading from "@/components/Loading";
 
 import './page.scss'
 
@@ -60,19 +59,18 @@ function Home() {
 
   const onPaperClick = (type) => {
     if (type === 'frontend') {
-      navigate.push('/book/1')
+      navigate('/book/1')
     }
     if (type === 'backend') {
-      navigate.push('/book/2')
+      navigate('/book/2')
     }
     if (type === 'algorithm') {
-      navigate.push('/book/14')
+      navigate('/book/14')
     }
   }
 
   const goToArticle = (id) => {
-    loading.show()
-    navigate.push(`/article/${id}`)
+    navigate(`/article/${id}`)
   }
 
   const init = async () => {
@@ -215,9 +213,6 @@ function Home() {
               {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
                 {item.CategoryName && <Link
                   to={`/category/${item.CategoryId}`}
-                  onClick={() => {
-                    loading.show()
-                  }}
                 >
                   <div className='article-category'>
                     <ClassIcon style={{fontSize: '18px'}}/>

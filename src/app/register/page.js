@@ -6,7 +6,7 @@ import React, {useState} from "react";
 import classname from 'classname'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import RegisterFormWrap from "@/app/register/RegisterFormWrap";
-import Link from "next/link";
+import {Link} from "react-router-dom";
 
 import './page.scss'
 
@@ -18,7 +18,7 @@ const Register = () => {
   })}>
     <div className='page-login'>
       <div className='login-panel'>
-        <Link href={'/login'}>
+        <Link to={'/login'}>
           <IconButton className='back-btn' color="inherit">
             <ArrowBackIosNewIcon/>
           </IconButton>

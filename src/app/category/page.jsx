@@ -1,16 +1,12 @@
-'use client'
-
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import service from "@/utils/http";
 import {Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemText, Skeleton} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Link from "next/link";
-import loading from "@/components/Loading";
+import {Link} from "react-router-dom";
 
 import './page.scss'
 
 const Category = () => {
-  const [isMount, setIsMount] = useState(false)
   const [category, setCategory] = useState([])
 
   const fetchCategory = async () => {
@@ -18,25 +14,13 @@ const Category = () => {
   }
 
   const init = async () => {
-    loading.hide()
-    const {Data, Success} = await fetchCategory();
+    const {Data} = await fetchCategory();
     setCategory(Data)
-    setIsMount(true)
   }
 
   useEffect(() => {
     init()
   }, [])
-
-  if (!isMount) {
-    return <div className='category-page'>
-      <Skeleton style={{margin: '20px 0'}} variant="rectangular" height={200}/>
-      <Skeleton style={{margin: '20px 0'}} variant="rectangular" height={100}/>
-      <Skeleton style={{margin: '20px 0'}} variant="rectangular" height={300}/>
-      <Skeleton style={{margin: '20px 0'}} variant="rectangular" height={200}/>
-      <Skeleton style={{margin: '20px 0'}} variant="rectangular" height={200}/>
-    </div>
-  }
 
   return <div className='category-page'>
     {
@@ -58,7 +42,10 @@ const Category = () => {
         <AccordionDetails>
           <List className='category-article-list'>
             {
-              cat.ArticleList ? cat.ArticleList.map(arti => <Link key={arti.ID} href={`/article/${arti.ID}`}>
+              cat.ArticleList ? cat.ArticleList.map(arti => <Link
+                key={arti.ID}
+                to={`/article/${arti.ID}`}
+              >
                 <ListItem className='category-article-list-item'>
                   <ListItemText
                     className='category-article-list-item-title'
@@ -70,7 +57,7 @@ const Category = () => {
               </div>
             }
             {
-              <Link href={`/category/${cat.ID}`}>
+              <Link to={`/category/${cat.ID}`}>
                 <ListItem className='category-article-list-item'>
                   <ListItemText
                     style={{color: '#aaa'}}

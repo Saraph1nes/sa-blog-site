@@ -1,6 +1,4 @@
-'use client'
-
-import React, {Suspense, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {unified} from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from 'remark-gfm'

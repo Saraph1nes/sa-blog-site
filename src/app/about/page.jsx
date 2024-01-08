@@ -1,18 +1,16 @@
-'use client'
-
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Avatar, Button, Divider, Tooltip} from "@mui/material";
 import classname from 'classname';
 import SendIcon from '@mui/icons-material/Send';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import {useRouter} from 'next/navigation'
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import {useNavigate} from "react-router-dom";
 
 import './page.scss'
 
 const About = () => {
-  const router = useRouter()
+  const navigate = useNavigate()
   const [mediaSelectIndex, setMediaSelectIndex] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -22,7 +20,7 @@ const About = () => {
   }
 
   const goMailTo = () => {
-    router.push('mailto:xiayx.leo@gmail.com')
+    navigate('mailto:xiayx.leo@gmail.com')
   }
 
   useEffect(() => {

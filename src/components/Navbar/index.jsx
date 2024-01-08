@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import DarkModeButton from "@/components/DarkModeButton";
 import {DarkModeContent} from "@/components/DarkModeProvider";
 import CategoryIcon from '@mui/icons-material/Category';
@@ -15,6 +15,7 @@ import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import UserInfo from "@/components/Navbar/UserInfo";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import {Link} from 'react-router-dom'
 
 import './index.scss'
 
@@ -136,7 +137,7 @@ const Navbar = () => {
         <AppBar position="static" style={{backgroundColor: 'rgba(0,0,0,0)', backgroundImage: "none"}}>
           <Container maxWidth="xl">
             <Toolbar disableGutters className='mobile-header'>
-              <Link href={'/'}>
+              <Link to={'/'}>
                 <Typography
                   noWrap
                 >
@@ -175,7 +176,7 @@ const Navbar = () => {
                   }}
                 >
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Link href={'/'}>
+                    <Link to={'/'}>
                       <div className="nav-item">
                         <HouseIcon style={{fontSize: '16px'}}/>
                         <span className='nav-item-txt'>首页</span>
@@ -183,7 +184,7 @@ const Navbar = () => {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Link href={'/category'}>
+                    <Link to={'/category'}>
                       <div className="nav-item">
                         <CategoryIcon style={{fontSize: '16px'}}/>
                         <span className='nav-item-txt'>分类</span>
@@ -191,7 +192,7 @@ const Navbar = () => {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleCloseNavMenu}>
-                    <Link href={'/about'}>
+                    <Link to={'/about'}>
                       <div className="nav-item">
                         <Person4Icon style={{fontSize: '16px'}}/>
                         <span className='nav-item-txt'>介绍</span>

@@ -1,6 +1,4 @@
-'use client'
-
-import React, {useLayoutEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import service from "@/utils/http";
 import {Divider, IconButton, Skeleton} from "@mui/material";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
@@ -8,10 +6,12 @@ import classname from 'classname'
 import MDRenderer from "@/components/MDRenderer";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import loading from "@/components/Loading";
+import {useParams} from "react-router-dom";
 
 import './page.scss'
 
-const Book = ({params}) => {
+const Book = () => {
+  const params = useParams()
   const [navData, setNavData] = useState([])
   const [articleData, setArticleData] = useState({
     CategoryId: 0,
