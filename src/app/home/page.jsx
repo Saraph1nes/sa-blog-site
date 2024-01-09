@@ -121,7 +121,7 @@ function Home() {
       const innerHeight = window.innerHeight;
       const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-      if (innerHeight + scrollTop > htmlHeight - 50) {
+      if (innerHeight + scrollTop > htmlHeight - 50 && !showListBottomLoading) {
         setPageIndex(v => v + 1)
       }
     };
@@ -195,9 +195,9 @@ function Home() {
           >
             <Tab disabled={showListBottomLoading} className='article-list-category-item' label='全部' value={-1}/>
             {categoryList.map(i => <Tab
+              key={i.ID}
               disabled={showListBottomLoading}
               value={i.ID}
-              key={i.ID}
               className='article-list-category-item'
               label={i.Name}
             />)}
@@ -206,14 +206,14 @@ function Home() {
         {list.map(item => <div key={item.ID}>
           <div className='article-item'>
             <div className='left'>
-              <h2
+              <div
                 className="article-title"
                 onClick={() => {
                   goToArticle(item.ID)
                 }}
               >
                 {item.Name}
-              </h2>
+              </div>
               {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
                 {item.CategoryName && <Link
                   to={`/category/${item.CategoryId}`}
@@ -241,9 +241,9 @@ function Home() {
         </div>)}
         {
           showListBottomLoading && <div className='list-bottom-loading'>
-            <Skeleton variant="rectangular" height={50} style={{marginTop: '50px'}}/>
-            <Skeleton variant="rectangular" height={50} style={{marginTop: '50px'}}/>
-            <Skeleton variant="rectangular" height={50} style={{marginTop: '50px'}}/>
+            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
           </div>
         }
         {

@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import {Box, LinearProgress, Paper} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
@@ -38,9 +38,9 @@ const TimeFlies = () => {
   }, []);
 
   return <Paper className='time-flies-panel' elevation={1}>
-    <h4>{dayjs().format('YYYY-MM-DD HH:mm:ss')}</h4>
+    <div>{dayjs().format('YYYY-MM-DD HH:mm:ss')}</div>
     <Box sx={{width: '100%', marginTop: '20px'}}>
-      <h5>今天已过</h5>
+      <div style={{fontSize:'14px'}}>今天已过</div>
       <Box sx={{display: 'flex', alignItems: 'center'}}>
         <Box sx={{width: '100%', mr: 1}}>
           <LinearProgress variant="determinate" value={todayHavePassed}/>
@@ -53,7 +53,7 @@ const TimeFlies = () => {
       </Box>
     </Box>
     <Box sx={{width: '100%', marginTop: '20px'}}>
-      <h5>今年已过</h5>
+      <div style={{fontSize:'14px'}}>今年已过</div>
       <Box sx={{display: 'flex', alignItems: 'center'}}>
         <Box sx={{width: '100%', mr: 1}}>
           <LinearProgress variant="determinate" value={yearHavePassed}/>
