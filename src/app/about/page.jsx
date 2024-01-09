@@ -38,13 +38,29 @@ const projectListData = [
     outerLink: ''
   },
   {
-    img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047722746718.png',
-    name: 'EZR游戏组件库',
-    desc: '基于 lit 的 web-component 跨框架组件库',
-    githubLink: '',
+    img: 'https://assest.sablogs.cn/imgs/blog/buff-helper-demo.png',
+    name: '油猴网易BUFF脚本',
+    desc: 'CS2 油猴网易 BUFF 脚本，利润分析',
+    githubLink: 'https://github.com/Saraph1nes/163BuffHelper',
     microsoftLink: '',
-    outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
-  }
+    outerLink: ''
+  },
+  // {
+  //   img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047722746718.png',
+  //   name: '跨端业务组件库',
+  //   desc: '基于 lit 的 web-component 跨框架组件库',
+  //   githubLink: '',
+  //   microsoftLink: '',
+  //   outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
+  // },
+  // {
+  //   img: 'https://assest.sablogs.cn/imgs/blog/ezrpc-analyz-cli-demo.png',
+  //   name: 'ezrpc-analyz-cli',
+  //   desc: 'ezrpc 组件库使用分析 脚手架工具',
+  //   githubLink: 'https://github.com/Saraph1nes/ezrpc-analyz-cli',
+  //   microsoftLink: '',
+  //   outerLink: ''
+  // }
 ]
 
 const About = () => {
@@ -140,7 +156,7 @@ const About = () => {
         </section>
 
         <section>
-          <h2>项目</h2>
+          <h2>个人项目</h2>
           <div className="my-project-list">
             <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
               {
@@ -230,7 +246,7 @@ const About = () => {
                   optional={<Typography variant="caption">
                     <div>hexo 博客 + fluid 主题</div>
                     <div>同步Github应用到Gitee</div>
-                    <div>部署与Gitee pages</div>
+                    <div>部署于Gitee pages</div>
                     <Link to='https://saraph1nes.gitee.io/' target='_blank'>https://saraph1nes.gitee.io/</Link>
                   </Typography>}
                 >
@@ -243,7 +259,8 @@ const About = () => {
                     style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange'}}/>
                   }
                   optional={<Typography variant="caption">
-                    <div>hexo 博客 + fluid 主题</div>
+                    <div>前端：react + vite</div>
+                    <div>后端：gin</div>
                     <div>部署于腾讯云服务器</div>
                     <div>https://www.sablogs.cn/</div>
                   </Typography>}

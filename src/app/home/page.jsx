@@ -7,10 +7,10 @@ import dayjs from "dayjs";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import classname from 'classname'
 import CountUp from "react-countup";
+import Heatmap from "@/components/Heatmap";
+// import TimeFlies from "@/components/TimeFlies";
 
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
-import Heatmap from "@/components/Heatmap";
-import TimeFlies from "@/components/TimeFlies";
 
 import './page.scss'
 
@@ -282,7 +282,7 @@ function Home() {
           <Divider className='statistical-panel-standard-divider'/>
           <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
         </Paper>
-        <TimeFlies/>
+        {/*<TimeFlies/>*/}
         <section className='aside-footer'>
           <a
             style={{marginTop: '20px', display: 'block'}}

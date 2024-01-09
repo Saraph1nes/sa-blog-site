@@ -36,6 +36,8 @@ const MDRenderer = ({data}) => {
 
       const previewImg = document.createElement('img');
       previewImg.src = e.target.src;
+      previewImg.style.maxHeight = '80vh';
+      previewImg.style.maxWidth = '80vw';
 
       preview.appendChild(previewImg);
       previewContainer.style.display = 'flex';
