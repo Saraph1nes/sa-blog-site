@@ -150,9 +150,11 @@ const About = () => {
         <section>
           <h2>介绍</h2>
           <p>你好！我是Saraph1nes</p>
+          <p>生于98年</p>
           <p>我喜欢编程、运动、音乐、摄影、看剧</p>
-          <p>我的网名 “Saraph1nes” 取自古英语 “Saraphines”，有 “炽天使” 的意思</p>
-          <p>如果你想和我交朋友或交换友链，欢迎邮件或微信 XD</p>
+          <p>我的网名 “Saraph1nes” 取自古英语 “Saraphines”，是 “炽天使” 的意思</p>
+          <p>写博客是为了记录生活，希望能遇到更多志同道合的朋友</p>
+          <p>也希望更多的人喜欢上我的博客</p>
         </section>
 
         <section>
@@ -207,8 +209,8 @@ const About = () => {
         </section>
 
         <section>
-          <h2>博客史</h2>
-          <Paper sx={{padding: "20px", marginTop: '30px'}}>
+          <h2>博客历程</h2>
+          <Paper sx={{padding: "10px", marginTop: '30px'}} variant={0}>
             <Stepper activeStep={3} orientation="vertical" sx={{width:'100%'}}>
               <Step>
                 <StepLabel

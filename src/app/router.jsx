@@ -9,6 +9,7 @@ import About from "@/app/about/page";
 import Login from "@/app/login/page";
 import Register from "@/app/register/page";
 import UserProfile from "@/app/user/profile/page";
+import PhotoAlbum from "@/app/photoAlbum/index.jsx";
 
 const Router = () => {
   const router = [
@@ -47,6 +48,10 @@ const Router = () => {
     {
       path: '/register',
       element: <Register />
+    },
+    {
+      path: '/photoAlbum',
+      element: <PhotoAlbum />
     },
     {
       path: '/user',

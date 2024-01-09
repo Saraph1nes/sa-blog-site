@@ -16,10 +16,12 @@ import MenuItem from '@mui/material/MenuItem';
 import UserInfo from "@/components/Navbar/UserInfo";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 import {Link} from 'react-router-dom'
+import {useTheme} from "@mui/material";
 
 import './index.scss'
 
 const Navbar = () => {
+  const theme = useTheme();
   const ctx = useContext(DarkModeContent);
   const [isMobile, setIsMobile] = useState(false)
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -75,7 +77,7 @@ const Navbar = () => {
     return null;
   }
 
-  return <header className={`header ${ctx.darkMode}`}>
+  return <header className={`header ${ctx.darkMode}`} style={{background: theme.palette.background.default}}>
     {
       !isMobile && <div className='header-wrap'>
         <div className='header-left'>
@@ -92,6 +94,10 @@ const Navbar = () => {
             <a href={'/category'} className="nav-item">
               <CategoryIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>分类</span>
+            </a>
+            <a href={'/photoAlbum'} className="nav-item">
+              <CategoryIcon style={{fontSize: '16px'}}/>
+              <span className='nav-item-txt'>相册</span>
             </a>
             {/*<Link href={'/archives'}>*/}
             {/*  <div className="nav-item">*/}

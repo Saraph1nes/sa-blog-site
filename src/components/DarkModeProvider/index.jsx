@@ -15,13 +15,19 @@ const Index = ({children}) => {
         mode: darkMode,
         ...(darkMode === 'dark' && {
           background: {
-            // default: 'rgb(16,20,24)',
+            default: 'rgb(16,20,24)',
+          },
+          color: {
+            default: '#ffffff'
           },
         }),
         ...(darkMode === 'light' && {
           background: {
-            // default: 'rgb(255,255,255)',
+            default: '#ffffff',
           },
+          color: {
+            default: '#434343'
+          }
         }),
       },
     })

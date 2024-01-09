@@ -1,6 +1,6 @@
 import service from "@/utils/http";
 import {useEffect, useLayoutEffect, useState} from "react";
-import {Box, debounce, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme} from "@mui/material";
+import {Box, Chip, debounce, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme} from "@mui/material";
 import {useNavigate, Link} from "react-router-dom";
 import ClassIcon from "@mui/icons-material/Class";
 import dayjs from "dayjs";
@@ -32,6 +32,7 @@ function Home() {
     Calendar: [],
     TotalCount: 0
   })
+  const [tagListDataset, setTagListDataset] = useState([])
   const [categoryList, setCategoryList] = useState([])
   const [showListBottomLoading, setShowListBottomLoading] = useState(false)
 
@@ -47,6 +48,10 @@ function Home() {
 
   const fetchGetArticleHeatmap = async () => {
     return await service.get('/article/getArticleHeatmap')
+  }
+
+  const fetchGetAllTags = async () => {
+    return await service.get('/tag/GetAllTags')
   }
 
   const fetchCategory = async () => {
@@ -74,10 +79,12 @@ function Home() {
   }
 
   const init = async () => {
-    const [fetchGetArticleHeatmapRes, fetchCategoryRes] = await Promise.all([
+    const [fetchGetArticleHeatmapRes, fetchCategoryRes, fetchGetAllTagsRes] = await Promise.all([
       await fetchGetArticleHeatmap(),
-      await fetchCategory()
+      await fetchCategory(),
+      await fetchGetAllTags()
     ])
+    setTagListDataset(fetchGetAllTagsRes.Data)
     setHeatmapDataset(fetchGetArticleHeatmapRes.Data)
     setIsMounted(true)
     const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
@@ -186,7 +193,14 @@ function Home() {
         </div>
       }
       <div className='article-list-wrap'>
-        <Box className="article-list-category" sx={{borderBottom: 1, borderColor: 'divider'}}>
+        <Box className="article-list-category"
+             sx={{
+               borderBottom: 1,
+               borderColor: 'divider',
+               background: theme.palette.background.default,
+               color: theme.palette.color.default
+             }}
+        >
           <Tabs
             variant="scrollable"
             scrollButtons="auto"
@@ -282,6 +296,23 @@ function Home() {
           <Divider className='statistical-panel-standard-divider'/>
           <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
         </Paper>
+
+        <Paper className='tag-panel' elevation={1}>
+          <h3>标签</h3>
+          {
+            tagListDataset.map(tag => <Chip
+              key={tag.ID}
+              label={tag.Name}
+              sx={{marginTop: '10px', marginRight: '10px'}}
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                navigate(`/tag/${tag.ID}`)
+              }}
+            />)
+          }
+        </Paper>
+
         {/*<TimeFlies/>*/}
         <section className='aside-footer'>
           <a

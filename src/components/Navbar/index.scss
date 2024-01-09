@@ -5,13 +5,13 @@
   &.dark {
     backdrop-filter: blur(8px);
     //background: rgba(16, 20, 24, 0.8);
-    border-bottom: 1px solid #333;
+    //border-bottom: 1px solid #333;
   }
 
   &.light {
     backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid #eee;
+    //background: rgba(255, 255, 255, 0.9);
+    //border-bottom: 1px solid #eee;
   }
 
   .mobile-header-wrap {

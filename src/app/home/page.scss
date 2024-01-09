@@ -70,11 +70,11 @@
         top: 0;
         //padding-top: 16px;
         //padding-bottom: 12px;
-        background: #ffffff;
+        //background: #ffffff;
         display: flex;
 
         .article-list-category-item {
-          font-size: 16px;
+          font-size: 14px;
         }
       }
 
@@ -197,6 +197,12 @@
       }
     }
 
+    .tag-panel{
+      margin-top: 20px;
+      border-radius: 13px;
+      padding: 16px;
+    }
+
     .time-flies-panel {
       margin-top: 20px;
       border-radius: 13px;
@@ -214,7 +220,7 @@
     .container-wrap {
       .article-list-wrap {
         .article-list-category {
-          background: #121212;
+          //background: #121212;
         }
       }
     }
