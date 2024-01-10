@@ -79,7 +79,7 @@ const About = () => {
   return <div className='about-page'>
     <div className='about-page-left'>
       <Avatar className='avatar' alt="Saraph1nes"
-              src="https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_1699446683764.png"
+              src="https://assest.sablogs.cn/imgs/blog/blog-avatar.png"
               sx={{width: 120, height: 120}}/>
       <div className='name'>
         Saraph1nes
