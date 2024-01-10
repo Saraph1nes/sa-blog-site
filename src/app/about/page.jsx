@@ -45,22 +45,22 @@ const projectListData = [
     microsoftLink: '',
     outerLink: ''
   },
-  // {
-  //   img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047722746718.png',
-  //   name: '跨端业务组件库',
-  //   desc: '基于 lit 的 web-component 跨框架组件库',
-  //   githubLink: '',
-  //   microsoftLink: '',
-  //   outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
-  // },
-  // {
-  //   img: 'https://assest.sablogs.cn/imgs/blog/ezrpc-analyz-cli-demo.png',
-  //   name: 'ezrpc-analyz-cli',
-  //   desc: 'ezrpc 组件库使用分析 脚手架工具',
-  //   githubLink: 'https://github.com/Saraph1nes/ezrpc-analyz-cli',
-  //   microsoftLink: '',
-  //   outerLink: ''
-  // }
+  {
+    img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047722746718.png',
+    name: '跨端业务组件库',
+    desc: '基于 lit 的 web-component 跨框架组件库',
+    githubLink: '',
+    microsoftLink: '',
+    outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
+  },
+  {
+    img: 'https://assest.sablogs.cn/imgs/blog/ezrpc-analyz-cli-demo.png',
+    name: 'ezrpc-analyz-cli',
+    desc: 'ezrpc 组件库使用分析 脚手架工具',
+    githubLink: 'https://github.com/Saraph1nes/ezrpc-analyz-cli',
+    microsoftLink: '',
+    outerLink: ''
+  }
 ]
 
 const About = () => {
@@ -150,7 +150,6 @@ const About = () => {
         <section>
           <h2>介绍</h2>
           <p>你好！我是Saraph1nes</p>
-          <p>生于98年</p>
           <p>我喜欢编程、运动、音乐、摄影、看剧</p>
           <p>我的网名 “Saraph1nes” 取自古英语 “Saraphines”，是 “炽天使” 的意思</p>
           <p>写博客是为了记录生活，希望能遇到更多志同道合的朋友</p>
