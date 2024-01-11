@@ -4,7 +4,7 @@ import {
   Button,
   Card, CardActionArea, CardActions, CardContent,
   CardMedia,
-  Divider, Grid, IconButton, Paper,
+  Divider, Grid, IconButton,
   Step,
   StepLabel,
   Stepper,
@@ -209,12 +209,12 @@ const About = () => {
 
         <section>
           <h2>博客历程</h2>
-          <Paper sx={{padding: "10px", marginTop: '30px'}} variant={0}>
+          <div style={{padding: "10px 0", marginTop: '30px'}}>
             <Stepper activeStep={3} orientation="vertical" sx={{width:'100%'}}>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange'}}/>
+                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
                   }
                   optional={<Typography variant="caption">
                     <div>Typecho 博客 + 自定义主题</div>
@@ -222,13 +222,13 @@ const About = () => {
                     <div>https://www.yxlyz.net</div>
                   </Typography>}
                 >
-                  <div>2018.9 - 2020.7</div>
+                  <div style={{fontWeight:'bold'}}>2018.9 - 2020.7</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange'}}/>
+                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
                   }
                   optional={<Typography variant="caption">
                     <div>hexo 博客 + fluid 主题</div>
@@ -236,13 +236,13 @@ const About = () => {
                     <Link to='https://saraph1nes.github.io/' target='_blank'>https://saraph1nes.github.io/</Link>
                   </Typography>}
                 >
-                  <div>2020.7 - 2023.12</div>
+                  <div style={{fontWeight:'bold'}}>2020.7 - 2023.12</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange'}}/>
+                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
                   }
                   optional={<Typography variant="caption">
                     <div>hexo 博客 + fluid 主题</div>
@@ -251,13 +251,13 @@ const About = () => {
                     <Link to='https://saraph1nes.gitee.io/' target='_blank'>https://saraph1nes.gitee.io/</Link>
                   </Typography>}
                 >
-                  <div>2022.6 - 2023.12</div>
+                  <div style={{fontWeight:'bold'}}>2022.6 - 2023.12</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange'}}/>
+                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
                   }
                   optional={<Typography variant="caption">
                     <div>前端：react + vite</div>
@@ -266,11 +266,11 @@ const About = () => {
                     <div>https://www.sablogs.cn/</div>
                   </Typography>}
                 >
-                  <div>2023.12 - 至今</div>
+                  <div style={{fontWeight:'bold'}}>2023.12 - 至今</div>
                 </StepLabel>
               </Step>
             </Stepper>
-          </Paper>
+          </div>
         </section>
       </div>
     </div>

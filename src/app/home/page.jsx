@@ -203,7 +203,6 @@ function Home() {
         >
           <Tabs
             variant="scrollable"
-            scrollButtons="auto"
             value={selectedCategory}
             onChange={onTabsChange}
           >

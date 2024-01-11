@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from 'react'
+import {useContext, useLayoutEffect, useState} from 'react'
 import DarkModeButton from "@/components/DarkModeButton";
 import {DarkModeContent} from "@/components/DarkModeProvider";
 import CategoryIcon from '@mui/icons-material/Category';
@@ -25,8 +25,6 @@ const Navbar = () => {
   const ctx = useContext(DarkModeContent);
   const [isMobile, setIsMobile] = useState(false)
   const [anchorElNav, setAnchorElNav] = useState(null);
-  const [isMounted, setIsMounted] = useState(false)
-  const [showNav, setShowNav] = useState(true)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -36,46 +34,44 @@ const Navbar = () => {
     setAnchorElNav(null);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
+    if (isMob){
+      ctx.switchMode.toggleDarkMode('auto')
+    }
     setIsMobile(isMob)
-    setIsMounted(true)
   }, []);
 
   // 监听滚动隐藏
-  useEffect(() => {
-    let lastScrollTop = 0;
-
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollDelta = Math.abs(scrollTop - lastScrollTop);
-
-      // 设置一个滚动阈值，例如 20px
-      const scrollThreshold = 50;
-
-      if (scrollDelta > scrollThreshold) {
-        if (scrollTop > lastScrollTop) {
-          // 向下滚动，隐藏导航栏
-          setShowNav(false);
-        } else {
-          // 向上滚动，显示导航栏
-          setShowNav(true);
-        }
-        lastScrollTop = scrollTop;
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      // 清除滚动事件监听器
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
-  if (!isMounted) {
-    return null;
-  }
+  // useEffect(() => {
+  //   let lastScrollTop = 0;
+  //
+  //   const handleScroll = () => {
+  //     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  //     const scrollDelta = Math.abs(scrollTop - lastScrollTop);
+  //
+  //     // 设置一个滚动阈值，例如 20px
+  //     const scrollThreshold = 50;
+  //
+  //     if (scrollDelta > scrollThreshold) {
+  //       if (scrollTop > lastScrollTop) {
+  //         // 向下滚动，隐藏导航栏
+  //         setShowNav(false);
+  //       } else {
+  //         // 向上滚动，显示导航栏
+  //         setShowNav(true);
+  //       }
+  //       lastScrollTop = scrollTop;
+  //     }
+  //   };
+  //
+  //   window.addEventListener('scroll', handleScroll);
+  //
+  //   return () => {
+  //     // 清除滚动事件监听器
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
 
   return <header className={`header ${ctx.darkMode}`} style={{background: theme.palette.background.default}}>
     {
@@ -124,13 +120,13 @@ const Navbar = () => {
               <span className='nav-item-txt'>介绍</span>
             </a>
           </nav>
-          <DarkModeButton/>
           <UserInfo />
+          <DarkModeButton/>
         </div>
       </div>
     }
     {
-      isMobile && showNav && <div className='mobile-header-wrap'>
+      isMobile && <div className='mobile-header-wrap'>
         <AppBar position="static" style={{backgroundColor: 'rgba(0,0,0,0)', backgroundImage: "none"}}>
           <Container maxWidth="xl">
             <Toolbar disableGutters className='mobile-header'>
@@ -153,7 +149,6 @@ const Navbar = () => {
                 >
                   <MenuIcon/>
                 </IconButton>
-                <DarkModeButton/>
                 <Menu
                   className='mobile-header-nav'
                   anchorEl={anchorElNav}

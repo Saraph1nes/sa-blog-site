@@ -1,19 +1,21 @@
 import {createContext, useLayoutEffect, useMemo, useState} from "react";
-import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
 
 export const DarkModeContent = createContext({})
 
 const Index = ({children}) => {
+  const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
 
   const theme = useMemo(() => {
+    const themeDarkMode = darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : darkMode
     return createTheme({
       palette: {
         primary: {
           main: 'rgb(255,165,0)',
         },
-        mode: darkMode,
-        ...(darkMode === 'dark' && {
+        mode: themeDarkMode,
+        ...(themeDarkMode === 'dark' && {
           background: {
             default: 'rgb(16,20,24)',
           },
@@ -21,7 +23,7 @@ const Index = ({children}) => {
             default: '#ffffff'
           },
         }),
-        ...(darkMode === 'light' && {
+        ...(themeDarkMode === 'light' && {
           background: {
             default: '#ffffff',
           },
@@ -35,9 +37,9 @@ const Index = ({children}) => {
 
   const switchMode = useMemo(() => {
     return {
-      toggleDarkMode: () => {
-        setDarkMode(p => {
-          let mode = p === 'dark' ? 'light' : 'dark'
+      toggleDarkMode: (_mode) => {
+        setDarkMode(() => {
+          let mode = _mode
           localStorage && localStorage.setItem('darkMode', mode)
           return mode
         })
