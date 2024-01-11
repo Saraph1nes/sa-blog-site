@@ -1,13 +1,13 @@
 .about-page {
   max-width: 1500px;
   margin: 0 auto;
-  padding: 100px 40px;
+  padding: 40px;
   min-height: 100vh;
   display: flex;
 
   @media screen and (max-width: 500px) {
     display: block;
-    padding: 100px 20px;
+    padding: 40px 20px;
   }
 
   .m-l-7 {
