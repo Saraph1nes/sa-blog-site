@@ -153,25 +153,28 @@ function Page() {
           <Button variant='contained' style={{marginTop: '20px'}} onClick={goLogin}>去登录</Button>
         </div>
       }
-      <List
-        sx={{width: '100%', bgcolor: 'background.paper'}}
-        className="article-comment-list"
-      >
-        {
-          comment?.Comments?.map(item => <div key={item.ID}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
-              </ListItemAvatar>
-              <ListItemText
-                primary={item.Content}
-                secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
-              />
-            </ListItem>
-            <Divider variant="inset" component="li"/>
-          </div>)
-        }
-      </List>
+      {
+        comment?.Comments?.length > 0 && <List
+          sx={{width: '100%', bgcolor: 'background.paper'}}
+          className="article-comment-list"
+        >
+          {
+            comment?.Comments?.map(item => <div key={item.ID}>
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={item.Content}
+                  secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+                />
+              </ListItem>
+              <Divider variant="inset" component="li"/>
+            </div>)
+          }
+        </List>
+      }
+
     </div>
   </div>
 }
