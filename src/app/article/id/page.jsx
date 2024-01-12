@@ -18,12 +18,11 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import dayjs from "dayjs";
 
 import './page.scss'
-import Typography from "@mui/material/Typography";
-import dayjs from "dayjs";
 
 function Page() {
   const navigate = useNavigate()
@@ -52,6 +51,11 @@ function Page() {
 
   const fetchGetArticleComment = async (id) => {
     return await service.get(`/article/getArticleComment?id=${id}`)
+  }
+
+  const onCommentSuccess = async () => {
+    const fetchGetArticleCommentRes = await fetchGetArticleComment(params.id)
+    setComment(fetchGetArticleCommentRes.Data)
   }
 
   const init = async () => {
@@ -145,7 +149,7 @@ function Page() {
     <div className="article-comment-wrap">
       <h2 className='article-comment-title'>评论({comment.Count})</h2>
       {
-        UserInfo && <SaComment articleData={article}/>
+        UserInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess}/>
       }
       {
         !UserInfo && <div className='comment-need-login'>
@@ -154,27 +158,25 @@ function Page() {
         </div>
       }
       {
-        comment?.Comments?.length > 0 && <List
-          sx={{width: '100%', bgcolor: 'background.paper'}}
-          className="article-comment-list"
-        >
-          {
-            comment?.Comments?.map(item => <div key={item.ID}>
-              <ListItem alignItems="flex-start">
-                <ListItemAvatar>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
-                </ListItemAvatar>
-                <ListItemText
-                  primary={item.Content}
-                  secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
-                />
-              </ListItem>
-              <Divider variant="inset" component="li"/>
-            </div>)
-          }
-        </List>
+        comment?.Comments?.length > 0 && <Paper variant='elevation' className="article-comment-list">
+          <List>
+            {
+              comment?.Comments?.map((item, index) => <div key={item.ID}>
+                {index !== 0 && <Divider variant="inset" component="li"/>}
+                <ListItem alignItems="flex-start" className='article-comment-list-item'>
+                  <ListItemAvatar>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={item.Content}
+                    secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+                  />
+                </ListItem>
+              </div>)
+            }
+          </List>
+        </Paper>
       }
-
     </div>
   </div>
 }

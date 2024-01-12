@@ -1,16 +1,16 @@
-'use client'
-
 import {useRef, useState} from 'react';
 import {Button, IconButton, useTheme} from '@mui/material';
 import Popover from '@mui/material/Popover';
 import EmojiPicker from 'emoji-picker-react';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import message from "@/components/Message";
-import './index.scss'
 import classname from "classname";
 import service from "@/utils/http.js";
+import PropTypes from "prop-types";
 
-const Comment = ({articleData}) => {
+import './index.scss'
+
+const Comment = ({articleData,onCommentSuccess}) => {
   const theme = useTheme()
   const [anchorEl, setAnchorEl] = useState(null);
   const [text, setText] = useState('')
@@ -65,7 +65,7 @@ const Comment = ({articleData}) => {
   }
 
   const onVerify = () => {
-    if (!text){
+    if (!text) {
       message.error({
         content: '评论不能为空'
       })
@@ -74,27 +74,29 @@ const Comment = ({articleData}) => {
     return true
   }
 
-  const fetchArticleComment = async (params) => {
-    await service.post('/article/saveArticleComment', params)
+  const fetchSaveArticleComment = (params) => {
+    return service.post('/article/saveArticleComment', params)
   }
 
-  const onSubmit =async () => {
-    if (!onVerify()){
+  const onSubmit = async () => {
+    if (!onVerify()) {
       return;
     }
-    console.log('text', {
-      comment: text,
-      articleId: articleData.ID
-    });
-    const fetchArticleCommentRes =  await fetchArticleComment({
+    const fetchArticleCommentRes = await fetchSaveArticleComment({
       comment: text,
       articleId: articleData.ID
     })
-    console.log('fetchArticleCommentRes',fetchArticleCommentRes)
+    if (!fetchArticleCommentRes.Success){
+      message.error({
+        content: fetchArticleCommentRes.Msg || '评论失败'
+      })
+      return
+    }
     message.success({
-      content:'评论成功'
+      content: '评论成功'
     })
     setText('')
+    onCommentSuccess && onCommentSuccess()
   }
 
   const open = Boolean(anchorEl);
@@ -147,6 +149,11 @@ const Comment = ({articleData}) => {
       />
     </Popover>
   </div>
+}
+
+Comment.propTypes = {
+  articleData: PropTypes.object,
+  onCommentSuccess: PropTypes.func
 }
 
 export default Comment;

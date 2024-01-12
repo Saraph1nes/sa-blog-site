@@ -68,10 +68,18 @@
     .article-comment-title {
     }
 
-    .comment-need-login{
+    .comment-need-login {
       margin-top: 20px;
       text-align: center;
       padding: 50px 20px;
+    }
+
+    .article-comment-list {
+      padding-right: 20px;
+      margin-top: 20px;
+
+      .article-comment-list-item{
+      }
     }
   }
 

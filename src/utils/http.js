@@ -1,5 +1,6 @@
 import axios from 'axios'
 import message from "@/components/Message";
+import {useNavigate} from "react-router-dom";
 
 const service = axios.create({
   // baseURL: 'https://api.sablogs.cn/api',
@@ -29,15 +30,16 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     if (res.Code === 40000) {
-      message.error({content: res.Msg || '接口错误', duration: 2000})
+      message.error({content: res.Msg || '接口错误', duration: 1000})
       return res
     }
     if (res.Code === 42200) {
-      message.error({content: res.Msg || '接口错误', duration: 2000})
+      message.error({content: res.Msg || '接口错误', duration: 1000})
       return res
     }
     if (res.Code === 40100) {
-      message.error({content: '请先登录', duration: 2000})
+      message.error({content: '请先登录', duration: 1000})
+      window.location.replace(`/login?redirect_to=${window.location.pathname}`)
       return res
     }
     return res
