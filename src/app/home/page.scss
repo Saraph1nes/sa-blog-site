@@ -127,6 +127,12 @@
                 color: orange;
               }
             }
+
+            .article-comment-count {
+              margin-left: 20px;
+              display: flex;
+              align-items: center;
+            }
           }
         }
 
@@ -198,10 +204,15 @@
       }
     }
 
-    .tag-panel{
+    .tag-panel {
       margin-top: 20px;
       border-radius: 13px;
       padding: 16px;
+
+      .tag-panel-title {
+        font-weight: bold;
+        font-size: 16px;
+      }
     }
 
     .time-flies-panel {

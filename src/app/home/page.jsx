@@ -8,11 +8,24 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import classname from 'classname'
 import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
+import CommentIcon from '@mui/icons-material/Comment';
 // import TimeFlies from "@/components/TimeFlies";
-import loading from "@/components/Loading/index.jsx";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 
 import './page.scss'
+
+const tagColorArr = [
+  "#FF6B6B",
+  "#6B5B95",
+  "#88B04B",
+  "#F7CAC9",
+  "#F4B400",
+  "#69D2E7",
+  "#DAA520",
+  "#00CED1",
+  "#FFD700",
+  "#C71585"
+]
 
 function Home() {
   const navigate = useNavigate();
@@ -150,7 +163,7 @@ function Home() {
     setSelectedCategory(newValue)
   }
 
-  if (!isMounted){
+  if (!isMounted) {
     return <main className='main'></main>
   }
 
@@ -250,6 +263,12 @@ function Home() {
                     <span style={{marginLeft: '5px'}}>{item.TagName}</span>
                   </div>
                 </Link>}
+                {
+                  item.CommentCount > 0 && <div className='article-comment-count'>
+                    <CommentIcon style={{fontSize: '18px'}}/>
+                    <span style={{marginLeft: '5px'}}>评论({item.CommentCount})</span>
+                  </div>
+                }
               </div>}
             </div>
             <div className='right'>
@@ -303,12 +322,17 @@ function Home() {
         </Paper>
 
         <Paper className='tag-panel' elevation={1}>
-          <h3>标签</h3>
+          <div className='tag-panel-title'>标签</div>
+          <Divider sx={{marginTop: '10px'}}/>
           {
-            tagListDataset.map(tag => <Chip
+            tagListDataset.map((tag, tagIdx) => <Chip
               key={tag.ID}
+              style={{
+                border: `1px solid ${tagColorArr[tagIdx % 10]}80`,
+                background: `${tagColorArr[tagIdx % 10]}33`
+              }}
               label={tag.Name}
-              sx={{marginTop: '10px', marginRight: '10px'}}
+              sx={{marginTop: '20px', marginRight: '10px'}}
               size="small"
               variant="outlined"
               onClick={() => {
