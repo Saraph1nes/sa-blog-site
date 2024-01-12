@@ -1,9 +1,10 @@
 import {createContext, useLayoutEffect, useMemo, useState} from "react";
 import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
+import PropTypes from "prop-types";
 
 export const DarkModeContent = createContext({})
 
-const Index = ({children}) => {
+const DarkModeProvider = ({children}) => {
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
 
@@ -33,7 +34,7 @@ const Index = ({children}) => {
         }),
       },
     })
-  }, [darkMode])
+  }, [darkMode, osDarkMode])
 
   const switchMode = useMemo(() => {
     return {
@@ -45,7 +46,7 @@ const Index = ({children}) => {
         })
       }
     }
-  }, [darkMode])
+  }, [])
 
   useLayoutEffect(() => {
     if (localStorage) {
@@ -69,8 +70,12 @@ const Index = ({children}) => {
   </DarkModeContent.Provider>
 }
 
-Index.defaultProps = {
+DarkModeProvider.defaultProps = {
   children: null
 }
 
-export default Index
+DarkModeProvider.propTypes = {
+  children: PropTypes.node
+}
+
+export default DarkModeProvider

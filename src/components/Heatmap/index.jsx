@@ -1,10 +1,10 @@
-'use client'
-
 import {useEffect} from "react";
 import * as d3 from "d3";
 import {useTheme} from "@mui/material";
+import PropTypes from "prop-types";
 
 import './index.scss'
+import dayjs from "dayjs";
 
 const Heatmap = ({heatmapDataset}) => {
   const theme = useTheme()
@@ -16,58 +16,31 @@ const Heatmap = ({heatmapDataset}) => {
       ele.innerHTML = ''
     }
 
-    const generateDataset = (forwardMonth, options = {}) => {
-      const config = Object.assign({}, {
-        endDate: null,
+    const generateDataset = (options = {}) => {
+      const forwardDays = 14 * 7 // 列 * 行
+      const config = Object.assign({
         fill: {},
       }, options)
-      const months = []
-      const days = []
-      // 计算需要填充的日期
-      for (let i = forwardMonth; i > 0; i--) {
-        let referDate = config.endDate
-          ? new Date(config.endDate)
-          : new Date()
-        referDate.setMonth(referDate.getMonth() - i + 2)
-        referDate.setDate(0)
-        let month = referDate.getMonth() + 1
-        month = month < 10 ? '0' + month : month
-        for (let d = 1; d <= referDate.getDate(); d++) {
-          let day = d < 10 ? '0' + d : d
-          let data = {
-            date: referDate.getFullYear() + '-' + month + '-' + day,
+      const days = new Array(forwardDays)
+        .fill(null)
+        .map((itm, idx) => {
+          const itmDate = dayjs().subtract(idx, 'days').format('YYYY-MM-DD');
+          const itmTotal = config.fill[dayjs().subtract(idx, 'days').format('YYYY-MM-DD')];
+          if (itmTotal){
+            return {
+              date: itmDate,
+              total: itmTotal
+            }
           }
-          if (config.fill.hasOwnProperty(data.date)) {
-            data.total = config.fill[data.date]
+          return {
+            date: itmDate,
           }
-          days.push(data)
-        }
-        months.push(referDate.getFullYear() + '-' + month)
-      }
-      // 确保第一个日期是从星期一开始
-      // 不是星期一就向前追加相应的天数
-      let firstDate = days[0].date
-      let d = new Date(firstDate)
-      let day = d.getDay()
-      if (day === 0) {
-        day = 7
-      }
-      for (let i = 1; i < day; i++) {
-        let d = new Date(firstDate)
-        d.setDate(d.getDate() - i)
-        let v = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
-        if (v[1] < 10) {
-          v[1] = '0' + v[1];
-        }
-        if (v[2] < 10) {
-          v[2] = '0' + v[2];
-        }
-        days.unshift({date: v.join('-')})
-      }
-      return {days: days, months: months}
+        })
+        .reverse()
+      return {days: days}
     }
 
-    const dataset = generateDataset(3, {
+    const dataset = generateDataset({
       fill: heatmapDataset.reduce((result, entry) => {
         const date = entry.Date;
         const total = entry.Total;
@@ -80,11 +53,11 @@ const Heatmap = ({heatmapDataset}) => {
     })
 
     // 设置图表参数
-    const width = 282
+    const width = 280
     const height = 160
-    const margin = 20
+    const margin = 0
     const weekBoxWidth = 0
-    const monthBoxHeight = 10
+    const monthBoxHeight = 15
 
     const svg = d3.select("#sa_heatmap")
       .append("svg")
@@ -92,33 +65,33 @@ const Heatmap = ({heatmapDataset}) => {
       .attr('height', height)
 
     // 绘制月份坐标
-    const monthBox = svg.append('g').attr(
-      'transform',
-      'translate(' + (margin + weekBoxWidth) + ', ' + margin + ')')
-    const monthScale = d3.scaleLinear()
-      .domain([0, dataset.months.length])
-      .range([0, width - margin - weekBoxWidth + 10])
+    // const monthBox = svg.append('g').attr(
+    //   'transform',
+    //   'translate(' + (margin + weekBoxWidth) + ', ' + margin + ')')
+    // const monthScale = d3.scaleLinear()
+    //   .domain([0, dataset.months.length])
+    //   .range([0, width - margin - weekBoxWidth + 10])
 
-    monthBox.selectAll('text').data(dataset.months).enter()
-      .append('text')
-      .text(v => {
-        return v
-      })
-      .attr('font-size', '12px')
-      .attr('fill', '#999')
-      .attr('x', (v, i) => {
-        return monthScale(i)
-      })
+    // monthBox.selectAll('text').data(dataset.months).enter()
+    //   .append('text')
+    //   .text(v => {
+    //     return v
+    //   })
+    //   .attr('font-size', '12px')
+    //   .attr('fill', '#999')
+    //   .attr('x', (v, i) => {
+    //     return monthScale(i)
+    //   })
 
     // 设置周坐标数据
-    const weeks = ['一', '三', '五', '日']
+    // const weeks = ['一', '三', '五', '日']
     // 绘制周坐标
-    const weekBox = svg.append('g').attr(
-      'transform',
-      'translate(' + (margin - 10) + ', ' + (margin + monthBoxHeight) + ')')
-    const weekScale = d3.scaleLinear()
-      .domain([0, weeks.length])
-      .range([0, height - margin - monthBoxHeight + 14])
+    // const weekBox = svg.append('g').attr(
+    //   'transform',
+    //   'translate(' + (margin - 10) + ', ' + (margin + monthBoxHeight) + ')')
+    // const weekScale = d3.scaleLinear()
+    //   .domain([0, weeks.length])
+    //   .range([0, height - margin - monthBoxHeight + 14])
 
     // weekBox.selectAll('text').data(weeks).enter()
     //   .append('text')
@@ -216,6 +189,10 @@ const Heatmap = ({heatmapDataset}) => {
     init()
   })
   return <div id='sa_heatmap'></div>
+}
+
+Heatmap.propTypes = {
+  heatmapDataset: PropTypes.array
 }
 
 export default Heatmap

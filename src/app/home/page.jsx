@@ -9,7 +9,7 @@ import classname from 'classname'
 import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
 // import TimeFlies from "@/components/TimeFlies";
-
+import loading from "@/components/Loading/index.jsx";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 
 import './page.scss'
@@ -86,10 +86,10 @@ function Home() {
     ])
     setTagListDataset(fetchGetAllTagsRes.Data)
     setHeatmapDataset(fetchGetArticleHeatmapRes.Data)
-    setIsMounted(true)
     const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
     setIsMobile(isMob)
     setCategoryList(fetchCategoryRes.Data)
+    setIsMounted(true)
   }
 
   const onPageChange = (e, value) => {
@@ -150,9 +150,15 @@ function Home() {
     setSelectedCategory(newValue)
   }
 
+  if (!isMounted){
+    return <main className='main'></main>
+  }
+
   return (<main
     className={classname({
-      'main': true, 'dark': theme.palette.mode === 'dark', 'mobile': isMobile,
+      'main': true,
+      'dark': theme.palette.mode === 'dark',
+      'mobile': isMobile,
     })}
   >
     <section className='container-wrap'>
