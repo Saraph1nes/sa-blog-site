@@ -84,10 +84,10 @@ const About = () => {
       <div className='name'>
         Saraph1nes
       </div>
-      <div className='located'>
-        <LocationOnIcon fontSize='small' color='primary'></LocationOnIcon>
-        <span className='m-l-7'>湖北 - 武汉</span>
-      </div>
+      {/*<div className='located'>*/}
+      {/*  <LocationOnIcon fontSize='small' color='primary'></LocationOnIcon>*/}
+      {/*  <span className='m-l-7'>湖北 - 武汉</span>*/}
+      {/*</div>*/}
       <Divider style={{margin: '20px 0'}}/>
       <div className="social-media">
         <ul className='social-media-nav'>

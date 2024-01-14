@@ -1,33 +1,21 @@
-'use client'
+import PropTypes from "prop-types";
 
-import React from "react";
-import {Backdrop, CircularProgress} from "@mui/material";
-import {createRoot} from "react-dom/client";
+import './index.scss'
 
-const createBackdrop = () => {
-  const dom = document.createElement('div');
-  dom.id = 'page-loading'
-  const JSXDom = <Backdrop
-    open={true}
-  >
-    <CircularProgress color="inherit"/>
-  </Backdrop>;
-  createRoot(dom).render(JSXDom);
-  document.body.appendChild(dom);
-  return dom;
-};
-
-const loading = {
-  dom: null,
-  show() {
-    this.dom = createBackdrop();
-  },
-  hide() {
-    const dom = document.getElementById('page-loading');
-    if (dom) {
-      dom.remove()
+const Loading = ({show = false}) => {
+  return <>
+    {
+      show && <div className='loading-page' >
+        <div>
+          <div className='loading'/>
+        </div>
+      </div>
     }
-  }
+  </>
 }
 
-export default loading
+Loading.propTypes = {
+  show: PropTypes.bool
+}
+
+export default Loading
