@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
 import SaComment from "@/components/SaComment"
@@ -74,7 +74,7 @@ function Page() {
     navigate(`/login?redirect_to=${window.location.pathname}`)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.scrollTo({
       top: 0,
     })

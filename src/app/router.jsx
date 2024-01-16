@@ -1,91 +1,108 @@
+import React, {Suspense} from "react";
 import {Navigate, useRoutes} from "react-router-dom";
-import Home from "@/app/home/page";
-import Category from "@/app/category/page";
-import CategoryId from "@/app/category/id/page";
-import TagId from "@/app/tag/id/page";
-import BookId from "@/app/book/id/page";
-import ArticleId from "@/app/article/id/page";
-import About from "@/app/about/page";
-import Login from "@/app/login/page";
-import Register from "@/app/register/page";
-import PhotoAlbum from "@/app/photoAlbum";
-import UserSettingLayout from "@/app/user/setting";
-import UserSettingProfile from "@/app/user/setting/profile";
-import UserSettingAccount from "@/app/user/setting/account";
-import PageNotFound from "@/app/404";
+
+const Home = React.lazy(() => import("@/app/home/page"));
+const Category = React.lazy(() => import("@/app/category/page"));
+const PageNotFound = React.lazy(() => import("@/app/404"));
+const CategoryId = React.lazy(() => import("@/app/category/id/page"));
+const TagId = React.lazy(() => import("@/app/tag/id/page"));
+const BookId = React.lazy(() => import("@/app/book/id/page"));
+const ArticleId = React.lazy(() => import("@/app/article/id/page"));
+const About = React.lazy(() => import("@/app/about/page"));
+const Login = React.lazy(() => import("@/app/login/page"));
+const Register = React.lazy(() => import("@/app/register/page"));
+const PhotoAlbum = React.lazy(() => import("@/app/photoAlbum"));
+const UserSettingLayout = React.lazy(() => import("@/app/user/setting"));
+const UserSettingProfile = React.lazy(() => import("@/app/user/setting/profile"));
+const UserSettingAccount = React.lazy(() => import("@/app/user/setting/account"));
+const Loading = React.lazy(() => import("@/components/Loading/index.jsx"));
+
+const router = [
+  {
+    path: "/",
+    element: <Home/>
+  },
+  {
+    path: '404',
+    element: <PageNotFound/>
+  },
+  {
+    path: 'category',
+    element: <Category/>
+  },
+  {
+    path: 'category/:id',
+    element: <CategoryId/>
+  },
+  {
+    path: 'tag/:id',
+    element: <TagId/>
+  },
+  {
+    path: 'book/:id',
+    element: <BookId/>
+  },
+  {
+    path: 'article/:id',
+    element: <ArticleId/>
+  },
+  {
+    path: 'about',
+    element: <About/>
+  },
+  {
+    path: 'login',
+    element: <Login/>
+  },
+  {
+    path: 'register',
+    element: <Register/>
+  },
+  {
+    path: 'photoAlbum',
+    element: <PhotoAlbum/>
+  },
+  {
+    path: 'user',
+    children: [
+      {
+        path: 'setting',
+        element: <UserSettingLayout/>,
+        children: [
+          {
+            path: 'profile',
+            element: <UserSettingProfile/>
+          },
+          {
+            path: 'account',
+            element: <UserSettingAccount/>
+          }
+        ]
+      }
+    ]
+  },
+  {
+    path: "*",
+    element: <Navigate to="/404"/>
+  }
+]
+
+const routerHandler = (router) => {
+  const dfs = (router) => {
+    router.forEach(i => {
+      if (i.children) {
+        dfs(i.children)
+      } else {
+        i.element = <Suspense fallback={<Loading/>}>{i.element}</Suspense>
+      }
+    })
+    return router
+  }
+  return dfs(router)
+}
 
 const Router = () => {
-  const router = [
-    {
-      path:"/",
-      element: <Home />
-    },
-    {
-      path: '404',
-      element: <PageNotFound />
-    },
-    {
-      path: 'category',
-      element: <Category />
-    },
-    {
-      path: 'category/:id',
-      element: <CategoryId />
-    },
-    {
-      path: 'tag/:id',
-      element: <TagId />
-    },
-    {
-      path: 'book/:id',
-      element: <BookId />
-    },
-    {
-      path: 'article/:id',
-      element: <ArticleId />
-    },
-    {
-      path: 'about',
-      element: <About />
-    },
-    {
-      path: 'login',
-      element: <Login />
-    },
-    {
-      path: 'register',
-      element: <Register />
-    },
-    {
-      path: 'photoAlbum',
-      element: <PhotoAlbum />
-    },
-    {
-      path: 'user',
-      children: [
-        {
-          path: 'setting',
-          element: <UserSettingLayout />,
-          children: [
-            {
-              path: 'profile',
-              element: <UserSettingProfile />
-            },
-            {
-              path: 'account',
-              element: <UserSettingAccount />
-            }
-          ]
-        }
-      ]
-    },
-    {
-      path:"*",
-      element:<Navigate to="/404"/>
-    }
-  ]
-
-  return useRoutes(router)
+  return useRoutes(routerHandler(router))
 }
 
 export default Router;

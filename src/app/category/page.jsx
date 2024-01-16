@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import service from "@/utils/http";
 import {Accordion, AccordionDetails, AccordionSummary, List, ListItem, ListItemText, Skeleton} from "@mui/material";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -18,7 +18,7 @@ const Category = () => {
     setCategory(Data)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     init()
   }, [])
 

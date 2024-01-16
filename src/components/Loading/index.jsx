@@ -4,13 +4,11 @@ import './index.scss'
 
 const Loading = ({show = false}) => {
   return <>
-    {
-      show && <div className='loading-page' >
-        <div>
-          <div className='loading'/>
-        </div>
+    <div className='loading-page'>
+      <div>
+        <div className='loading'/>
       </div>
-    }
+    </div>
   </>
 }
 

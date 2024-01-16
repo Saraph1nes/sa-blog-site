@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import dayjs from "dayjs";
 import {Link} from "react-router-dom";
-import {Skeleton} from "@mui/material";
 import {useParams} from "react-router-dom";
 import service from "@/utils/http";
 
