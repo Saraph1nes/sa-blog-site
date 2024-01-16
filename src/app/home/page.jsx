@@ -1,6 +1,6 @@
 import service from "@/utils/http";
 import {useEffect, useLayoutEffect, useState} from "react";
-import {Box, Chip, debounce, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme} from "@mui/material";
+import {Box, Chip, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme} from "@mui/material";
 import {useNavigate, Link} from "react-router-dom";
 import ClassIcon from "@mui/icons-material/Class";
 import dayjs from "dayjs";
@@ -11,6 +11,7 @@ import Heatmap from "@/components/Heatmap";
 import CommentIcon from '@mui/icons-material/Comment';
 // import TimeFlies from "@/components/TimeFlies";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import debounce from "lodash/debounce";
 
 import './page.scss'
 
@@ -147,7 +148,7 @@ function Home() {
     };
 
     // 添加滚动事件监听
-    window.addEventListener('scroll', debounce(handleScroll));
+    window.addEventListener('scroll', debounce(handleScroll, 500));
 
     // 组件卸载时移除事件监听
     return () => {
