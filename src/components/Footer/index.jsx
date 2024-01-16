@@ -1,6 +1,7 @@
 import {Divider} from "@mui/material";
 
 import './index.scss'
+import {Link} from "react-router-dom";
 
 const Footer = () => {
   return <div className='footer-wrap'>
@@ -17,14 +18,14 @@ const Footer = () => {
       {/*<div className='contact-information'>联系方式</div>*/}
       <div className='internet-content-provider'>
         <div className='internet-content-provider-title'>备案号</div>
-        <a
-          href='https://beian.miit.gov.cn/'
+        <Link
+          to='https://beian.miit.gov.cn/'
           target='_blank'
           style={{display: 'block'}}
           className='m-t-20'
         >
           鄂ICP备2022013786号
-        </a>
+        </Link>
       </div>
     </footer>
   </div>

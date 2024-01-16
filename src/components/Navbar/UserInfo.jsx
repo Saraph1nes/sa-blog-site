@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Avatar, Button, ListItemIcon, Tooltip} from "@mui/material";
+import {Avatar, Button, Divider, ListItemIcon, Tooltip} from "@mui/material";
 import message from "@/components/Message";
 import {useNavigate} from "react-router-dom";
-import {Logout, Settings} from "@mui/icons-material";
+import {Logout, Person, Settings} from "@mui/icons-material";
 
 import './UserInfo.scss'
 
@@ -45,7 +45,7 @@ const UserInfo = () => {
     navigate(`/login?redirect_to=${window.location.pathname}`)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const UserInfo = localStorage.getItem('UserInfo')
     if (UserInfo) {
       const userInfoParse = JSON.parse(UserInfo)
@@ -65,7 +65,7 @@ const UserInfo = () => {
         aria-expanded={open ? 'true' : undefined}
       >
         <Avatar
-          sx={{width: 24, height: 24}}
+          sx={{width: 30, height: 30}}
           alt={userInfo.Name || userInfo.Mobile}
           src={userInfo.Avatar || ''}
         />
@@ -81,32 +81,30 @@ const UserInfo = () => {
       onClose={handleClose}
       onClick={handleClose}
       // transformOrigin={{horizontal: 'right', vertical: 'top'}}
-      // anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+      anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
     >
-      {/*<MenuItem onClick={handleClose}>*/}
-      {/*  <Avatar/> 简介*/}
-      {/*</MenuItem>*/}
-      {/*<MenuItem onClick={handleClose}>*/}
-      {/*  <Avatar/> 我的账户*/}
-      {/*</MenuItem>*/}
-      {/*<Divider/>*/}
-      {/*<MenuItem onClick={handleClose}>*/}
-      {/*  <ListItemIcon>*/}
-      {/*    <PersonAdd fontSize="small"/>*/}
-      {/*  </ListItemIcon>*/}
-      {/*  Add another account*/}
-      {/*</MenuItem>*/}
       <MenuItem onClick={handleSetting}>
-        <ListItemIcon>
-          <Settings fontSize="small"/>
-        </ListItemIcon>
-        设置
+        <Avatar/>
+        <div style={{marginLeft: '20px'}}>Saraph1nes</div>
       </MenuItem>
-      <MenuItem onClick={handleLogout}>
+      <Divider/>
+      {/*<MenuItem onClick={handleSetting}>*/}
+      {/*  <ListItemIcon>*/}
+      {/*    <Person fontSize="small"/>*/}
+      {/*  </ListItemIcon>*/}
+      {/*  <div>个人资料</div>*/}
+      {/*</MenuItem>*/}
+      {/*<MenuItem onClick={handleSetting}>*/}
+      {/*  <ListItemIcon>*/}
+      {/*    <Settings fontSize="small"/>*/}
+      {/*  </ListItemIcon>*/}
+      {/*  <div>系统设置</div>*/}
+      {/*</MenuItem>*/}
+      <MenuItem sx={{alignItems: 'center', justifyContent: 'center'}} onClick={handleLogout}>
         <ListItemIcon>
           <Logout fontSize="small"/>
         </ListItemIcon>
-        登出
+        <div>退出登录</div>
       </MenuItem>
     </Menu>
   </div>

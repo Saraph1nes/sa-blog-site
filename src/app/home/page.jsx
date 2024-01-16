@@ -344,22 +344,22 @@ function Home() {
 
         {/*<TimeFlies/>*/}
         <section className='aside-footer'>
-          <a
+          <Link
             style={{marginTop: '20px', display: 'block'}}
-            href='https://beian.miit.gov.cn/'
+            to='https://beian.miit.gov.cn/'
             rel="noreferrer"
             target='_blank'
           >
             鄂ICP备2022013786号
-          </a>
-          <a
+          </Link>
+          <Link
             style={{marginTop: '20px', display: 'block'}}
-            href='https://beian.miit.gov.cn/'
+            to='https://beian.miit.gov.cn/'
             rel="noreferrer"
             target='_blank'
           >
             鄂ICP备2022013786号-1
-          </a>
+          </Link>
           <div style={{marginTop: '20px', display: 'block'}}>© 2023 Saraph1nes Blog</div>
         </section>
       </aside>

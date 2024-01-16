@@ -43,7 +43,7 @@ const Navbar = () => {
   }, []);
 
   // 监听滚动隐藏
-  // useEffect(() => {
+  // useLayoutEffect(() => {
   //   let lastScrollTop = 0;
   //
   //   const handleScroll = () => {
@@ -77,24 +77,24 @@ const Navbar = () => {
     {
       !isMobile && <div className='header-wrap'>
         <div className='header-left'>
-          <a href={'/'}>
+          <Link to={'/'}>
             <h1 className="title">Saraph1nes Blog</h1>
-          </a>
+          </Link>
         </div>
         <div className='header-right'>
           <nav className='header-nav'>
-            <a href={'/'} className="nav-item">
+            <Link to={'/'} className="nav-item">
               <HouseIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>首页</span>
-            </a>
-            <a href={'/category'} className="nav-item">
+            </Link>
+            <Link to={'/category'} className="nav-item">
               <CategoryIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>分类</span>
-            </a>
-            <a href={'/photoAlbum'} className="nav-item">
-              <CategoryIcon style={{fontSize: '16px'}}/>
-              <span className='nav-item-txt'>相册</span>
-            </a>
+            </Link>
+            {/*<a href={'/photoAlbum'} className="nav-item">*/}
+            {/*  <CategoryIcon style={{fontSize: '16px'}}/>*/}
+            {/*  <span className='nav-item-txt'>相册</span>*/}
+            {/*</a>*/}
             {/*<Link href={'/archives'}>*/}
             {/*  <div className="nav-item">*/}
             {/*    <AutoStoriesIcon style={{fontSize: '16px'}}/>*/}
@@ -115,10 +115,10 @@ const Navbar = () => {
             {/*    <span className='nav-item-txt'>算法</span>*/}
             {/*  </div>*/}
             {/*</Link>*/}
-            <a href={'/about'} className="nav-item">
+            <Link to={'/about'} className="nav-item">
               <Person4Icon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>介绍</span>
-            </a>
+            </Link>
           </nav>
           <UserInfo />
           <DarkModeButton/>
