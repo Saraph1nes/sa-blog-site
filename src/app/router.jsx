@@ -8,8 +8,11 @@ import ArticleId from "@/app/article/id/page";
 import About from "@/app/about/page";
 import Login from "@/app/login/page";
 import Register from "@/app/register/page";
-import UserProfile from "@/app/user/profile/page";
-import PhotoAlbum from "@/app/photoAlbum/index.jsx";
+import PhotoAlbum from "@/app/photoAlbum";
+import UserSettingLayout from "@/app/user/setting";
+import UserSettingProfile from "@/app/user/setting/profile";
+import UserSettingAccount from "@/app/user/setting/account";
+import PageNotFound from "@/app/404";
 
 const Router = () => {
   const router = [
@@ -18,53 +21,67 @@ const Router = () => {
       element: <Home />
     },
     {
-      path: '/category',
+      path: '404',
+      element: <PageNotFound />
+    },
+    {
+      path: 'category',
       element: <Category />
     },
     {
-      path: '/category/:id',
+      path: 'category/:id',
       element: <CategoryId />
     },
     {
-      path: '/tag/:id',
+      path: 'tag/:id',
       element: <TagId />
     },
     {
-      path: '/book/:id',
+      path: 'book/:id',
       element: <BookId />
     },
     {
-      path: '/article/:id',
+      path: 'article/:id',
       element: <ArticleId />
     },
     {
-      path: '/about',
+      path: 'about',
       element: <About />
     },
     {
-      path: '/login',
+      path: 'login',
       element: <Login />
     },
     {
-      path: '/register',
+      path: 'register',
       element: <Register />
     },
     {
-      path: '/photoAlbum',
+      path: 'photoAlbum',
       element: <PhotoAlbum />
     },
     {
-      path: '/user',
+      path: 'user',
       children: [
         {
-          path: 'profile',
-          element: <UserProfile />
+          path: 'setting',
+          element: <UserSettingLayout />,
+          children: [
+            {
+              path: 'profile',
+              element: <UserSettingProfile />
+            },
+            {
+              path: 'account',
+              element: <UserSettingAccount />
+            }
+          ]
         }
       ]
     },
     {
       path:"*",
-      element:<Navigate to="/"/>
+      element:<Navigate to="/404"/>
     }
   ]
 

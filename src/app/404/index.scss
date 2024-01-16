@@ -1,0 +1,32 @@
+.page-not-found {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .page-not-found-container {
+    display: flex;
+    width: 1000px;
+
+    .page-not-found-container-left{
+      flex: 1;
+    }
+
+    .page-not-found-container-right{
+      img{
+        width: 400px;
+      }
+
+      .ghost-shadow {
+        width: 300px;
+        height: 24px;
+        background-color: hsla(38, 21%, 19%, .16);
+        margin: 0 auto;
+        border-radius: 50%;
+        filter: blur(7px);
+        animation: shadow 1.8s infinite alternate;
+      }
+    }
+  }
+}

@@ -22,7 +22,7 @@ const UserInfo = () => {
   };
 
   const handleSetting = () => {
-    navigate('/user/profile')
+    navigate('/user/setting/profile')
     handleClose()
   }
 
