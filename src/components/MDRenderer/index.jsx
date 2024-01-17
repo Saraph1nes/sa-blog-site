@@ -1,5 +1,5 @@
-import {useLayoutEffect, useState} from "react";
-import {unified} from "unified";
+import { useLayoutEffect, useState } from "react";
+import { unified } from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from 'remark-gfm'
 import remarkRehype from "remark-rehype";
@@ -9,14 +9,15 @@ import rehypeRewrite from 'rehype-rewrite';
 import slug from 'rehype-slug'
 import toc from 'rehype-toc'
 import dayjs from "dayjs";
-import {Skeleton, useTheme} from "@mui/material";
+import { Skeleton, useTheme } from "@mui/material";
 import rehypeStringify from "rehype-stringify";
 import readingTime from "reading-time";
 import classname from 'classname'
+import PropTypes from 'prop-types'
 
 import './index.scss'
 
-const MDRenderer = ({data}) => {
+const MDRenderer = ({ data }) => {
   const [dataset, setDataset] = useState(null)
   const [time, setTime] = useState(null)
 
@@ -59,30 +60,47 @@ const MDRenderer = ({data}) => {
     }, 300); // 与淡入动画时间一致
   };
 
-  const initTocListener = () => {
-    const article = document.querySelector('#article')
-    const tocItems = document.querySelectorAll('.toc-item')
-    console.log('article', article)
-    console.log('tocItems', tocItems)
+  useLayoutEffect(() => {
+    const scrollListener = () => {
+      const tocItems = document.querySelectorAll('.toc-link');
+      const currentScroll = window.scrollY;
+      tocItems.forEach((tocItem, index) => {
+        const tocItemTxt = tocItem.getAttribute('href').substring(1);
+        const articleTitleDom = document.getElementById(tocItemTxt);
+        if (articleTitleDom) {
+          const articleTitleDomOffsetTop = articleTitleDom.offsetTop;
+          const nextTocItem = tocItems[index + 1];
+          let nextArticleTitleDomOffsetTop;
+          if (nextTocItem) {
+            const nextTocItemTxt = nextTocItem.getAttribute('href').substring(1);
+            const nextArticleTitleDom = document.getElementById(nextTocItemTxt);
+            if (nextArticleTitleDom) {
+              nextArticleTitleDomOffsetTop = nextArticleTitleDom.offsetTop;
+            }
+          }
+          if (
+            (index === 0 && currentScroll <= articleTitleDomOffsetTop) || // First element
+            (index === tocItems.length - 1 && currentScroll >= articleTitleDomOffsetTop) || // Last element
+            (index !== 0 && index !== tocItems.length - 1 &&
+              articleTitleDomOffsetTop <= currentScroll &&
+              (nextArticleTitleDomOffsetTop === undefined || nextArticleTitleDomOffsetTop > currentScroll)
+            )
+          ) {
+            tocItem.classList.add('toc-link-active');
+          } else {
+            tocItem.classList.remove('toc-link-active');
+          }
+        }
+      });
+    };
 
-    // window.addEventListener('scroll', function () {
-    //   const currentScroll = window.scrollY;
-    //
-    //   // 遍历目录项，找到当前滚动位置对应的目录项
-    //   tocItems.forEach(function (item) {
-    //     const sectionId = item.getAttribute('href').substring(1);
-    //     const section = document.getElementById(sectionId);
-    //
-    //     if (section && section.offsetTop <= currentScroll && section.offsetTop + section.offsetHeight > currentScroll) {
-    //       // 高亮当前目录项
-    //       item.classList.add('highlight');
-    //     } else {
-    //       // 取消其他目录项的高亮
-    //       item.classList.remove('highlight');
-    //     }
-    //   });
-    // });
-  }
+    window.addEventListener('scroll', scrollListener);
+
+    return () => {
+      window.removeEventListener('scroll', scrollListener);
+    };
+  }, []);
+
 
   const init = async () => {
     const file = await unified()
@@ -93,9 +111,11 @@ const MDRenderer = ({data}) => {
       .use(rehypeHighlight)
       .use(slug)
       .use(toc, {
-        headings: ["h2", 'h3', 'h4'], cssClasses: {
-          toc: "toc-wrap", link: "toc-link",
-        }, ordered: false, tight: true
+        headings: ["h2", 'h3', 'h4'],
+        cssClasses: {
+          toc: "toc-wrap",
+          link: "toc-link",
+        },
       })
       .use(rehypeRewrite, {
         rewrite: (node, index, parent) => {
@@ -112,8 +132,6 @@ const MDRenderer = ({data}) => {
       .process(data.Content)
     setTime(readingTime(String(file)))
     setDataset(file)
-
-    initTocListener()
   }
 
   useLayoutEffect(() => {
@@ -122,12 +140,12 @@ const MDRenderer = ({data}) => {
 
   if (!dataset) {
     return <>
-      <Skeleton variant="rectangular" height={80} width={200} style={{margin: '20px auto 70px'}}/>
-      <Skeleton variant="rectangular" height={20} style={{margin: '10px'}}/>
-      <Skeleton variant="rectangular" height={40} style={{margin: '10px'}}/>
-      <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
-      <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
-      <Skeleton variant="rectangular" height={30} style={{margin: '10px'}}/>
+      <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
+      <Skeleton variant="rectangular" height={20} style={{ margin: '10px' }} />
+      <Skeleton variant="rectangular" height={40} style={{ margin: '10px' }} />
+      <Skeleton variant="rectangular" height={10} style={{ margin: '10px' }} />
+      <Skeleton variant="rectangular" height={10} style={{ margin: '10px' }} />
+      <Skeleton variant="rectangular" height={30} style={{ margin: '10px' }} />
     </>
   }
 
@@ -145,8 +163,12 @@ const MDRenderer = ({data}) => {
     <div id="preview-container" onClick={closePreview}>
       <div id="preview"></div>
     </div>
-    <article id='article' dangerouslySetInnerHTML={{__html: String(dataset)}}></article>
+    <article id='article' dangerouslySetInnerHTML={{ __html: String(dataset) }}></article>
   </div>
+}
+
+MDRenderer.propTypes = {
+  data: PropTypes.object
 }
 
 export default MDRenderer

@@ -1,7 +1,7 @@
 import service from "@/utils/http";
-import {useEffect, useLayoutEffect, useState} from "react";
-import {Box, Chip, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme} from "@mui/material";
-import {useNavigate, Link} from "react-router-dom";
+import { useLayoutEffect, useState } from "react";
+import { Box, Chip, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme } from "@mui/material";
+import { useNavigate, Link } from "react-router-dom";
 import ClassIcon from "@mui/icons-material/Class";
 import dayjs from "dayjs";
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -10,7 +10,7 @@ import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
 import CommentIcon from '@mui/icons-material/Comment';
 // import TimeFlies from "@/components/TimeFlies";
-import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
 import debounce from "lodash/debounce";
 
 import './page.scss'
@@ -117,7 +117,7 @@ function Home() {
   useLayoutEffect(() => {
     const fetchData = async () => {
       setShowListBottomLoading(true)
-      const {Data} = await fetchArticles()
+      const { Data } = await fetchArticles()
       setShowListBottomLoading(false)
       const curListLength = Data?.List?.length || 0;
       if (curListLength === Data.Count) {
@@ -198,35 +198,35 @@ function Home() {
               />
             </Paper>
             <Paper square={false} elevation={3} className="special-subject-list-item backend"
-                   onClick={() => onPaperClick('backend')}>
+              onClick={() => onPaperClick('backend')}>
               <h3 className='special-subject-list-item-title'>后端</h3>
               <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/nodejs.png"
-                   alt=""/>
+                alt="" />
             </Paper>
             <Paper square={false} elevation={3} className="special-subject-list-item algorithm"
-                   onClick={() => onPaperClick('algorithm')}>
+              onClick={() => onPaperClick('algorithm')}>
               <h3 className='special-subject-list-item-title'>算法</h3>
               <img className='special-subject-list-item-img' src="https://assest.sablogs.cn/imgs/blog/suanfa.png"
-                   alt=""/>
+                alt="" />
             </Paper>
           </Stack>
         </div>
       }
       <div className='article-list-wrap'>
         <Box className="article-list-category"
-             sx={{
-               borderBottom: 1,
-               borderColor: 'divider',
-               background: theme.palette.background.default,
-               color: theme.palette.color.default
-             }}
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            background: theme.palette.background.default,
+            color: theme.palette.color.default
+          }}
         >
           <Tabs
             variant="scrollable"
             value={selectedCategory}
             onChange={onTabsChange}
           >
-            <Tab disabled={showListBottomLoading} className='article-list-category-item' label='全部' value={-1}/>
+            <Tab disabled={showListBottomLoading} className='article-list-category-item' label='全部' value={-1} />
             {categoryList.map(i => <Tab
               key={i.ID}
               disabled={showListBottomLoading}
@@ -252,22 +252,22 @@ function Home() {
                   to={`/category/${item.CategoryId}`}
                 >
                   <div className='article-category'>
-                    <ClassIcon style={{fontSize: '18px'}}/>
-                    <span style={{marginLeft: '5px'}}>{item.CategoryName}</span>
+                    <ClassIcon style={{ fontSize: '18px' }} />
+                    <span style={{ marginLeft: '5px' }}>{item.CategoryName}</span>
                   </div>
                 </Link>}
                 {item.TagName && <Link
                   to={`/tag/${item.TagId}`}
                 >
                   <div className='article-tag'>
-                    <LocalOfferIcon style={{fontSize: '18px'}}/>
-                    <span style={{marginLeft: '5px'}}>{item.TagName}</span>
+                    <LocalOfferIcon style={{ fontSize: '18px' }} />
+                    <span style={{ marginLeft: '5px' }}>{item.TagName}</span>
                   </div>
                 </Link>}
                 {
                   item.CommentCount > 0 && <div className='article-comment-count'>
-                    <CommentIcon style={{fontSize: '18px'}}/>
-                    <span style={{marginLeft: '5px'}}>评论({item.CommentCount})</span>
+                    <CommentIcon style={{ fontSize: '18px' }} />
+                    <span style={{ marginLeft: '5px' }}>评论({item.CommentCount})</span>
                   </div>
                 }
               </div>}
@@ -276,13 +276,13 @@ function Home() {
               <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>
             </div>
           </div>
-          <Divider style={{marginTop: '20px'}}/>
+          <Divider style={{ marginTop: '20px' }} />
         </div>)}
         {
           showListBottomLoading && <div className='list-bottom-loading'>
-            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-            <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+            <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
+            <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
+            <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
           </div>
         }
         {
@@ -304,7 +304,7 @@ function Home() {
         <Paper className='statistical-panel' elevation={1}>
           <div className='heatmap-nums'>
             <div className="heatmap-nums-item">
-              <div className='heatmap-nums-count'><CountUp end={dayjs().diff('2018-03-07', 'day')}/></div>
+              <div className='heatmap-nums-count'><CountUp end={dayjs().diff('2018-03-07', 'day')} /></div>
               <div className='heatmap-nums-title'>天</div>
             </div>
             {/*<Divider orientation="vertical" flexItem/>*/}
@@ -312,19 +312,19 @@ function Home() {
             {/*  <div className='heatmap-nums-count'><CountUp end={400}/></div>*/}
             {/*  <div className='heatmap-nums-title'>PV</div>*/}
             {/*</div>*/}
-            <Divider orientation="vertical" flexItem/>
+            <Divider orientation="vertical" flexItem />
             <div className="heatmap-nums-item">
-              <div className='heatmap-nums-count'><CountUp end={heatmapDataset.TotalCount}/></div>
+              <div className='heatmap-nums-count'><CountUp end={heatmapDataset.TotalCount} /></div>
               <div className='heatmap-nums-title'>文章</div>
             </div>
           </div>
-          <Divider className='statistical-panel-standard-divider'/>
-          <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
+          <Divider className='statistical-panel-standard-divider' />
+          <Heatmap heatmapDataset={heatmapDataset.Calendar} />
         </Paper>
 
         <Paper className='tag-panel' elevation={1}>
           <div className='tag-panel-title'>标签</div>
-          <Divider sx={{marginTop: '10px'}}/>
+          <Divider sx={{ marginTop: '10px' }} />
           {
             tagListDataset.map((tag, tagIdx) => <Chip
               key={tag.ID}
@@ -333,7 +333,7 @@ function Home() {
                 background: `${tagColorArr[tagIdx % 10]}33`
               }}
               label={tag.Name}
-              sx={{marginTop: '20px', marginRight: '10px'}}
+              sx={{ marginTop: '20px', marginRight: '10px' }}
               size="small"
               variant="outlined"
               onClick={() => {
@@ -346,7 +346,7 @@ function Home() {
         {/*<TimeFlies/>*/}
         <section className='aside-footer'>
           <Link
-            style={{marginTop: '20px', display: 'block'}}
+            style={{ marginTop: '20px', display: 'block' }}
             to='https://beian.miit.gov.cn/'
             rel="noreferrer"
             target='_blank'
@@ -354,14 +354,14 @@ function Home() {
             鄂ICP备2022013786号
           </Link>
           <Link
-            style={{marginTop: '20px', display: 'block'}}
+            style={{ marginTop: '20px', display: 'block' }}
             to='https://beian.miit.gov.cn/'
             rel="noreferrer"
             target='_blank'
           >
             鄂ICP备2022013786号-1
           </Link>
-          <div style={{marginTop: '20px', display: 'block'}}>© 2023 Saraph1nes Blog</div>
+          <div style={{ marginTop: '20px', display: 'block' }}>© 2023 Saraph1nes Blog</div>
         </section>
       </aside>
     }
