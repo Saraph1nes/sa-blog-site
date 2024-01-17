@@ -42,6 +42,7 @@ const DarkModeProvider = ({children}) => {
       setPrimaryMain: (color) => {
         setPrimaryMainColor(() => {
           document.documentElement.style.setProperty('--main-color', color);
+          localStorage && localStorage.setItem('primaryMainColor', color)
           setPrimaryMainColor(color)
           return color
         })
