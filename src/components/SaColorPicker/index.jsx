@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
-import {Checkbox, Radio} from "@mui/material";
+import {Radio} from "@mui/material";
 
 import './index.scss'
 
 const SaColorPicker = ({onChange, value}) => {
   const colors = [
-    '#ff2d00', '#ff9800', '#ffc900', '#00ff2c',
-    '#0040ff', '#4500ff', '#9600ff',
+    '#ffa41d', '#FF89B8', '#229f02', '#a34bff', '#289bec', '#e31b75',
   ];
 
   return (
@@ -21,7 +20,7 @@ const SaColorPicker = ({onChange, value}) => {
               },
             }}
             checked={value === color}
-            onChange={(e) => {
+            onChange={() => {
               onChange(color)
             }}
             value={color}

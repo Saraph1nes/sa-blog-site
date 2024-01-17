@@ -1,7 +1,8 @@
 @import "src/common.scss";
-@import 'highlight.js/scss/github.scss';
 
 .md_renderer-wrap {
+  @import 'highlight.js/scss/github.scss';
+
   position: relative;
   scroll-behavior: smooth;
 
@@ -71,8 +72,8 @@
     border-radius: 6px;
     margin: 0 6px;
     padding: 3px 6px;
-    background: #fff6e8;
-    color: #333;
+    background: #f6f6f7;
+    color: $primary-color;
   }
 
   p {
@@ -113,8 +114,8 @@
       border-radius: 6px;
       margin: 0 6px;
       padding: 3px 6px;
-      background: #fff6e8;
-      color: #333;
+      background: #f6f6f7;
+      color: $primary-color;
     }
   }
 
@@ -249,7 +250,7 @@
       border-radius: 6px;
       margin: 0 6px;
       padding: 3px 6px;
-      background: rgba(101, 117, 133, .16);
+      background: #232323;
       color: $primary-color;
     }
 
@@ -292,8 +293,8 @@
         border-radius: 6px;
         margin: 0 6px;
         padding: 3px 6px;
-        background: #fff6e8;
-        color: #333;
+        background: #232323;
+        color: $primary-color;
       }
     }
 
