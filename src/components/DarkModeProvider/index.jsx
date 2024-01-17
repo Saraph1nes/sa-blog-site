@@ -7,7 +7,7 @@ export const DarkModeContent = createContext({})
 const DarkModeProvider = ({children}) => {
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
-  const [primaryMainColor, setPrimaryMainColor] = useState('#ff9800')
+  const [primaryMainColor, setPrimaryMainColor] = useState('#ffa41d')
 
   const theme = useMemo(() => {
     const themeDarkMode = darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : darkMode

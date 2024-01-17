@@ -44,15 +44,13 @@ const SettingPanel = ({children}) => {
         sx={{minWidth: '300px'}}
         role="presentation"
       >
-        <List
-        >
+        <List>
           <ListItem>
             <ListItemText primary="暗黑模式"/>
             <DarkModeButton/>
           </ListItem>
         </List>
-        <List
-        >
+        <List>
           <ListItem>
             <ListItemText primary="主题色"/>
           </ListItem>

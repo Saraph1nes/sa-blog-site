@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import {unified} from "unified";
 import remarkParse from "remark-parse";
 import remarkGfm from 'remark-gfm'
@@ -59,6 +59,30 @@ const MDRenderer = ({data}) => {
     }, 300); // 与淡入动画时间一致
   };
 
+  const initTocListener = () => {
+    const article = document.querySelector('#article')
+    const tocItems = document.querySelectorAll('.toc-item')
+    console.log('article', article)
+    console.log('tocItems', tocItems)
+
+    // window.addEventListener('scroll', function () {
+    //   const currentScroll = window.scrollY;
+    //
+    //   // 遍历目录项，找到当前滚动位置对应的目录项
+    //   tocItems.forEach(function (item) {
+    //     const sectionId = item.getAttribute('href').substring(1);
+    //     const section = document.getElementById(sectionId);
+    //
+    //     if (section && section.offsetTop <= currentScroll && section.offsetTop + section.offsetHeight > currentScroll) {
+    //       // 高亮当前目录项
+    //       item.classList.add('highlight');
+    //     } else {
+    //       // 取消其他目录项的高亮
+    //       item.classList.remove('highlight');
+    //     }
+    //   });
+    // });
+  }
 
   const init = async () => {
     const file = await unified()
@@ -88,9 +112,11 @@ const MDRenderer = ({data}) => {
       .process(data.Content)
     setTime(readingTime(String(file)))
     setDataset(file)
+
+    initTocListener()
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     init()
   }, [data]);
 
@@ -119,7 +145,7 @@ const MDRenderer = ({data}) => {
     <div id="preview-container" onClick={closePreview}>
       <div id="preview"></div>
     </div>
-    <article dangerouslySetInnerHTML={{__html: String(dataset)}}></article>
+    <article id='article' dangerouslySetInnerHTML={{__html: String(dataset)}}></article>
   </div>
 }
 
