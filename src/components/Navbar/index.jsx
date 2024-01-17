@@ -1,5 +1,4 @@
 import {useContext, useLayoutEffect, useState} from 'react'
-import DarkModeButton from "@/components/DarkModeButton";
 import {DarkModeContent} from "@/components/DarkModeProvider";
 import CategoryIcon from '@mui/icons-material/Category';
 import Person4Icon from '@mui/icons-material/Person4';
@@ -17,6 +16,7 @@ import UserInfo from "@/components/Navbar/UserInfo";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 import {Link} from 'react-router-dom'
 import {useTheme} from "@mui/material";
+import SettingPanel from "@/components/Navbar/SettingPanel";
 
 import './index.scss'
 
@@ -40,7 +40,7 @@ const Navbar = () => {
       ctx.switchMode.toggleDarkMode('auto')
     }
     setIsMobile(isMob)
-  }, []);
+  }, [ctx.switchMode]);
 
   // 监听滚动隐藏
   // useLayoutEffect(() => {
@@ -80,8 +80,6 @@ const Navbar = () => {
           <Link to={'/'}>
             <h1 className="title">Saraph1nes Blog</h1>
           </Link>
-        </div>
-        <div className='header-right'>
           <nav className='header-nav'>
             <Link to={'/'} className="nav-item">
               <HouseIcon style={{fontSize: '16px'}}/>
@@ -120,8 +118,17 @@ const Navbar = () => {
               <span className='nav-item-txt'>介绍</span>
             </Link>
           </nav>
-          <UserInfo />
-          <DarkModeButton/>
+        </div>
+        <div className='header-right'>
+          <UserInfo/>
+          <SettingPanel>
+            <IconButton
+              color="inherit"
+            >
+              <MenuIcon/>
+            </IconButton>
+          </SettingPanel>
+          {/*<SaDarkMode/>*/}
         </div>
       </div>
     }

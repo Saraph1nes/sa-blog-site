@@ -1,3 +1,4 @@
+@import "src/common.scss";
 $prefix: category-detail-page;
 
 .#{$prefix} {
@@ -26,7 +27,7 @@ $prefix: category-detail-page;
         transition: ease-out 300ms;
 
         &:hover {
-          color: orange;
+          color: $primary-color;
         }
       }
 

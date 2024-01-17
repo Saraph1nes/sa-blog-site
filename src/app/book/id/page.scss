@@ -1,3 +1,5 @@
+@import "src/common.scss";
+
 .book-page-wrap {
   min-height: 100vh;
   max-width: 1400px;
@@ -67,11 +69,11 @@
 
             &.selected {
               font-weight: 700;
-              color: orange;
+              color: $primary-color;
             }
 
             &:hover {
-              color: orange;
+              color: $primary-color;
             }
           }
         }

@@ -1,7 +1,8 @@
+@import "src/common.scss";
+
 .user-info-area {
   font-size: 14px;
-  color: orange;
-  margin-left: 40px;
+  color: $primary-color;
 }
 
 .user-info-area-menu {

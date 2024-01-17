@@ -1,7 +1,9 @@
+import {Avatar} from "@mui/material";
+
 const UserSettingProfile = () => {
 
-  return <div>
-    UserSettingProfile
+  return <div className='user-setting-profile'>
+    <Avatar />
   </div>
 }
 

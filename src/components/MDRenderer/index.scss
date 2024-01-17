@@ -1,3 +1,4 @@
+@import "src/common.scss";
 @import 'highlight.js/scss/github.scss';
 
 .md_renderer-wrap {
@@ -101,7 +102,7 @@
   blockquote {
     margin: 10px auto;
     padding: 5px 10px;
-    border-left: 6px orange solid;
+    border-left: 6px $primary-color solid;
     border-radius: 3px;
 
     p {
@@ -249,7 +250,7 @@
       margin: 0 6px;
       padding: 3px 6px;
       background: rgba(101, 117, 133, .16);
-      color: orange;
+      color: $primary-color;
     }
 
     p {
@@ -280,7 +281,7 @@
     blockquote {
       margin: 10px auto;
       padding: 5px 10px;
-      border-left: 6px orange solid;
+      border-left: 6px $primary-color solid;
       border-radius: 3px;
 
       p {
@@ -496,12 +497,12 @@
       color: inherit;
 
       &:hover {
-        color: orange;
+        color: $primary-color;
       }
     }
 
     .toc-link-active {
-      color: orange;
+      color: $primary-color;
       font-weight: bold;
     }
   }

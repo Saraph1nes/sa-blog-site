@@ -1,6 +1,10 @@
 import {useContext} from "react";
 import classname from "classname";
-import {ToggleButton, ToggleButtonGroup, Tooltip} from "@mui/material";
+import {
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip
+} from "@mui/material";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import BrightnessAutoIcon from '@mui/icons-material/BrightnessAuto';

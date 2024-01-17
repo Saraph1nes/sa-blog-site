@@ -1,3 +1,5 @@
+@import "src/common.scss";
+
 .header {
   width: 100%;
   z-index: 999998;
@@ -33,24 +35,17 @@
     height: 60px;
 
     .header-left {
+      display: flex;
+      align-items: center;
+
       .title {
         transition: color 300ms;
         font-size: 16px;
 
         &:hover {
-          color: orange;
-
-          &::after {
-            content: '  :)';
-            font-size: 20px;
-          }
+          color: $primary-color;
         }
       }
-    }
-
-    .header-right {
-      display: flex;
-      align-items: center;
 
       .header-nav {
         display: flex;
@@ -69,10 +64,15 @@
           }
 
           &:hover {
-            color: orange;
+            color: $primary-color;
           }
         }
       }
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
     }
   }
 }
@@ -90,7 +90,7 @@
     }
 
     &:hover {
-      color: orange;
+      color: $primary-color;
     }
   }
 }

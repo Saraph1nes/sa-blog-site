@@ -2,14 +2,15 @@ import React, {useLayoutEffect, useState} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import {Avatar, Button, Divider, ListItemIcon, Tooltip} from "@mui/material";
+import {Avatar, Button, Divider, ListItemIcon, Tooltip, useTheme} from "@mui/material";
 import message from "@/components/Message";
 import {useNavigate} from "react-router-dom";
-import {Logout, Person, Settings} from "@mui/icons-material";
+import {Logout} from "@mui/icons-material";
 
 import './UserInfo.scss'
 
 const UserInfo = () => {
+  const theme = useTheme()
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [userInfo, setUserInfo] = useState(null);
@@ -53,7 +54,7 @@ const UserInfo = () => {
     }
   }, []);
 
-  return <div className='user-info-area'>
+  return <div className='user-info-area' style={{color: theme.palette.primary.main}}>
     {!userInfo && <Button variant='contained' onClick={onLogin}>登录</Button>}
     {userInfo && <Tooltip title="帐户设置">
       <IconButton

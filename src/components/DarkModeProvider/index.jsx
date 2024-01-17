@@ -7,13 +7,14 @@ export const DarkModeContent = createContext({})
 const DarkModeProvider = ({children}) => {
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
+  const [primaryMainColor, setPrimaryMainColor] = useState('#ff9800')
 
   const theme = useMemo(() => {
     const themeDarkMode = darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : darkMode
     return createTheme({
       palette: {
         primary: {
-          main: 'rgb(255,165,0)',
+          main: primaryMainColor,
         },
         mode: themeDarkMode,
         ...(themeDarkMode === 'dark' && {
@@ -34,7 +35,19 @@ const DarkModeProvider = ({children}) => {
         }),
       },
     })
-  }, [darkMode, osDarkMode])
+  }, [darkMode, osDarkMode, primaryMainColor])
+
+  const switchColor = useMemo(() => {
+    return {
+      setPrimaryMain: (color) => {
+        setPrimaryMainColor(() => {
+          document.documentElement.style.setProperty('--main-color', color);
+          setPrimaryMainColor(color)
+          return color
+        })
+      }
+    }
+  }, [])
 
   const switchMode = useMemo(() => {
     return {
@@ -49,18 +62,25 @@ const DarkModeProvider = ({children}) => {
   }, [])
 
   useLayoutEffect(() => {
-    if (localStorage) {
-      const storageDarkMode = localStorage.getItem('darkMode');
-      if (storageDarkMode) {
-        setDarkMode(storageDarkMode)
-      }
+    const storageDarkMode = localStorage.getItem('darkMode');
+    if (storageDarkMode) {
+      setDarkMode(storageDarkMode)
     }
   }, []);
+
+  useLayoutEffect(() => {
+    const storagePrimaryMainColor = localStorage.getItem('primaryMainColor');
+    if (storagePrimaryMainColor) {
+      document.documentElement.style.setProperty('--main-color', storagePrimaryMainColor);
+      setPrimaryMainColor(storagePrimaryMainColor)
+    }
+  }, [])
 
   return <DarkModeContent.Provider
     value={{
       switchMode,
-      darkMode
+      darkMode,
+      switchColor
     }}
   >
     <ThemeProvider theme={theme}>

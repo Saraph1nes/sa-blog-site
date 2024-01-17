@@ -114,7 +114,7 @@ const Heatmap = ({heatmapDataset}) => {
     let cellCol = 0;
 
     // Build color scale
-    const myColor = d3.scaleLinear([0, 5], ["white", "green"])
+    const myColor = d3.scaleLinear([0, 5], ["white", theme.palette.primary.main])
 
     // create a tooltip
     const Tooltip = d3.select("#sa_heatmap")

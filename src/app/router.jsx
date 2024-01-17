@@ -1,5 +1,5 @@
-import React, {Suspense, useCallback, useMemo} from "react";
-import {Navigate, useRoutes} from "react-router-dom";
+import React, { Suspense } from "react";
+import { Navigate, useRoutes } from "react-router-dom";
 
 const Home = React.lazy(() => import("@/app/home/page"));
 const Category = React.lazy(() => import("@/app/category/page"));
@@ -18,91 +18,42 @@ const UserSettingAccount = React.lazy(() => import("@/app/user/setting/account")
 const Loading = React.lazy(() => import("@/components/Loading/index.jsx"));
 
 const Router = () => {
-  const router = [
+  const routes = [
+    { path: "/", element: <Home /> },
+    { path: "404", element: <PageNotFound /> },
+    { path: "category", element: <Category /> },
+    { path: "category/:id", element: <CategoryId /> },
+    { path: "tag/:id", element: <TagId /> },
+    { path: "book/:id", element: <BookId /> },
+    { path: "article/:id", element: <ArticleId /> },
+    { path: "about", element: <About /> },
+    { path: "login", element: <Login /> },
+    { path: "register", element: <Register /> },
+    { path: "photoAlbum", element: <PhotoAlbum /> },
     {
-      path: "/",
-      element: <Home/>
-    },
-    {
-      path: '404',
-      element: <PageNotFound/>
-    },
-    {
-      path: 'category',
-      element: <Category/>
-    },
-    {
-      path: 'category/:id',
-      element: <CategoryId/>
-    },
-    {
-      path: 'tag/:id',
-      element: <TagId/>
-    },
-    {
-      path: 'book/:id',
-      element: <BookId/>
-    },
-    {
-      path: 'article/:id',
-      element: <ArticleId/>
-    },
-    {
-      path: 'about',
-      element: <About/>
-    },
-    {
-      path: 'login',
-      element: <Login/>
-    },
-    {
-      path: 'register',
-      element: <Register/>
-    },
-    {
-      path: 'photoAlbum',
-      element: <PhotoAlbum/>
-    },
-    {
-      path: 'user',
+      path: "user",
+      element: <UserSettingLayout />,
       children: [
-        {
-          path: 'setting',
-          element: <UserSettingLayout/>,
-          children: [
-            {
-              path: 'profile',
-              element: <UserSettingProfile/>
-            },
-            {
-              path: 'account',
-              element: <UserSettingAccount/>
-            }
-          ]
-        }
-      ]
+        { path: "setting/profile", element: <UserSettingProfile /> },
+        { path: "setting/account", element: <UserSettingAccount /> },
+      ],
     },
-    {
-      path: "*",
-      element: <Navigate to="/404"/>
-    }
-  ]
+    { path: "*", element: <Navigate to="/404" /> },
+  ];
 
-  const routerHandler = useCallback((router) => {
-    const dfs = (router) => {
-      router.forEach(i => {
-        if (i.children) {
-          dfs(i.children)
-        } else {
-          i.element = <Suspense fallback={<Loading/>}>{i.element}</Suspense>
-        }
-      })
-      return router
-    }
-    return dfs(router)
-  }, [])
+  const mapRoutes = (routes) => {
+    return routes.map((route) => ({
+      ...route,
+      element: (
+        <Suspense fallback={<Loading />}>{route.element}</Suspense>
+      ),
+      children: route.children ? mapRoutes(route.children) : undefined,
+    }));
+  };
 
-  return useRoutes(routerHandler(router))
-}
+  const mappedRoutes = mapRoutes(routes);
+
+  return useRoutes(mappedRoutes);
+};
 
 export default Router;

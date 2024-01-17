@@ -1,3 +1,5 @@
+@import "src/common.scss";
+
 .category-page {
   max-width: 1000px;
   margin: 0 auto;
@@ -14,7 +16,7 @@
 
           &:hover {
             cursor: pointer;
-            color: orange;
+            color: $primary-color;
           }
         }
       }
