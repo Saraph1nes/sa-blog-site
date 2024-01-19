@@ -2,14 +2,16 @@ import PropTypes from "prop-types";
 
 import './index.scss'
 
-const Loading = ({show = false}) => {
-  return <>
-    <div className='loading-page'>
-      <div>
-        <div className='loading'/>
-      </div>
-    </div>
-  </>
+const Loading = () => {
+  return <div
+    onClick={e => {
+      e.stopPropagation()
+      e.preventDefault()
+    }}
+    className='loading-page'
+  >
+    <div className='loading' />
+  </div>
 }
 
 Loading.propTypes = {

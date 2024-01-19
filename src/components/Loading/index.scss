@@ -1,7 +1,7 @@
-.loading-page{
+.loading-page {
+  z-index: 999999;
   left: 0;
   top: 0;
-  z-index: 1;
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -19,7 +19,7 @@
     display: block;
     margin: -50px auto 0;
     position: relative;
-    color: #FFF;
+    color: #000;
     transform: translateX(-32px);
     box-sizing: border-box;
     animation: animloader 2s ease infinite;
@@ -38,8 +38,9 @@
       position: absolute;
       left: 30px;
       top: 0;
-      animation: animloader 2s 0.2s ease infinite;
+      animation: animloader 2s 0.2s ease-in-out infinite;
     }
+
     &::before {
       animation-delay: 0.4s;
       left: 60px;
@@ -50,10 +51,12 @@
         top: 0;
         color: white;
       }
+
       50% {
         top: 30px;
         color: rgba(255, 255, 255, 0.2);
       }
+
       100% {
         top: 0;
         color: white;

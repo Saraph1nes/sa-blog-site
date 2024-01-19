@@ -6,6 +6,10 @@
     display: flex;
     max-width: 1100px;
 
+    &.isMobile{
+      padding-bottom: 76px;
+    }
+
     .m-t-20 {
       margin-top: 20px;
     }
@@ -45,4 +49,11 @@
       }
     }
   }
+}
+
+.mobile-footer-wrap{
+  z-index: 999999;
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
 }

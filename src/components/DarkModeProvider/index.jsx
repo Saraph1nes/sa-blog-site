@@ -1,13 +1,15 @@
-import {createContext, useLayoutEffect, useMemo, useState} from "react";
-import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
+import { createContext, useLayoutEffect, useMemo, useState } from "react";
+import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import PropTypes from "prop-types";
+import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 
 export const DarkModeContent = createContext({})
 
-const DarkModeProvider = ({children}) => {
+const DarkModeProvider = ({ children }) => {
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
   const [primaryMainColor, setPrimaryMainColor] = useState('#ffa41d')
+  const [isMobile, setIsMobile] = useState(false)
 
   const theme = useMemo(() => {
     const themeDarkMode = darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : darkMode
@@ -19,7 +21,7 @@ const DarkModeProvider = ({children}) => {
         mode: themeDarkMode,
         ...(themeDarkMode === 'dark' && {
           background: {
-            default: 'rgb(16,20,24)',
+            default: 'rgb(0,0,0)',
           },
           color: {
             default: '#ffffff'
@@ -63,6 +65,11 @@ const DarkModeProvider = ({children}) => {
   }, [])
 
   useLayoutEffect(() => {
+    const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
+    setIsMobile(isMob)
+  }, []);
+
+  useLayoutEffect(() => {
     const storageDarkMode = localStorage.getItem('darkMode');
     if (storageDarkMode) {
       setDarkMode(storageDarkMode)
@@ -81,11 +88,12 @@ const DarkModeProvider = ({children}) => {
     value={{
       switchMode,
       darkMode,
-      switchColor
+      switchColor,
+      isMobile
     }}
   >
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <div>{children}</div>
     </ThemeProvider>
   </DarkModeContent.Provider>

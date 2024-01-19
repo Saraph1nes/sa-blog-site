@@ -1,11 +1,10 @@
-import {useLayoutEffect, useState} from "react";
+import { useLayoutEffect, useState } from "react";
 import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
 import SaComment from "@/components/SaComment"
 import classname from 'classname'
 import {
   Avatar,
-  Box,
   Button,
   Divider,
   List,
@@ -18,9 +17,10 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {useNavigate, useParams} from "react-router-dom";
-import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import { useNavigate, useParams } from "react-router-dom";
+import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
 import dayjs from "dayjs";
+import AuthModalBox from '@/components/AuthModalBox'
 
 import './page.scss'
 
@@ -89,13 +89,13 @@ function Page() {
         'is-mobile': isMobile
       })
     }>
-      <Skeleton variant="rectangular" height={50} width={600} style={{margin: '20px auto'}}/>
-      <Skeleton variant="rectangular" height={80} width={200} style={{margin: '20px auto 70px'}}/>
-      <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-      <Skeleton variant="rectangular" height={400} style={{margin: '20px'}}/>
-      <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-      <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-      <Skeleton variant="rectangular" height={300} style={{margin: '20px'}}/>
+      <Skeleton variant="rectangular" height={50} width={600} style={{ margin: '20px auto' }} />
+      <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
+      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+      <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
+      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+      <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
     </div>
   }
 
@@ -108,7 +108,7 @@ function Page() {
   }>
     <h2 className='article-title'>{article.Name}</h2>
     <div className='article-content'>
-      <MDRenderer data={article}/>
+      <MDRenderer data={article} />
     </div>
     <div className="article-switching-wrap">
       <h2 className='article-switching-title'>其他文章</h2>
@@ -121,7 +121,7 @@ function Page() {
             onClick={() => {
               navigate(`/article/${article.PrevArticle.ID}`)
             }}>
-            <ChevronLeftIcon/>
+            <ChevronLeftIcon />
             <div>
               <div className='article-switching-item-title'>上一篇</div>
               <div className='article-switching-item-name'>{article.PrevArticle.Name}</div>
@@ -141,7 +141,7 @@ function Page() {
               <div className='article-switching-item-title'>下一篇</div>
               <div className='article-switching-item-name'>{article.NextArticle.Name}</div>
             </div>
-            <ChevronRightIcon/>
+            <ChevronRightIcon />
           </Paper>
         }
       </div>
@@ -149,12 +149,14 @@ function Page() {
     <div className="article-comment-wrap">
       <h2 className='article-comment-title'>评论({comment.Count})</h2>
       {
-        UserInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess}/>
+        UserInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
       }
       {
         !UserInfo && <div className='comment-need-login'>
           <div>登录后可评论</div>
-          <Button variant='contained' style={{marginTop: '20px'}} onClick={goLogin}>去登录</Button>
+          <AuthModalBox>
+            <Button variant='contained' style={{ marginTop: '20px' }}>去登录</Button>
+          </AuthModalBox>
         </div>
       }
       {
@@ -162,10 +164,10 @@ function Page() {
           <List>
             {
               comment?.Comments?.map((item, index) => <div key={item.ID}>
-                {index !== 0 && <Divider variant="inset" component="li"/>}
+                {index !== 0 && <Divider variant="inset" component="li" />}
                 <ListItem alignItems="flex-start" className='article-comment-list-item'>
                   <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                   </ListItemAvatar>
                   <ListItemText
                     primary={item.Content}

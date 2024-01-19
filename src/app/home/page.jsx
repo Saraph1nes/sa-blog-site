@@ -1,5 +1,5 @@
 import service from "@/utils/http";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState, useContext } from "react";
 import { Box, Chip, Divider, Paper, Skeleton, Stack, Tab, Tabs, useTheme } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import ClassIcon from "@mui/icons-material/Class";
@@ -9,8 +9,7 @@ import classname from 'classname'
 import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
 import CommentIcon from '@mui/icons-material/Comment';
-// import TimeFlies from "@/components/TimeFlies";
-import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
+import { DarkModeContent } from "@/components/DarkModeProvider";
 import debounce from "lodash/debounce";
 
 import './page.scss'
@@ -29,6 +28,7 @@ const tagColorArr = [
 ]
 
 function Home() {
+  const ctx = useContext(DarkModeContent);
   const navigate = useNavigate();
   const theme = useTheme()
   const [list, setList] = useState([])
@@ -36,7 +36,6 @@ function Home() {
   const [pageSize, setPageSize] = useState(15)
   const [pageIndex, setPageIndex] = useState(1)
   const [isMounted, setIsMounted] = useState(false)
-  const [isMobile, setIsMobile] = useState(true)
   const [listOver, setListOver] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(-1)
   const [hitokoto, setHitokoto] = useState({
@@ -100,8 +99,6 @@ function Home() {
     ])
     setTagListDataset(fetchGetAllTagsRes.Data)
     setHeatmapDataset(fetchGetArticleHeatmapRes.Data)
-    const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
-    setIsMobile(isMob)
     setCategoryList(fetchCategoryRes.Data)
     setIsMounted(true)
   }
@@ -172,16 +169,16 @@ function Home() {
     className={classname({
       'main': true,
       'dark': theme.palette.mode === 'dark',
-      'mobile': isMobile,
+      'mobile': ctx.isMobile,
     })}
   >
     <section className='container-wrap'>
       {
-        !isMobile && <div className='special-subject-wrap'>
+        !ctx.isMobile && <div className='special-subject-wrap'>
           <h2 className='special-subject-title'>专题</h2>
           <Stack
             className='special-subject-list'
-            direction={isMobile ? "column" : "row"}
+            direction={ctx.isMobile ? "column" : "row"}
             spacing={3}
           >
             <Paper
@@ -213,11 +210,17 @@ function Home() {
         </div>
       }
       <div className='article-list-wrap'>
-        <Box className="article-list-category"
+        <Box
+          className={
+            classname({
+              "article-list-category": true,
+              "isMobile": ctx.isMobile
+            })
+          }
           sx={{
             borderBottom: 1,
             borderColor: 'divider',
-            background: theme.palette.background.default,
+            background: ctx.isMobile ? theme.palette.background.paper : theme.palette.background.default,
             color: theme.palette.color.default
           }}
         >
@@ -236,48 +239,51 @@ function Home() {
             />)}
           </Tabs>
         </Box>
-        {list.map(item => <div key={item.ID}>
-          <div className='article-item'>
-            <div className='left'>
-              <div
-                className="article-title"
-                onClick={() => {
-                  goToArticle(item.ID)
-                }}
-              >
-                {item.Name}
+        <div className='article-list-container'>
+
+          {list.map(item => <div key={item.ID}>
+            <div className='article-item'>
+              <div className='left'>
+                <div
+                  className="article-title"
+                  onClick={() => {
+                    goToArticle(item.ID)
+                  }}
+                >
+                  {item.Name}
+                </div>
+                {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
+                  {item.CategoryName && <Link
+                    to={`/category/${item.CategoryId}`}
+                  >
+                    <div className='article-category'>
+                      <ClassIcon style={{ fontSize: '18px' }} />
+                      <span style={{ marginLeft: '5px' }}>{item.CategoryName}</span>
+                    </div>
+                  </Link>}
+                  {item.TagName && <Link
+                    to={`/tag/${item.TagId}`}
+                  >
+                    <div className='article-tag'>
+                      <LocalOfferIcon style={{ fontSize: '18px' }} />
+                      <span style={{ marginLeft: '5px' }}>{item.TagName}</span>
+                    </div>
+                  </Link>}
+                  {
+                    item.CommentCount > 0 && <div className='article-comment-count'>
+                      <CommentIcon style={{ fontSize: '18px' }} />
+                      <span style={{ marginLeft: '5px' }}>评论({item.CommentCount})</span>
+                    </div>
+                  }
+                </div>}
               </div>
-              {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
-                {item.CategoryName && <Link
-                  to={`/category/${item.CategoryId}`}
-                >
-                  <div className='article-category'>
-                    <ClassIcon style={{ fontSize: '18px' }} />
-                    <span style={{ marginLeft: '5px' }}>{item.CategoryName}</span>
-                  </div>
-                </Link>}
-                {item.TagName && <Link
-                  to={`/tag/${item.TagId}`}
-                >
-                  <div className='article-tag'>
-                    <LocalOfferIcon style={{ fontSize: '18px' }} />
-                    <span style={{ marginLeft: '5px' }}>{item.TagName}</span>
-                  </div>
-                </Link>}
-                {
-                  item.CommentCount > 0 && <div className='article-comment-count'>
-                    <CommentIcon style={{ fontSize: '18px' }} />
-                    <span style={{ marginLeft: '5px' }}>评论({item.CommentCount})</span>
-                  </div>
-                }
-              </div>}
+              <div className='right'>
+                <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>
+              </div>
             </div>
-            <div className='right'>
-              <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>
-            </div>
-          </div>
-          <Divider style={{ marginTop: '20px' }} />
-        </div>)}
+            <Divider style={{ marginTop: '20px' }} />
+          </div>)}
+        </div>
         {
           showListBottomLoading && <div className='list-bottom-loading'>
             <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
@@ -300,7 +306,7 @@ function Home() {
       {/*</div>}*/}
     </section>
     {
-      !isMobile && <aside className='aside-wrap'>
+      !ctx.isMobile && <aside className='aside-wrap'>
         <Paper className='statistical-panel' elevation={1}>
           <div className='heatmap-nums'>
             <div className="heatmap-nums-item">

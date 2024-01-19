@@ -1,79 +1,60 @@
 @import "src/common.scss";
 
-.header {
-  width: 100%;
-  z-index: 999998;
+.mobile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  &.dark {
-    backdrop-filter: blur(8px);
-    //background: rgba(16, 20, 24, 0.8);
-    //border-bottom: 1px solid #333;
-  }
+.header-wrap {
+  padding: 0 20px;
+  overflow: hidden;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
 
-  &.light {
-    backdrop-filter: blur(8px);
-    //background: rgba(255, 255, 255, 0.9);
-    //border-bottom: 1px solid #eee;
-  }
-
-  .mobile-header-wrap {
-    .mobile-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-  }
-
-  .header-wrap {
-    padding: 0 20px;
-    overflow: hidden;
-    max-width: 1300px;
-    margin: 0 auto;
+  .header-left {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 60px;
 
-    .header-left {
+    .title {
+      transition: color 300ms;
+      font-size: 16px;
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    .header-nav {
       display: flex;
       align-items: center;
 
-      .title {
+      .nav-item {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        margin-left: 30px;
         transition: color 300ms;
-        font-size: 16px;
+
+        .nav-item-txt {
+          margin-left: 5px;
+        }
 
         &:hover {
           color: $primary-color;
         }
       }
-
-      .header-nav {
-        display: flex;
-        align-items: center;
-
-        .nav-item {
-          font-size: 14px;
-          display: flex;
-          align-items: center;
-          cursor: pointer;
-          margin-left: 30px;
-          transition: color 300ms;
-
-          .nav-item-txt {
-            margin-left: 5px;
-          }
-
-          &:hover {
-            color: $primary-color;
-          }
-        }
-      }
     }
+  }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-    }
+  .header-right {
+    display: flex;
+    align-items: center;
   }
 }
 

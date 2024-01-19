@@ -1,6 +1,5 @@
 import axios from 'axios'
 import message from "@/components/Message";
-import {useNavigate} from "react-router-dom";
 
 const service = axios.create({
   // baseURL: 'https://api.sablogs.cn/api',

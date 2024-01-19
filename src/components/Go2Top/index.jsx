@@ -1,6 +1,4 @@
-'use client'
-
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {Box, Fab} from "@mui/material";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
@@ -39,9 +37,9 @@ const Go2Top = () => {
       isVisible && <Box
         onClick={handleClick}
         role="presentation"
-        sx={{position: 'fixed', bottom: 180, right: 16}}
+        sx={{position: 'fixed', bottom: 120, right: 20}}
       >
-        <Fab size='small' aria-label="add">
+        <Fab size='small' aria-label="go to top" color="primary">
           <ArrowDropUpIcon/>
         </Fab>
       </Box>

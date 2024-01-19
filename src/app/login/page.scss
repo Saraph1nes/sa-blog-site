@@ -1,11 +1,11 @@
 @import "src/common.scss";
 
 .page-login-wrap {
+  overflow: hidden;
   background: url("https://assest.sablogs.cn/imgs/blog/wallhaven-1pomov.jpg");
   min-height: 100vh;
 
   .page-login {
-    padding: 200px 0;
     position: relative;
     background: rgba(0, 0, 0, 0.4);
     height: 100vh;
@@ -14,12 +14,12 @@
     .login-panel {
       border-radius: 20px;
       padding: 40px 40px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(255, 255, 255);
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      width: 500px;
+      width: 50vh;
       height: auto;
 
       .back-btn {
@@ -34,8 +34,8 @@
         justify-content: center;
 
         .login-panel-logo {
-          width: 100px;
-          height: 100px;
+          width: 70px;
+          height: 70px;
         }
       }
 
