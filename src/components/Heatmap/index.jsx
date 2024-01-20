@@ -1,10 +1,10 @@
 import {useEffect} from "react";
 import * as d3 from "d3";
 import {useTheme} from "@mui/material";
+import dayjs from "dayjs";
 import PropTypes from "prop-types";
 
 import './index.scss'
-import dayjs from "dayjs";
 
 const Heatmap = ({heatmapDataset}) => {
   const theme = useTheme()
@@ -26,7 +26,7 @@ const Heatmap = ({heatmapDataset}) => {
         .map((itm, idx) => {
           const itmDate = dayjs().subtract(idx, 'days').format('YYYY-MM-DD');
           const itmTotal = config.fill[dayjs().subtract(idx, 'days').format('YYYY-MM-DD')];
-          if (itmTotal){
+          if (itmTotal) {
             return {
               date: itmDate,
               total: itmTotal
@@ -114,7 +114,8 @@ const Heatmap = ({heatmapDataset}) => {
     let cellCol = 0;
 
     // Build color scale
-    const myColor = d3.scaleLinear([0, 5], ["white", theme.palette.primary.main])
+    const myColor = d3
+      .scaleLinear([0, 5], [`${theme.palette.primary.main}40`, theme.palette.primary.main])
 
     // create a tooltip
     const Tooltip = d3.select("#sa_heatmap")
