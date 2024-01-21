@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import {useContext, useRef, useState} from 'react';
 import {Button, IconButton, useTheme} from '@mui/material';
 import Popover from '@mui/material/Popover';
 import EmojiPicker from 'emoji-picker-react';
@@ -9,8 +9,10 @@ import service from "@/utils/http.js";
 import PropTypes from "prop-types";
 
 import './index.scss'
+import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
 
 const Comment = ({articleData,onCommentSuccess}) => {
+  const [, setUserInfo] = useContext(UserInfoContext)
   const theme = useTheme()
   const [anchorEl, setAnchorEl] = useState(null);
   const [text, setText] = useState('')
@@ -86,6 +88,14 @@ const Comment = ({articleData,onCommentSuccess}) => {
       comment: text,
       articleId: articleData.ID
     })
+    if (fetchArticleCommentRes.Code === 40100){
+      localStorage.removeItem('AccessToken')
+      localStorage.removeItem('ExpiresIn')
+      localStorage.removeItem('TokenType')
+      localStorage.removeItem('UserInfo')
+      setUserInfo(null)
+      return
+    }
     if (!fetchArticleCommentRes.Success){
       message.error({
         content: fetchArticleCommentRes.Msg || '评论失败'

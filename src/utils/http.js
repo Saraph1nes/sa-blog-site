@@ -38,7 +38,6 @@ service.interceptors.response.use(
     }
     if (res.Code === 40100) {
       message.error({content: '请先登录', duration: 1000})
-      window.location.replace(`/login?redirect_to=${window.location.pathname}`)
       return res
     }
     return res

@@ -9,8 +9,6 @@ const TagId = React.lazy(() => import("@/app/tag/id/page"));
 const BookId = React.lazy(() => import("@/app/book/id/page"));
 const ArticleId = React.lazy(() => import("@/app/article/id/page"));
 const About = React.lazy(() => import("@/app/about/page"));
-const Login = React.lazy(() => import("@/app/login/page"));
-const Register = React.lazy(() => import("@/app/register/page"));
 const PhotoAlbum = React.lazy(() => import("@/app/photoAlbum"));
 const UserSettingLayout = React.lazy(() => import("@/app/user/setting"));
 const UserSettingProfile = React.lazy(() => import("@/app/user/setting/profile"));
@@ -27,8 +25,6 @@ const Router = () => {
     { path: "book/:id", element: <BookId /> },
     { path: "article/:id", element: <ArticleId /> },
     { path: "about", element: <About /> },
-    { path: "login", element: <Login /> },
-    { path: "register", element: <Register /> },
     { path: "photoAlbum", element: <PhotoAlbum /> },
     {
       path: "user",
