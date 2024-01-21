@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import {useContext, useLayoutEffect, useState} from "react";
 import service from "@/utils/http";
 import MDRenderer from "@/components/MDRenderer";
 import SaComment from "@/components/SaComment"
@@ -21,10 +21,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
 import dayjs from "dayjs";
 import AuthModalBox from '@/components/AuthModalBox'
+import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
 
 import './page.scss'
 
 function Page() {
+  const [userInfo] = useContext(UserInfoContext)
   const navigate = useNavigate()
   const params = useParams()
   const theme = useTheme()
@@ -37,13 +39,6 @@ function Page() {
     Count: 0,
     Comments: []
   })
-
-
-  const UserInfoStr = localStorage.getItem('UserInfo')
-  let UserInfo = null
-  if (UserInfoStr) {
-    UserInfo = JSON.parse(UserInfoStr)
-  }
 
   const fetchArticleById = async (id) => {
     return await service.get(`/article/${id}`)
@@ -68,10 +63,6 @@ function Page() {
     setArticle(fetchArticleByIdRes.Data)
     setComment(fetchGetArticleCommentRes.Data)
     setIsMount(true)
-  }
-
-  const goLogin = () => {
-    navigate(`/login?redirect_to=${window.location.pathname}`)
   }
 
   useLayoutEffect(() => {
@@ -149,13 +140,12 @@ function Page() {
     <div className="article-comment-wrap">
       <h2 className='article-comment-title'>评论({comment.Count})</h2>
       {
-        UserInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
+        userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
       }
       {
-        !UserInfo && <div className='comment-need-login'>
-          <div>登录后可评论</div>
+        !userInfo && <div className='comment-need-login'>
           <AuthModalBox>
-            <Button variant='contained' style={{ marginTop: '20px' }}>去登录</Button>
+            <Button variant='contained'>需要登录才可评论</Button>
           </AuthModalBox>
         </div>
       }

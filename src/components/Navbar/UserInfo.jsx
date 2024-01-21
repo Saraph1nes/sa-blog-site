@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useContext, useLayoutEffect, useState} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -6,14 +6,16 @@ import {Avatar, Button, Divider, ListItemIcon, Tooltip, useTheme} from "@mui/mat
 import message from "@/components/Message";
 import {useNavigate} from "react-router-dom";
 import {Logout} from "@mui/icons-material";
+import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
 
 import './UserInfo.scss'
+import AuthModalBox from "@/components/AuthModalBox/index.jsx";
 
 const UserInfo = () => {
+  const [userInfo, setUserInfo] = useContext(UserInfoContext)
   const theme = useTheme()
   const navigate = useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [userInfo, setUserInfo] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,20 +44,10 @@ const UserInfo = () => {
     })
   }
 
-  const onLogin = () => {
-    navigate(`/login?redirect_to=${window.location.pathname}`)
-  }
-
-  useLayoutEffect(() => {
-    const UserInfo = localStorage.getItem('UserInfo')
-    if (UserInfo) {
-      const userInfoParse = JSON.parse(UserInfo)
-      setUserInfo(userInfoParse)
-    }
-  }, []);
-
   return <div className='user-info-area' style={{color: theme.palette.primary.main}}>
-    {!userInfo && <Button variant='contained' onClick={onLogin}>登录</Button>}
+    {!userInfo && <AuthModalBox>
+      <Button variant='contained'>登录</Button>
+    </AuthModalBox>}
     {userInfo && <Tooltip title="帐户设置">
       <IconButton
         onClick={handleClick}
