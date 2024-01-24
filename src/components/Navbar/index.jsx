@@ -1,5 +1,5 @@
-import { useContext, useLayoutEffect, useState } from 'react'
-import { DarkModeContent } from "@/components/DarkModeProvider";
+import {useContext, useLayoutEffect, useState} from 'react'
+import {DarkModeContent} from "@/components/DarkModeProvider";
 import CategoryIcon from '@mui/icons-material/Category';
 import Person4Icon from '@mui/icons-material/Person4';
 import HouseIcon from '@mui/icons-material/House';
@@ -10,10 +10,12 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import UserInfo from "@/components/Navbar/UserInfo";
-import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
-import { Link } from 'react-router-dom'
-import { useTheme } from "@mui/material";
+import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import {Link} from 'react-router-dom'
+import {useTheme} from "@mui/material";
 import SettingPanel from "@/components/Navbar/SettingPanel";
+import SearchIcon from '@mui/icons-material/Search';
+import SaSearchPanel from "@/components/SaSearchPanel/index.jsx";
 
 import './index.scss'
 
@@ -77,28 +79,37 @@ const Navbar = () => {
           </Link>
           <nav className='header-nav'>
             <Link to={'/'} className="nav-item">
-              <HouseIcon style={{ fontSize: '16px' }} />
+              <HouseIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>首页</span>
             </Link>
             <Link to={'/category'} className="nav-item">
-              <CategoryIcon style={{ fontSize: '16px' }} />
+              <CategoryIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>分类</span>
             </Link>
             <Link to={'/about'} className="nav-item">
-              <Person4Icon style={{ fontSize: '16px' }} />
+              <Person4Icon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>介绍</span>
             </Link>
           </nav>
         </div>
         <div className='header-right'>
-          <UserInfo />
-          <SettingPanel>
+          <SaSearchPanel>
             <IconButton
+              sx={{marginRight: '20px'}}
               color="inherit"
             >
-              <MenuIcon />
+              <SearchIcon/>
+            </IconButton>
+          </SaSearchPanel>
+          <SettingPanel>
+            <IconButton
+              sx={{marginRight: '20px'}}
+              color="inherit"
+            >
+              <MenuIcon/>
             </IconButton>
           </SettingPanel>
+          <UserInfo/>
           {/*<SaDarkMode/>*/}
         </div>
       </header>
@@ -119,16 +130,16 @@ const Navbar = () => {
                 Saraph1nes Blog
               </Typography>
             </Link>
-            <div style={{ display: 'flex' }}>
+            <div style={{display: 'flex'}}>
               <SettingPanel>
                 <IconButton
                   color="inherit"
                 >
-                  <MenuIcon />
+                  <MenuIcon/>
                 </IconButton>
               </SettingPanel>
-              <div style={{ marginLeft: '10px' }}>
-                <UserInfo />
+              <div style={{marginLeft: '10px'}}>
+                <UserInfo/>
               </div>
             </div>
           </Toolbar>
