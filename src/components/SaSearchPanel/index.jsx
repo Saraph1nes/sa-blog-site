@@ -1,16 +1,20 @@
 import PropTypes from "prop-types";
-import {cloneElement, useEffect, useRef, useState} from "react";
+import {cloneElement, useRef, useState} from "react";
 import {Divider, Paper, useTheme} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
-import HistoryIcon from '@mui/icons-material/History';
+import CloseIcon from '@mui/icons-material/Close';
 import classname from 'classname'
 import service from "@/utils/http.js";
 import {useNavigate} from "react-router-dom";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import debounce from "lodash/debounce";
 
 import './index.scss'
 
-const POPULAR_SEARCHES = ['浏览器', '算法', '工具', '工程化']
+const POPULAR_SEARCHES = ['浏览器', '算法', '工具', 'react', 'vue', 'useState', 'hooks']
+
+// TODO 支持移动端搜索
 
 const SaSearchPanel = ({children}) => {
   const theme = useTheme()
@@ -22,7 +26,17 @@ const SaSearchPanel = ({children}) => {
     Articles: [],
     TotalCount: 0
   })
-  const [searchTxt, setSearchTxt] = useState('')
+
+  const inputRef = useRef(null)
+
+  const searchTxt = inputRef?.current?.value || ''
+
+  const setSearchTxt = (txt = '') => {
+    if (!inputRef?.current){
+      return
+    }
+    inputRef.current.value = txt;
+  };
 
   const fetchArticleSearch = (params) => {
     return service.get('/article/search', {
@@ -46,19 +60,19 @@ const SaSearchPanel = ({children}) => {
     }, 200)
   }
 
-  const handleInput = async (txt) => {
+  const initSearchResult = () => {
+    setSearchResult({
+      Articles: [],
+      TotalCount: 0
+    })
+  }
+
+  const handleInput = debounce(async (txt) => {
     txt = txt.trim();
     setSearchTxt(txt)
 
     if (!txt) {
-      setSearchResult({
-        Articles: [],
-        TotalCount: 0
-      })
-      return
-    }
-
-    if (txt.length < 2) {
+      initSearchResult()
       return
     }
 
@@ -66,10 +80,10 @@ const SaSearchPanel = ({children}) => {
       k: txt
     })
     setSearchResult({
-      Articles: Data.Articles || [],
-      TotalCount: Data.TotalCount || 0
+      Articles: Data.Articles,
+      TotalCount: Data.TotalCount
     })
-  }
+  }, 300)
 
   const handleSearchResultItemClick = (id) => {
     navigate(`/article/${id}`)
@@ -84,11 +98,16 @@ const SaSearchPanel = ({children}) => {
   const renderHighlightSearchTxt = (str, substr) => {
     return str.split(new RegExp(`(${substr})`, 'gi')).map((part, index) => (
       part.toLowerCase() === substr.toLowerCase() ? (
-        <span key={index} className="highlight">{part}</span>
+        <span key={index} style={{background: theme.palette.primary.main}}>{part}</span>
       ) : (
         <span key={index}>{part}</span>
       )
     ))
+  }
+
+  const handleArrowBack = () => {
+    initSearchResult()
+    setSearchTxt('')
   }
 
   return (
@@ -99,10 +118,7 @@ const SaSearchPanel = ({children}) => {
         },
         onClick: () => {
           setSearchTxt('')
-          setSearchResult({
-            Articles: [],
-            TotalCount: 0
-          })
+          initSearchResult()
           handlePanelShow()
         }
       })}
@@ -122,18 +138,31 @@ const SaSearchPanel = ({children}) => {
             }}
           >
             <div className='search-input-wrap'>
-              <SearchIcon sx={{margin: '0 6px', fontSize: '30px', color: `${theme.palette.primary.main}`}}/>
+              {
+                !searchTxt && <SearchIcon className='search-input-icon search'/>
+              }
+              {
+                !!searchTxt && <>
+                  <ArrowBackIcon className='search-input-icon back' onClick={handleArrowBack}/>
+                  <Divider orientation="vertical" flexItem/>
+                </>
+              }
               <input
+                ref={inputRef}
+                autoFocus
                 type="text"
                 className='search-input'
                 style={{
                   caretColor: theme.palette.primary.main,
                   color: theme.palette.primary.main
                 }}
-                value={searchTxt}
-                onChange={(e) => handleInput(e.target.value)}
-                placeholder='上下方向键选择结果，回车确认搜索'
+                onChange={(e) => {
+                  handleInput(e.target.value)
+                }}
+                placeholder='在此输入你想搜索的内容'
               />
+              <Divider orientation="vertical" flexItem/>
+              <CloseIcon className='search-input-icon close' onClick={handlePanelClose}/>
             </div>
             <Divider/>
             {
@@ -145,10 +174,10 @@ const SaSearchPanel = ({children}) => {
                 <div className="search-result-list">
                   {
                     searchResult.Articles.map((i, idx) => <>
-                      {idx !== 0 && <Divider/>}
+                      {idx !== 0 && <Divider sx={{margin: '6px 0'}}/>}
                       <div key={i.ID} className="search-result-list-item"
                            onClick={() => handleSearchResultItemClick(i.ID)}>
-                        <div className='search-result-list-item-title'>{i.Name}</div>
+                        <div className='search-result-list-item-title'>{renderHighlightSearchTxt(i.Name, searchTxt)}</div>
                         <div className='search-result-list-item-content'>
                           {renderHighlightSearchTxt(i.Content, searchTxt)}
                         </div>
@@ -177,13 +206,13 @@ const SaSearchPanel = ({children}) => {
                     }
                   </div>
                 </div>
-                <Divider/>
-                <div className='search-history'>
-                  <div className="search-history-label">
-                    <HistoryIcon sx={{fontSize: '16px'}}></HistoryIcon>
-                    <span>历史搜索记录</span>
-                  </div>
-                </div>
+                {/*<Divider/>*/}
+                {/*<div className='search-history'>*/}
+                {/*  <div className="search-history-label">*/}
+                {/*    <HistoryIcon sx={{fontSize: '16px'}}></HistoryIcon>*/}
+                {/*    <span>历史搜索记录</span>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
               </>
             }
           </Paper>

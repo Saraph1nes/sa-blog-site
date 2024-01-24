@@ -8,13 +8,14 @@
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
-
   display: flex;
   align-items: center;
   justify-content: center;
 
+  transition: all ease-in-out 3ms;
+
   .search-panel {
-    width: 1200px;
+    width: 800px;
     overflow: hidden;
     opacity: 0;
     border-radius: 16px;
@@ -29,7 +30,31 @@
       display: flex;
       align-items: center;
 
+      .search-input-icon {
+        margin: 0 6px;
+        font-size: 30px;
+
+        &.close {
+          cursor: pointer;
+          color: $primary-color;
+        }
+
+        &.search {
+          color: $primary-color;
+        }
+
+        &.back {
+          cursor: pointer;
+
+          &:hover {
+            color: $primary-color;
+          }
+        }
+
+      }
+
       .search-input {
+        margin: 0 10px;
         padding: 6px 0;
         border: none;
         outline: none;
@@ -38,10 +63,10 @@
         caret-shape: block;
         background: transparent;
 
-        &::placeholder{
-          text-align: right;
+        &::placeholder {
+          //text-align: right;
           font-size: 16px;
-          line-height: 20px;
+          line-height: 25px;
           color: #999;
         }
       }
@@ -105,11 +130,8 @@
     }
 
     .search-result {
-      max-height: 400px;
       user-select: none;
       padding: 10px;
-      overflow-x: hidden;
-      overflow-y: auto;
 
       .search-result-label {
         color: #65C923;
@@ -121,6 +143,9 @@
       .search-result-list {
         font-size: 14px;
         margin-top: 6px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        max-height: 400px;
 
         .search-result-list-item {
           cursor: pointer;
@@ -133,14 +158,15 @@
             background: rgba(238, 238, 238, 0.28);
           }
 
-          .search-result-list-item-title{
+          .search-result-list-item-title {
+            font-size: 16px;
             font-weight: bold;
           }
 
-          .search-result-list-item-content{
+          .search-result-list-item-content {
             margin-top: 5px;
 
-            .highlight{
+            .highlight {
               background: $primary-color;
             }
           }
