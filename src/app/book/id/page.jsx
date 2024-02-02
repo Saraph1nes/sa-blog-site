@@ -5,7 +5,6 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import classname from 'classname'
 import MDRenderer from "@/components/MDRenderer";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import loading from "@/components/Loading";
 import {useParams} from "react-router-dom";
 
 import './page.scss'

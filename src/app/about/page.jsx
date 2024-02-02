@@ -2,66 +2,22 @@ import {useEffect, useState} from "react";
 import {
   Avatar,
   Button,
-  Card, CardActionArea, CardActions, CardContent,
-  CardMedia,
-  Divider, Grid, IconButton,
+  Divider,
+  IconButton,
   Step,
   StepLabel,
   Stepper,
 } from "@mui/material";
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
 import Typography from "@mui/material/Typography";
 import GitHubIcon from '@mui/icons-material/GitHub';
-import MicrosoftIcon from '@mui/icons-material/Microsoft';
-import LinkIcon from '@mui/icons-material/Link';
 import {Link} from "react-router-dom";
+import {OPEN_SOURCE_PROJECT, PROJECT_LIST_DATA} from "@/app/about/constant.js";
+import ProjectList from "@/app/about/ProjectList.jsx";
+import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 import './page.scss'
-
-const projectListData = [
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047717689960.png',
-    name: 'translationX',
-    desc: '易用的 VSCode 翻译插件',
-    githubLink: 'https://github.com/Saraph1nes/vscode-transX',
-    microsoftLink: 'https://marketplace.visualstudio.com/items?itemName=Saraph1nes.translationX',
-    outerLink: ''
-  },
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047720734846.png',
-    name: 'Ninja',
-    desc: 'chrome 插件 新标签页 基于chrome收藏夹功能实现',
-    githubLink: 'https://github.com/Saraph1nes/ninja-chrome-extensions',
-    microsoftLink: '',
-    outerLink: ''
-  },
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/buff-helper-demo.png',
-    name: '油猴网易BUFF脚本',
-    desc: 'CS2 油猴网易 BUFF 脚本，利润分析',
-    githubLink: 'https://github.com/Saraph1nes/163BuffHelper',
-    microsoftLink: '',
-    outerLink: ''
-  },
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17047722746718.png',
-    name: '跨端业务组件库',
-    desc: '基于 lit 的 web-component 跨框架组件库',
-    githubLink: '',
-    microsoftLink: '',
-    outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
-  },
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/ezrpc-analyz-cli-demo.png',
-    name: 'ezrpc-analyz-cli',
-    desc: 'ezrpc 组件库使用分析 脚手架工具',
-    githubLink: 'https://github.com/Saraph1nes/ezrpc-analyz-cli',
-    microsoftLink: '',
-    outerLink: ''
-  }
-]
 
 const About = () => {
   const [mediaSelectIndex, setMediaSelectIndex] = useState(0)
@@ -84,10 +40,10 @@ const About = () => {
       <div className='name'>
         Saraph1nes
       </div>
-      {/*<div className='located'>*/}
-      {/*  <LocationOnIcon fontSize='small' color='primary'></LocationOnIcon>*/}
-      {/*  <span className='m-l-7'>湖北 - 武汉</span>*/}
-      {/*</div>*/}
+      <div className='located'>
+        <LocationOnIcon fontSize='small' color='primary'></LocationOnIcon>
+        <span className='m-l-7'>WuHan</span>
+      </div>
       <Divider style={{margin: '20px 0'}}/>
       <div className="social-media">
         <ul className='social-media-nav'>
@@ -157,64 +113,32 @@ const About = () => {
         </section>
 
         <section>
-          <h2>个人项目</h2>
-          <div className="my-project-list">
-            <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
-              {
-                projectListData.map(project =>
-                  <Grid item xs={2} sm={4} md={4} key={project.name}>
-                    <Card>
-                      <CardActionArea>
-                        <CardMedia
-                          sx={{height: 140}}
-                          image={project.img}
-                          title={project.name}
-                        />
-                        <CardContent>
-                          <Typography gutterBottom variant="h5" component="div">
-                            {project.name}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {project.desc}
-                          </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                          {
-                            project.githubLink &&
-                            <IconButton aria-label="github-link" href={project.githubLink} target='_blank'>
-                              <GitHubIcon/>
-                            </IconButton>
-                          }
-                          {
-                            project.microsoftLink &&
-                            <IconButton aria-label="microsoft-link" href={project.microsoftLink} target='_blank'>
-                              <MicrosoftIcon/>
-                            </IconButton>
-                          }
-                          {
-                            project.outerLink &&
-                            <IconButton aria-label="outer-link" href={project.outerLink} target='_blank'>
-                              <LinkIcon/>
-                            </IconButton>
-                          }
-                        </CardActions>
-                      </CardActionArea>
-                    </Card>
-                  </Grid>
-                )
-              }
-            </Grid>
-          </div>
+          <h2>项目</h2>
+          <section>
+            <h3>开源</h3>
+            <ProjectList dataset={OPEN_SOURCE_PROJECT}/>
+          </section>
+
+          <section>
+            <h3>个人</h3>
+            <ProjectList dataset={PROJECT_LIST_DATA}/>
+          </section>
         </section>
 
         <section>
           <h2>博客历程</h2>
           <div style={{padding: "10px 0", marginTop: '30px'}}>
-            <Stepper activeStep={3} orientation="vertical" sx={{width:'100%'}}>
+            <Stepper activeStep={3} orientation="vertical" sx={{width: '100%'}}>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: 'orange',
+                      margin: '0 10px'
+                    }}/>
                   }
                   optional={<Typography variant="caption">
                     <div>Typecho 博客 + 自定义主题</div>
@@ -222,13 +146,19 @@ const About = () => {
                     <div>https://www.yxlyz.net</div>
                   </Typography>}
                 >
-                  <div style={{fontWeight:'bold'}}>2018.9 - 2020.7</div>
+                  <div style={{fontWeight: 'bold'}}>2018.9 - 2020.7</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: 'orange',
+                      margin: '0 10px'
+                    }}/>
                   }
                   optional={<Typography variant="caption">
                     <div>hexo 博客 + fluid 主题</div>
@@ -236,13 +166,19 @@ const About = () => {
                     <Link to='https://saraph1nes.github.io/' target='_blank'>https://saraph1nes.github.io/</Link>
                   </Typography>}
                 >
-                  <div style={{fontWeight:'bold'}}>2020.7 - 2023.12</div>
+                  <div style={{fontWeight: 'bold'}}>2020.7 - 2023.12</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: 'orange',
+                      margin: '0 10px'
+                    }}/>
                   }
                   optional={<Typography variant="caption">
                     <div>hexo 博客 + fluid 主题</div>
@@ -251,13 +187,19 @@ const About = () => {
                     <Link to='https://saraph1nes.gitee.io/' target='_blank'>https://saraph1nes.gitee.io/</Link>
                   </Typography>}
                 >
-                  <div style={{fontWeight:'bold'}}>2022.6 - 2023.12</div>
+                  <div style={{fontWeight: 'bold'}}>2022.6 - 2023.12</div>
                 </StepLabel>
               </Step>
               <Step>
                 <StepLabel
                   StepIconComponent={() => <div
-                    style={{width: '8px', height: '8px', borderRadius: '50%', backgroundColor: 'orange', margin:'0 10px'}}/>
+                    style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      backgroundColor: 'orange',
+                      margin: '0 10px'
+                    }}/>
                   }
                   optional={<Typography variant="caption">
                     <div>前端：react + vite</div>
@@ -266,7 +208,7 @@ const About = () => {
                     <div>https://www.sablogs.cn/</div>
                   </Typography>}
                 >
-                  <div style={{fontWeight:'bold'}}>2023.12 - 至今</div>
+                  <div style={{fontWeight: 'bold'}}>2023.12 - 至今</div>
                 </StepLabel>
               </Step>
             </Stepper>

@@ -87,50 +87,50 @@
           align-items: center;
           justify-content: space-between;
           margin-top: 20px;
-  
+
           .left {
             .article-title {
               display: inline-block;
               font-size: 16px;
               border-bottom: 1px dashed rgba(255, 255, 255, 0);
               transition: 300ms ease-out;
-  
+
               &:hover {
                 color: $primary-color;
                 cursor: pointer;
                 border-bottom: 1px dashed $primary-color;
               }
             }
-  
+
             .title-desc-wrap {
               display: flex;
               align-items: center;
               margin-top: 20px;
               font-size: 12px;
-  
+
               .article-category {
                 display: flex;
                 align-items: center;
                 transition: 200ms ease-in-out;
                 cursor: pointer;
-  
+
                 &:hover {
                   color: $primary-color;
                 }
               }
-  
+
               .article-tag {
                 margin-left: 20px;
                 display: flex;
                 align-items: center;
                 transition: 200ms ease-in-out;
                 cursor: pointer;
-  
+
                 &:hover {
                   color: $primary-color;
                 }
               }
-  
+
               .article-comment-count {
                 margin-left: 20px;
                 display: flex;
@@ -138,8 +138,10 @@
               }
             }
           }
-  
+
           .right {
+            flex-shrink: 0;
+
             .create-time {
               font-size: 12px;
               color: #aaaaaa;

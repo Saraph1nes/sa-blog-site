@@ -3,7 +3,7 @@ import message from "@/components/Message";
 
 const service = axios.create({
   // baseURL: 'https://api.sablogs.cn/api',
-  baseURL: import.meta.env.DEV ? 'http://localhost:8080/api' : 'https://api.sablogs.cn/api',
+  baseURL: import.meta.env.DEV ? 'http://localhost:9090/api' : 'https://api.sablogs.cn/api',
   timeout: 5000,
 })
 

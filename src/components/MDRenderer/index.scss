@@ -38,7 +38,7 @@
   h5,
   h6 {
     font-weight: bold;
-    margin: 20px 0;
+    margin: 30px 0;
     line-height: 24px;
   }
 
@@ -75,14 +75,14 @@
   code {
     font-size: 14px;
     border-radius: 6px;
-    margin: 0 6px;
-    padding: 3px 6px;
+    margin: 0 3px;
+    padding: 3px 10px;
     background: #f6f6f7;
     color: $primary-color;
   }
 
   p {
-    margin: 10px 0;
+    margin: 20px 0 20px 10px;
     line-height: 30px;
 
     img {
@@ -97,8 +97,7 @@
 
   ul,
   ol {
-    margin: 10px 0;
-    padding: 0 0 0 10px;
+    margin: 20px 0 20px 40px;
 
     li {
       margin: 10px 0;
@@ -107,21 +106,13 @@
   }
 
   blockquote {
-    margin: 10px auto;
+    margin: 20px 0 20px 10px;
     padding: 0 10px;
     border-left: 6px $primary-color solid;
     border-radius: 3px;
 
     p {
       margin: 10px;
-    }
-
-    & code {
-      border-radius: 6px;
-      margin: 0 6px;
-      padding: 3px 6px;
-      background: #f6f6f7;
-      color: $primary-color;
     }
   }
 
