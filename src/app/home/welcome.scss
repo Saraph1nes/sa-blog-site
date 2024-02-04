@@ -1,0 +1,67 @@
+@import "src/common.scss";
+
+#welcome-wrap {
+  --percentage: 0%;
+  height: 200vh;
+
+  .welcome {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .drop-down-icon {
+      font-size: 30px;
+      position: absolute;
+      bottom: 120px;
+      display: flex;
+      align-items: center;
+      animation: dropdown ease-in-out 1s infinite;
+      opacity: 0.8;
+
+      &:hover{
+        cursor: pointer;
+        color: $primary-color;
+      }
+    }
+
+    @keyframes dropdown {
+      0% {
+        bottom: 120px;
+      }
+
+      50% {
+        bottom: 100px;
+      }
+
+      100% {
+        bottom: 120px;
+      }
+    }
+
+    #welcome-text {
+      text-align: center;
+      margin: 0;
+      padding: 0;
+      font-size: 48px;
+      letter-spacing: -0.3px;
+
+      background-image: linear-gradient(75deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 33.33%, rgba(0, 0, 0, 0) 66.67%, rgba(0, 0, 0, 0) 100%);
+      background-size: 300% 100%;
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  }
+
+  &.dark {
+    .welcome {
+      #welcome-text {
+        background-image: linear-gradient(75deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 1) 33.33%, rgba(255, 255, 255, 0) 66.67%, rgba(255, 255, 255, 0) 100%);
+      }
+    }
+  }
+}

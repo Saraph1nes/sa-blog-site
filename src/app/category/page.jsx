@@ -25,7 +25,7 @@ const Category = () => {
   return <div className='category-page'>
     {
       category.map(cat => <Accordion
-        defaultExpanded={true}
+        defaultExpanded={false}
         className='category-page-accordion'
         key={cat.ID}
       >

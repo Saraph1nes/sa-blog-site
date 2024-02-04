@@ -29,7 +29,7 @@ const DarkModeProvider = ({ children }) => {
         }),
         ...(themeDarkMode === 'light' && {
           background: {
-            default: '#ffffff',
+            default: 'rgb(255,251,248)',
           },
           color: {
             default: '#434343'
