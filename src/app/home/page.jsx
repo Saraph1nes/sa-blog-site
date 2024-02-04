@@ -49,13 +49,23 @@ function Home() {
   }, []);
 
   const listener = () => {
+    if (!showWelcome) {
+      document.removeEventListener('scroll', listener)
+      return;
+    }
     const articleListWrap = document.querySelector('.article-list-wrap')
     if (document.documentElement.scrollTop > articleListWrap?.offsetTop) {
+      sessionStorage.setItem('showWelcomeStorage', 'false')
       setShowWelcome(false)
     }
   }
 
   useEffect(() => {
+    const storage = sessionStorage.getItem('showWelcomeStorage')
+    if (storage === 'false') {
+      setShowWelcome(false)
+      return
+    }
     document.addEventListener('scroll', listener)
     return () => {
       document.removeEventListener('scroll', listener)
