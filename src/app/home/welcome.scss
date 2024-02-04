@@ -15,7 +15,7 @@
     .drop-down-icon {
       font-size: 30px;
       position: absolute;
-      bottom: 120px;
+      bottom: 200px;
       display: flex;
       align-items: center;
       animation: dropdown ease-in-out 1s infinite;
@@ -29,15 +29,15 @@
 
     @keyframes dropdown {
       0% {
-        bottom: 120px;
+        bottom: 200px;
       }
 
       50% {
-        bottom: 100px;
+        bottom: 160px;
       }
 
       100% {
-        bottom: 120px;
+        bottom: 200px;
       }
     }
 
