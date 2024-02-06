@@ -24,7 +24,6 @@ function Home() {
     TotalCount: 0
   })
   const [tagListDataset, setTagListDataset] = useState([])
-  const [showWelcome, setShowWelcome] = useState(true)
 
   const fetchGetArticleHeatmap = async () => {
     return await service.get('/article/getArticleHeatmap')
@@ -48,29 +47,6 @@ function Home() {
     init()
   }, []);
 
-  const listener = () => {
-    if (!showWelcome) {
-      document.removeEventListener('scroll', listener)
-      return;
-    }
-    const articleListWrap = document.querySelector('.article-list-wrap')
-    if (document.documentElement.scrollTop > articleListWrap?.offsetTop) {
-      sessionStorage.setItem('showWelcomeStorage', 'false')
-      setShowWelcome(false)
-    }
-  }
-
-  useEffect(() => {
-    const storage = sessionStorage.getItem('showWelcomeStorage')
-    if (storage === 'false') {
-      setShowWelcome(false)
-      return
-    }
-    document.addEventListener('scroll', listener)
-    return () => {
-      document.removeEventListener('scroll', listener)
-    }
-  }, [])
 
   if (!isMounted) {
     return <main className='main'></main>
@@ -83,7 +59,9 @@ function Home() {
       'mobile': ctx.isMobile,
     })}
   >
-    {showWelcome && <Welcome/>}
+    {/*<Banner />*/}
+
+    <Welcome/>
 
     <section className='container-wrap'>
       <div className='container'>
