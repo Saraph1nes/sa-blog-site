@@ -1,5 +1,3 @@
-'use client'
-
 import { useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { createRoot } from "react-dom/client";
@@ -14,7 +12,7 @@ function Message(props) {
     setOpen(false);
   };
   return (
-    <Snackbar open={open} autoHideDuration={duration} onClose={handleClose}>
+    <Snackbar open={open} autoHideDuration={duration} onClose={handleClose} sx={{ bottom: { xs: 90, sm: 24 } }}>
       <Alert variant="filled" onClose={handleClose} severity={type} sx={{ width: '100%' }}>
         {content}
       </Alert>

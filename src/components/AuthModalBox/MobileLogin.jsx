@@ -13,16 +13,12 @@ const MobileLogin = ({setMode, handleClose}) => {
   const [sendingCodeCount, setSendingCodeCount] = useState(-1)
   const formRef = useRef(null);
 
-  const fetchSendRegisterCodeSMS = async (params) => {
-    return await service.post(`/user/sendRegisterCodeSMS`, params)
+  const fetchSendLoginCodeSMS = async (params) => {
+    return await service.post(`/user/sendLoginCodeSMS`, params)
   }
 
-  const fetchLogin = async (params) => {
-    return await service.post(`/user/login`, params)
-  }
-
-  const fetchRegister = async (params) => {
-    return await service.post(`/user/register`, params)
+  const fetchLoginSMS = async (params) => {
+    return await service.post(`/user/loginSMS`, params)
   }
 
   const onSendCode = async (event) => {
@@ -44,11 +40,11 @@ const MobileLogin = ({setMode, handleClose}) => {
       return
     }
 
-    const fetchSendRegisterCodeSMSRes = await fetchSendRegisterCodeSMS({
+    const fetchSendLoginCodeSMSRes = await fetchSendLoginCodeSMS({
       mobile: formJson.mobile
     })
 
-    if (!fetchSendRegisterCodeSMSRes.Success) {
+    if (!fetchSendLoginCodeSMSRes.Success) {
       return
     }
 
@@ -91,13 +87,7 @@ const MobileLogin = ({setMode, handleClose}) => {
       return
     }
 
-    const fetchRegisterRes = await fetchRegister(formJson)
-
-    if (!fetchRegisterRes.Success) {
-      return
-    }
-
-    const fetchLoginRes = await fetchLogin(formJson)
+    const fetchLoginRes = await fetchLoginSMS(formJson)
     if (!fetchLoginRes.Success) {
       return
     }
@@ -107,7 +97,7 @@ const MobileLogin = ({setMode, handleClose}) => {
     localStorage.setItem('UserInfo', JSON.stringify(fetchLoginRes.Data))
 
     message.success({
-      content: '注册成功,已登录',
+      content: '登录成功',
     })
 
     setUserInfo(fetchLoginRes.Data)
