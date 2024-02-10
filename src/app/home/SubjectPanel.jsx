@@ -22,7 +22,7 @@ const SubjectPanel = () => {
   return <>
     {
       !ctx.isMobile && <div className='special-subject-wrap'>
-        <h2 className='special-subject-title'>专题</h2>
+        {/*<h2 className='special-subject-title'>专题</h2>*/}
         <Stack
           className='special-subject-list'
           direction={ctx.isMobile ? "column" : "row"}

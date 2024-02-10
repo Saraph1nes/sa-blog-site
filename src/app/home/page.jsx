@@ -1,5 +1,5 @@
 import service from "@/utils/http";
-import {useLayoutEffect, useState, useContext, useEffect} from "react";
+import {useLayoutEffect, useState, useContext} from "react";
 import {Chip, Divider, Paper, useTheme} from "@mui/material";
 import {useNavigate, Link} from "react-router-dom";
 import dayjs from "dayjs";
@@ -10,7 +10,6 @@ import {DarkModeContent} from "@/components/DarkModeProvider";
 import {TAG_COLOR_ARR} from "@/app/home/constant.js";
 import SubjectPanel from "@/app/home/SubjectPanel.jsx";
 import ArticleList from "@/app/home/ArticleList.jsx";
-import Welcome from "@/app/home/Welcome.jsx";
 
 import './page.scss'
 
@@ -61,7 +60,7 @@ function Home() {
   >
     {/*<Banner />*/}
 
-    <Welcome/>
+    {/*<Welcome/>*/}
 
     <section className='container-wrap'>
       <div className='container'>
