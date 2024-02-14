@@ -133,7 +133,7 @@ function Home() {
             >
               鄂ICP备2022013786号-1
             </Link>
-            <div style={{marginTop: '20px', display: 'block'}}>© 2023 Saraph1nes Blog</div>
+            <div style={{marginTop: '20px', display: 'block'}}>© 2024 Saraph1nes Blog</div>
           </section>
         </aside>
       }

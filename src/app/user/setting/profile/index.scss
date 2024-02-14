@@ -1,0 +1,48 @@
+@import "src/common.scss";
+
+.user-setting-profile {
+  display: flex;
+  align-items: center;
+  flex-flow: column;
+
+  .m-t-20 {
+    margin-top: 20px;
+  }
+
+  .m-t-10 {
+    margin-top: 10px;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .m-l-10 {
+    margin-left: 10px;
+  }
+
+  .items-center {
+    align-items: center;
+  }
+
+  .relative{
+    position: relative;
+  }
+
+  .absolute{
+    position: absolute;
+  }
+
+  .r--30 {
+    right: -30px;
+  }
+
+  .color-primary {
+    color: $primary-color;
+    cursor: pointer;
+  }
+
+  .f-s-18 {
+    font-size: 14px;
+  }
+}

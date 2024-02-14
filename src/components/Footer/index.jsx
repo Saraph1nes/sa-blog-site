@@ -28,7 +28,7 @@ const Footer = () => {
       }>
         <div className='copyright-information'>
           <div className='copyright-information-title'>版权信息</div>
-          <div className='m-t-20'>© 2023 Saraph1nes Blog</div>
+          <div className='m-t-20'>© 2024 Saraph1nes Blog</div>
         </div>
         {/*<div className='friendly-link'>*/}
         {/*  <div className='friendly-link-title'>友情链接</div>*/}

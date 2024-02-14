@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect, useState} from 'react'
+import React, {useContext} from 'react'
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
@@ -7,9 +7,9 @@ import message from "@/components/Message";
 import {useNavigate} from "react-router-dom";
 import {Logout} from "@mui/icons-material";
 import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
+import AuthModalBox from "@/components/AuthModalBox/index.jsx";
 
 import './UserInfo.scss'
-import AuthModalBox from "@/components/AuthModalBox/index.jsx";
 
 const UserInfo = () => {
   const [userInfo, setUserInfo] = useContext(UserInfoContext)
@@ -42,6 +42,8 @@ const UserInfo = () => {
     message.success({
       content: '登出成功',
     })
+
+    navigate('/')
   }
 
   return <div className='user-info-area' style={{color: theme.palette.primary.main}}>
@@ -59,8 +61,8 @@ const UserInfo = () => {
       >
         <Avatar
           sx={{width: 30, height: 30}}
-          alt={userInfo.Name || userInfo.Mobile}
-          src={userInfo.Avatar || ''}
+          alt={'头像'}
+          src={userInfo?.Avatar || ''}
         />
       </IconButton>
     </Tooltip>}
@@ -77,8 +79,8 @@ const UserInfo = () => {
       anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
     >
       <MenuItem onClick={handleSetting}>
-        <Avatar/>
-        <div style={{marginLeft: '20px'}}>Saraph1nes</div>
+        <Avatar src={userInfo?.Avatar}/>
+        <div style={{marginLeft: '20px'}}>{userInfo?.Name || `${userInfo?.Mobile.substring(0, 3)}****${userInfo?.Mobile.substring(7)}` || ''}</div>
       </MenuItem>
       <Divider/>
       {/*<MenuItem onClick={handleSetting}>*/}
