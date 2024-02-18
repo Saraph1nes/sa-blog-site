@@ -14,7 +14,7 @@
       margin-right: 8px;
 
       .special-subject-wrap {
-        //padding: 0 30px;
+        padding: 0 20px;
         max-width: 1200px;
         margin: 0 auto 20px;
 
@@ -28,6 +28,7 @@
           align-items: center;
 
           .special-subject-list-item {
+            overflow: hidden;
             transition: ease-in-out 150ms;
             position: relative;
             width: 100%;
@@ -37,21 +38,18 @@
             color: #ffffff;
             border-radius: 20px;
             cursor: pointer;
+            font-size: 16px;
 
             &.frontend {
-              background: linear-gradient(rgb(62, 185, 255) 0%, rgb(0, 11, 69) 100%);
+              background: linear-gradient(rgb(0, 122, 194) 0%, rgb(0, 45, 73) 100%);
             }
 
             &.backend {
-              background: linear-gradient(rgb(8, 118, 117) 0%, rgb(20, 57, 101) 100%);
+              background: linear-gradient(rgb(0, 201, 197) 0%, rgb(0, 86, 86) 100%);
             }
 
             &.algorithm {
-              background: linear-gradient(rgb(255, 108, 63) 0%, rgb(91, 28, 28) 100%);
-            }
-
-            &-title {
-              font-size: 18px;
+              background: linear-gradient(rgb(189, 45, 0) 0%, rgb(79, 19, 0) 100%);
             }
 
             &-img {
@@ -59,6 +57,24 @@
               right: 0;
               bottom: 0;
               height: 100px;
+            }
+
+            &:hover {
+              transform: scale(1.05);
+
+              .special-subject-list-item-img {
+                animation: rotate 10s linear infinite alternate-reverse;
+
+                @keyframes rotate {
+                  0% {
+                    transform: rotate(0);
+                  }
+
+                  100% {
+                    transform: rotate(360deg);
+                  }
+                }
+              }
             }
           }
         }
@@ -75,6 +91,7 @@
           //padding-bottom: 12px;
           //background: #ffffff;
           display: flex;
+          z-index: 1;
 
           .article-list-category-item {
             font-size: 14px;
@@ -136,7 +153,7 @@
                 margin-top: 20px;
                 font-size: 14px;
 
-                .summary-btn{
+                .summary-btn {
                   cursor: pointer;
                   color: $primary-color;
                 }
@@ -215,11 +232,11 @@
 
     .aside-wrap {
       position: sticky;
-      top: 16px;
+      top: 20px;
       max-height: 50vh;
-      padding: 8px;
-      margin-top: 36px;
-      width: 330px;
+      //padding: 8px;
+      //margin-top: 36px;
+      width: 312px;
 
       .statistical-panel {
         border-radius: 13px;
