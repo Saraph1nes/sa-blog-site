@@ -25,9 +25,7 @@ const ArticleList = () => {
   const fetchArticles = async () => {
     return await service.get('/article', {
       params: {
-        pageIndex: pageIndex,
-        pageSize: 20,
-        category: selectedCategory
+        pageIndex: pageIndex, pageSize: 20, category: selectedCategory
       }
     })
   }
@@ -102,12 +100,9 @@ const ArticleList = () => {
 
   return <div className='article-list-wrap'>
     <Box
-      className={
-        classname({
-          "article-list-category": true,
-          "isMobile": ctx.isMobile
-        })
-      }
+      className={classname({
+        "article-list-category": true, "isMobile": ctx.isMobile
+      })}
       sx={{
         borderBottom: 1,
         borderColor: 'divider',
@@ -135,13 +130,26 @@ const ArticleList = () => {
       {list.map(item => <div key={item.ID}>
         <div className='article-item'>
           <div className='left'>
-            <div
+            {
+              item.Picture && <div className='article-img-wrap'>
+                <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
+                  goToArticle(item.ID)
+                }}/>
+              </div>
+            }
+            <h3
               className="article-title"
               onClick={() => {
                 goToArticle(item.ID)
               }}
             >
               {item.Name}
+            </h3>
+            <div className='summary'>
+              {item.Summary}
+              <span className='summary-btn' onClick={() => {
+                goToArticle(item.ID)
+              }}>阅读全文</span>
             </div>
             {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
               {item.CategoryName && <Link
@@ -160,31 +168,26 @@ const ArticleList = () => {
                   <span style={{marginLeft: '5px'}}>{item.TagName}</span>
                 </div>
               </Link>}
-              {
-                item.CommentCount > 0 && <div className='article-comment-count'>
-                  <CommentIcon style={{fontSize: '18px'}}/>
-                  <span style={{marginLeft: '5px'}}>评论({item.CommentCount})</span>
-                </div>
-              }
+              {item.CommentCount > 0 && <div className='article-comment-count'>
+                <CommentIcon style={{fontSize: '18px'}}/>
+                <span style={{marginLeft: '5px'}}>评论({item.CommentCount})</span>
+              </div>}
             </div>}
+            <div className='create-time'>发布于{dayjs(item.CreatedAt).format("MM-DD HH:mm")} · 作者Saraph1nes</div>
           </div>
-          <div className='right'>
-            <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>
-          </div>
+          {/*<div className='right'>*/}
+          {/*  <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>*/}
+          {/*</div>*/}
         </div>
         <Divider style={{marginTop: '20px'}}/>
       </div>)}
     </div>
-    {
-      showListBottomLoading.current && <div className='list-bottom-loading'>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-      </div>
-    }
-    {
-      listOver && <div className='list-bottom-over'>------ 没有更多了 ------</div>
-    }
+    {showListBottomLoading.current && <div className='list-bottom-loading'>
+      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+    </div>}
+    {listOver && <div className='list-bottom-over'>------ 没有更多了 ------</div>}
   </div>
 }
 
