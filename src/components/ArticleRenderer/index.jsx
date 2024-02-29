@@ -9,16 +9,16 @@ import rehypeRewrite from 'rehype-rewrite';
 import slug from 'rehype-slug'
 import toc from 'rehype-toc'
 import dayjs from "dayjs";
-import { Skeleton, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
 import rehypeStringify from "rehype-stringify";
 import readingTime from "reading-time";
 import classname from 'classname'
 import PropTypes from 'prop-types'
+import MarkdownRenderer from "@/components/MarkdownRenderer/index.jsx";
 
 import './index.scss'
 
-const MDRenderer = ({ data }) => {
-  const [dataset, setDataset] = useState(null)
+const ArticleRenderer = ({ data }) => {
   const [time, setTime] = useState(null)
 
   const theme = useTheme()
@@ -60,46 +60,46 @@ const MDRenderer = ({ data }) => {
     }, 300); // 与淡入动画时间一致
   };
 
-  useLayoutEffect(() => {
-    const scrollListener = () => {
-      const tocItems = document.querySelectorAll('.toc-link');
-      const currentScroll = window.scrollY;
-      tocItems.forEach((tocItem, index) => {
-        const tocItemTxt = tocItem.getAttribute('href').substring(1);
-        const articleTitleDom = document.getElementById(tocItemTxt);
-        if (articleTitleDom) {
-          const articleTitleDomOffsetTop = articleTitleDom.offsetTop;
-          const nextTocItem = tocItems[index + 1];
-          let nextArticleTitleDomOffsetTop;
-          if (nextTocItem) {
-            const nextTocItemTxt = nextTocItem.getAttribute('href').substring(1);
-            const nextArticleTitleDom = document.getElementById(nextTocItemTxt);
-            if (nextArticleTitleDom) {
-              nextArticleTitleDomOffsetTop = nextArticleTitleDom.offsetTop;
-            }
-          }
-          if (
-            (index === 0 && currentScroll <= articleTitleDomOffsetTop) || // First element
-            (index === tocItems.length - 1 && currentScroll >= articleTitleDomOffsetTop) || // Last element
-            (index !== 0 && index !== tocItems.length - 1 &&
-              articleTitleDomOffsetTop <= currentScroll &&
-              (nextArticleTitleDomOffsetTop === undefined || nextArticleTitleDomOffsetTop > currentScroll)
-            )
-          ) {
-            tocItem.classList.add('toc-link-active');
-          } else {
-            tocItem.classList.remove('toc-link-active');
-          }
-        }
-      });
-    };
-
-    window.addEventListener('scroll', scrollListener);
-
-    return () => {
-      window.removeEventListener('scroll', scrollListener);
-    };
-  }, []);
+  // useLayoutEffect(() => {
+  //   const scrollListener = () => {
+  //     const tocItems = document.querySelectorAll('.toc-link');
+  //     const currentScroll = window.scrollY;
+  //     tocItems.forEach((tocItem, index) => {
+  //       const tocItemTxt = tocItem.getAttribute('href').substring(1);
+  //       const articleTitleDom = document.getElementById(tocItemTxt);
+  //       if (articleTitleDom) {
+  //         const articleTitleDomOffsetTop = articleTitleDom.offsetTop;
+  //         const nextTocItem = tocItems[index + 1];
+  //         let nextArticleTitleDomOffsetTop;
+  //         if (nextTocItem) {
+  //           const nextTocItemTxt = nextTocItem.getAttribute('href').substring(1);
+  //           const nextArticleTitleDom = document.getElementById(nextTocItemTxt);
+  //           if (nextArticleTitleDom) {
+  //             nextArticleTitleDomOffsetTop = nextArticleTitleDom.offsetTop;
+  //           }
+  //         }
+  //         if (
+  //           (index === 0 && currentScroll <= articleTitleDomOffsetTop) || // First element
+  //           (index === tocItems.length - 1 && currentScroll >= articleTitleDomOffsetTop) || // Last element
+  //           (index !== 0 && index !== tocItems.length - 1 &&
+  //             articleTitleDomOffsetTop <= currentScroll &&
+  //             (nextArticleTitleDomOffsetTop === undefined || nextArticleTitleDomOffsetTop > currentScroll)
+  //           )
+  //         ) {
+  //           tocItem.classList.add('toc-link-active');
+  //         } else {
+  //           tocItem.classList.remove('toc-link-active');
+  //         }
+  //       }
+  //     });
+  //   };
+  //
+  //   window.addEventListener('scroll', scrollListener);
+  //
+  //   return () => {
+  //     window.removeEventListener('scroll', scrollListener);
+  //   };
+  // }, []);
 
 
   const init = async () => {
@@ -131,44 +131,34 @@ const MDRenderer = ({ data }) => {
       .use(rehypeStringify) // Convert AST into serialized HTML
       .process(data.Content)
     setTime(readingTime(String(file)))
-    setDataset(file)
   }
 
   useLayoutEffect(() => {
     init()
   }, [data]);
 
-  if (!dataset) {
-    return <>
-      <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
-      <Skeleton variant="rectangular" height={20} style={{ margin: '10px' }} />
-      <Skeleton variant="rectangular" height={40} style={{ margin: '10px' }} />
-      <Skeleton variant="rectangular" height={10} style={{ margin: '10px' }} />
-      <Skeleton variant="rectangular" height={10} style={{ margin: '10px' }} />
-      <Skeleton variant="rectangular" height={30} style={{ margin: '10px' }} />
-    </>
-  }
-
   return <div
     className={classname({
-      'md_renderer-wrap': true, 'dark': theme.palette.mode === 'dark'
+      'article_renderer-wrap': true, 'dark': theme.palette.mode === 'dark'
     })}
     onClick={handleClick}
   >
-    <div className='article-info-wrap'>
-      <div className='created-date'>发布于: {dayjs(data.CreatedAt || '').format('YYYY-MM-DD HH:mm:ss')}</div>
-      <div className='reading-words'>字数: {time.words}</div>
-      <div className='reading-time'>阅读时间: {Math.floor(time.minutes)}分钟</div>
-    </div>
+    {
+      time && <div className='article-info-wrap'>
+        <div className='created-date'>发布于: {dayjs(data.CreatedAt || '').format('YYYY-MM-DD HH:mm:ss')}</div>
+        <div className='reading-words'>字数: {time.words}</div>
+        <div className='reading-time'>阅读时间: {Math.floor(time.minutes)}分钟</div>
+      </div>
+    }
     <div id="preview-container" onClick={closePreview}>
       <div id="preview"></div>
     </div>
-    <article id='article' dangerouslySetInnerHTML={{ __html: String(dataset) }}></article>
+    <MarkdownRenderer data={data}></MarkdownRenderer>
   </div>
 }
 
-MDRenderer.propTypes = {
+ArticleRenderer.propTypes = {
   data: PropTypes.object
 }
 
-export default MDRenderer
+export default ArticleRenderer

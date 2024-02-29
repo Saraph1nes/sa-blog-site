@@ -3,8 +3,9 @@ import service from "@/utils/http";
 import {Divider, IconButton, Skeleton} from "@mui/material";
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import classname from 'classname'
-import MDRenderer from "@/components/MDRenderer";
+import ArticleRenderer from "@/components/ArticleRenderer";
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import MarkdownNavbar from 'markdown-navbar'
 import {useParams} from "react-router-dom";
 
 import './page.scss'
@@ -144,7 +145,7 @@ const Book = () => {
           <div className='article-wrap'>
             <h1 className='article-title'>{articleData.Name}</h1>
             <div className='article-content'>
-              <MDRenderer data={articleData}></MDRenderer>
+              <ArticleRenderer data={articleData}></ArticleRenderer>
             </div>
           </div>
         </div>

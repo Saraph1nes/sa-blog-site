@@ -1,6 +1,6 @@
 import {useContext, useLayoutEffect, useState} from "react";
 import service from "@/utils/http";
-import MDRenderer from "@/components/MDRenderer";
+import ArticleRenderer from "@/components/ArticleRenderer";
 import SaComment from "@/components/SaComment"
 import classname from 'classname'
 import {
@@ -99,7 +99,7 @@ function Page() {
   }>
     <h2 className='article-title'>{article.Name}</h2>
     <div className='article-content'>
-      <MDRenderer data={article} />
+      <ArticleRenderer data={article} />
     </div>
     <div className="article-switching-wrap">
       <h2 className='article-switching-title'>其他文章</h2>

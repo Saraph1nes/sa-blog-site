@@ -1,0 +1,103 @@
+@import "src/common.scss";
+
+.markdown-body-wrap {
+  display: flex;
+
+
+  .markdown-body {
+    width: 100%;
+    overflow: hidden;
+    flex-grow: 0;
+    font-size: 16px !important;
+    line-height: 2 !important;
+
+    a {
+      background-color: transparent;
+      color: $primary-color !important;
+      text-decoration: none;
+    }
+  }
+
+  .page-guide-nav-content {
+    position: sticky;
+    flex-shrink: 0;
+    top: 20px;
+    margin-left: 20px;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    .title-anchor {
+      position: relative;
+      display: block;
+      transition: all 0.2s;
+      line-height: 2rem;
+      cursor: pointer;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: '';
+        display: block;
+        width: 4px;
+        height: 2rem;
+        background: rgba(182, 182, 182, 0.4) !important;
+      }
+
+      &.active{
+        &::before {
+          background: $primary-color !important;
+        }
+      }
+    }
+
+    .title-anchor:hover,
+    .title-anchor.active {
+      text-decoration: inherit;
+    }
+
+    .title-anchor.active {
+      color: $primary-color;
+    }
+
+    .title-anchor small {
+      margin: 0 0.8em;
+    }
+
+    .title-level1 {
+      padding-left: 1em;
+    }
+
+    .title-level2 {
+      padding-left: 1em;
+    }
+
+    .title-level3 {
+      padding-left: 3em;
+    }
+
+    .title-level4 {
+      padding-left: 5em;
+    }
+
+    .title-level5 {
+      padding-left: 7em;
+    }
+
+    .title-level6 {
+      padding-left: 9em;
+    }
+  }
+}
+
+.markdown-body-wrap.light {
+  @import 'highlight.js/scss/github.scss';
+  @import 'github-md-light';
+}
+
+.markdown-body-wrap.dark {
+  @import 'highlight.js/scss/github-dark.scss';
+  @import 'github-md-dark';
+}
