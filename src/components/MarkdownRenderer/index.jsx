@@ -9,8 +9,11 @@ import classname from "classname";
 import {useTheme} from "@mui/material";
 
 import './index.scss'
+import {useContext} from "react";
+import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 
 const MarkdownRenderer = ({data}) => {
+  const ctx = useContext(DarkModeContent);
   const theme = useTheme()
 
   return <article
@@ -32,14 +35,16 @@ const MarkdownRenderer = ({data}) => {
       {data.Content}
     </ReactMarkdown>
 
-    <MarkdownNavbar
-      className='page-guide-nav-content'
-      headingTopOffset={20}
-      source={data.Content}
-      ordered={false}
-      updateHashAuto={false}
-      declarative={false}
-    />
+    {
+      !ctx.isMobile && <MarkdownNavbar
+        className='page-guide-nav-content'
+        headingTopOffset={20}
+        source={data.Content}
+        ordered={false}
+        updateHashAuto={false}
+        declarative={false}
+      />
+    }
   </article>
 }
 
