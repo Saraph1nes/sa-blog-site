@@ -16,6 +16,10 @@
       color: $primary-color !important;
       text-decoration: none;
     }
+
+    img {
+      max-height: 50vh;
+    }
   }
 
   .page-guide-nav-content {
