@@ -2,7 +2,7 @@
 
 .book-page-wrap {
   min-height: 100vh;
-  max-width: 1400px;
+  // max-width: 1400px;
   margin: 0 auto;
 
   .md_renderer-wrap .toc-wrap {
@@ -22,6 +22,7 @@
     font-size: 14px;
 
     .book-page-left {
+      flex-shrink: 0;
       position: sticky;
       top: 0;
       width: 250px;
@@ -93,9 +94,7 @@
           text-align: center;
         }
 
-        .article-content {
-
-        }
+        .article-content {}
       }
     }
   }
