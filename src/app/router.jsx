@@ -1,19 +1,21 @@
 import React, { Suspense } from "react";
 import { Navigate, useRoutes } from "react-router-dom";
 
-const Home = React.lazy(() => import("@/app/home/page"));
-const Category = React.lazy(() => import("@/app/category/page"));
-const PageNotFound = React.lazy(() => import("@/app/404"));
-const CategoryId = React.lazy(() => import("@/app/category/id/page"));
-const TagId = React.lazy(() => import("@/app/tag/id/page"));
-const BookId = React.lazy(() => import("@/app/book/id/page"));
-const ArticleId = React.lazy(() => import("@/app/article/id/page"));
-const About = React.lazy(() => import("@/app/about/page"));
-const PhotoAlbum = React.lazy(() => import("@/app/photoAlbum"));
-const UserSettingLayout = React.lazy(() => import("@/app/user/setting"));
-const UserSettingProfile = React.lazy(() => import("@/app/user/setting/profile"));
-const UserSettingAccount = React.lazy(() => import("@/app/user/setting/account"));
-const Loading = React.lazy(() => import("@/components/Loading/index.jsx"));
+import Home from '@/app/home/page';
+import Category from '@/app/category/page';
+import PageNotFound from '@/app/404';
+import CategoryId from '@/app/category/id/page';
+import TagId from '@/app/tag/id/page';
+import BookId from '@/app/book/id/page';
+import ArticleId from '@/app/article/id/page';
+import About from '@/app/about/page';
+import PhotoAlbum from '@/app/photoAlbum';
+import UserSettingLayout from '@/app/user/setting';
+import UserSettingProfile from '@/app/user/setting/profile';
+import UserSettingAccount from '@/app/user/setting/account';
+import Subject from '@/app/subject/index.jsx';
+import Loading from '@/components/Loading/index.jsx';
+
 
 const Router = () => {
   const routes = [
@@ -25,6 +27,7 @@ const Router = () => {
     { path: "book/:id", element: <BookId /> },
     { path: "article/:id", element: <ArticleId /> },
     { path: "about", element: <About /> },
+    {path: 'subject', element: <Subject />},
     { path: "photoAlbum", element: <PhotoAlbum /> },
     {
       path: "user",

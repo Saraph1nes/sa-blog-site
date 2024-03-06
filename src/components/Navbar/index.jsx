@@ -86,6 +86,10 @@ const Navbar = () => {
               <CategoryIcon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>分类</span>
             </Link>
+            <Link to={'/subject'} className="nav-item">
+              <Person4Icon style={{fontSize: '16px'}}/>
+              <span className='nav-item-txt'>专题</span>
+            </Link>
             <Link to={'/about'} className="nav-item">
               <Person4Icon style={{fontSize: '16px'}}/>
               <span className='nav-item-txt'>介绍</span>

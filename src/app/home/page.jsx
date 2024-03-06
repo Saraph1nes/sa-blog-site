@@ -8,7 +8,7 @@ import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
 import {DarkModeContent} from "@/components/DarkModeProvider";
 import {TAG_COLOR_ARR} from "@/app/home/constant.js";
-import SubjectPanel from "@/app/home/SubjectPanel.jsx";
+// import SubjectPanel from "@/app/home/SubjectPanel.jsx";
 import ArticleList from "@/app/home/ArticleList.jsx";
 
 import './page.scss'
@@ -66,7 +66,7 @@ function Home() {
       <div className='container'>
 
         {/*专题*/}
-        <SubjectPanel/>
+        {/*<SubjectPanel/>*/}
 
         <ArticleList/>
       </div>
