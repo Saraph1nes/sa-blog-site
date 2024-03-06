@@ -22,76 +22,67 @@
     }
   }
 
-  .page-guide-nav-content {
+  .page-guide-nav-content-wrap {
     position: sticky;
-    flex-shrink: 0;
     top: 20px;
+    overflow: hidden;
+    width: 200px;
     margin-left: 20px;
-    width: 300px;
-    max-height: 80vh;
     overflow-y: auto;
-    overflow-x: hidden;
+    max-height: 80vh;
 
-    .title-anchor {
-      position: relative;
-      display: block;
-      transition: all 0.2s;
-      line-height: 2rem;
-      cursor: pointer;
+    .page-guide-nav-content {
+      border-left: 1px solid #333333;
 
-      &::before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: '';
+      .title-anchor {
+        position: relative;
         display: block;
-        width: 4px;
-        height: 2rem;
-        background: rgba(182, 182, 182, 0.4) !important;
-      }
+        transition: all 0.2s;
+        line-height: 2rem;
+        cursor: pointer;
+        border-left: 3px solid transparent;
 
-      &.active{
-        &::before {
-          background: $primary-color !important;
+        &.active {
+          border-left: 3px solid $primary-color;
         }
       }
-    }
 
-    .title-anchor:hover,
-    .title-anchor.active {
-      text-decoration: inherit;
-    }
+      .title-anchor:hover,
+      .title-anchor.active {
+        text-decoration: inherit;
+      }
 
-    .title-anchor.active {
-      color: $primary-color;
-    }
+      .title-anchor.active {
+        color: $primary-color;
+      }
 
-    .title-anchor small {
-      margin: 0 0.8em;
-    }
+      .title-anchor small {
+        margin: 0 0.8em;
+      }
 
-    .title-level1 {
-      padding-left: 1em;
-    }
+      .title-level1 {
+        padding-left: 1em;
+      }
 
-    .title-level2 {
-      padding-left: 1em;
-    }
+      .title-level2 {
+        padding-left: 1em;
+      }
 
-    .title-level3 {
-      padding-left: 3em;
-    }
+      .title-level3 {
+        padding-left: 3em;
+      }
 
-    .title-level4 {
-      padding-left: 5em;
-    }
+      .title-level4 {
+        padding-left: 5em;
+      }
 
-    .title-level5 {
-      padding-left: 7em;
-    }
+      .title-level5 {
+        padding-left: 7em;
+      }
 
-    .title-level6 {
-      padding-left: 9em;
+      .title-level6 {
+        padding-left: 9em;
+      }
     }
   }
 }

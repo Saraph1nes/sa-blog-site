@@ -36,14 +36,16 @@ const MarkdownRenderer = ({data}) => {
     </ReactMarkdown>
 
     {
-      !ctx.isMobile && <MarkdownNavbar
-        className='page-guide-nav-content'
-        headingTopOffset={20}
-        source={data.Content}
-        ordered={false}
-        updateHashAuto={false}
-        declarative={false}
-      />
+      !ctx.isMobile && <div className='page-guide-nav-content-wrap'>
+        <MarkdownNavbar
+          className='page-guide-nav-content'
+          headingTopOffset={20}
+          source={data.Content}
+          ordered={false}
+          updateHashAuto={false}
+          declarative={false}
+        />
+      </div>
     }
   </article>
 }
