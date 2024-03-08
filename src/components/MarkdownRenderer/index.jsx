@@ -7,10 +7,12 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import classname from "classname";
 import {useTheme} from "@mui/material";
-
-import './index.scss'
 import {useContext} from "react";
 import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
+
+import './index.scss'
+
+// TODO 做一个灯箱插件，参考 https://github.com/dimsemenov/photoswipe
 
 const MarkdownRenderer = ({data}) => {
   const ctx = useContext(DarkModeContent);

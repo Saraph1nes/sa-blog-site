@@ -30,6 +30,7 @@
     margin-left: 20px;
     overflow-y: auto;
     max-height: 80vh;
+    flex-shrink: 0;
 
     .page-guide-nav-content {
       border-left: 1px solid #333333;
@@ -41,6 +42,9 @@
         line-height: 2rem;
         cursor: pointer;
         border-left: 3px solid transparent;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &.active {
           border-left: 3px solid $primary-color;
@@ -90,9 +94,17 @@
 .markdown-body-wrap.light {
   @import 'highlight.js/scss/github.scss';
   @import 'github-md-light';
+
+  .page-guide-nav-content{
+    border-left: 1px solid #e7e7e7;
+  }
 }
 
 .markdown-body-wrap.dark {
   @import 'highlight.js/scss/github-dark.scss';
   @import 'github-md-dark';
+
+  .page-guide-nav-content{
+    border-left: 1px solid #333333;
+  }
 }
