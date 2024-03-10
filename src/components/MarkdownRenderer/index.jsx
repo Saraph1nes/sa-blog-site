@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown';
 import MarkdownNavbar from "markdown-navbar";
 import rehypeSlug from "rehype-slug";
+import rehypeGallery from "rehype-lightgallery";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import classname from "classname";
 import {useTheme} from "@mui/material";
@@ -11,8 +12,6 @@ import {useContext} from "react";
 import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 
 import './index.scss'
-
-// TODO 做一个灯箱插件，参考 https://github.com/dimsemenov/photoswipe
 
 const MarkdownRenderer = ({data}) => {
   const ctx = useContext(DarkModeContent);
@@ -29,6 +28,7 @@ const MarkdownRenderer = ({data}) => {
       className='markdown-body'
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[
+        rehypeGallery,
         rehypeHighlight,
         [rehypeSlug, {}],
         [rehypeAutolinkHeadings, {behavior: 'wrap'}]
