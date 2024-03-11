@@ -2,7 +2,6 @@ import remarkGfm from 'remark-gfm'
 import rehypeHighlight from "rehype-highlight";
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown';
-import MarkdownNavbar from "markdown-navbar";
 import rehypeSlug from "rehype-slug";
 import rehypeGallery from "rehype-lightgallery";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -14,7 +13,6 @@ import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 import './index.scss'
 
 const MarkdownRenderer = ({data}) => {
-  const ctx = useContext(DarkModeContent);
   const theme = useTheme()
 
   return <article
@@ -36,19 +34,6 @@ const MarkdownRenderer = ({data}) => {
     >
       {data.Content}
     </ReactMarkdown>
-
-    {
-      !ctx.isMobile && <div className='page-guide-nav-content-wrap'>
-        <MarkdownNavbar
-          className='page-guide-nav-content'
-          headingTopOffset={20}
-          source={data.Content}
-          ordered={false}
-          updateHashAuto={false}
-          declarative={false}
-        />
-      </div>
-    }
   </article>
 }
 

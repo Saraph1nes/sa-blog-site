@@ -143,9 +143,21 @@ const Book = () => {
             <MenuOpenIcon style={{transform: hideMenu ? 'rotate(180deg)' : '', transition: 'ease-in-out 200ms'}}/>
           </IconButton>
           <div className='article-wrap'>
-            <h1 className='article-title'>{articleData.Name}</h1>
-            <div className='article-content'>
-              <ArticleRenderer data={articleData}></ArticleRenderer>
+            <div style={{flex: '1'}}>
+              <h1 className='article-title'>{articleData.Name}</h1>
+              <div className='article-content'>
+                <ArticleRenderer data={articleData}></ArticleRenderer>
+              </div>
+            </div>
+            <div className="page-guide-nav-content-wrap">
+              <MarkdownNavbar
+                className='page-guide-nav-content'
+                headingTopOffset={20}
+                source={articleData.Content}
+                ordered={false}
+                updateHashAuto={false}
+                declarative={false}
+              />
             </div>
           </div>
         </div>

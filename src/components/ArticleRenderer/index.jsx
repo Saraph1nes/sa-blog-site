@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import {useLayoutEffect, useState} from "react";
 import dayjs from "dayjs";
 import { useTheme } from "@mui/material";
 import readingTime from "reading-time";
@@ -26,14 +26,16 @@ const ArticleRenderer = ({ data }) => {
       'article_renderer-wrap': true, 'dark': theme.palette.mode === 'dark'
     })}
   >
-    {
-      time && <div className='article-info-wrap'>
-        <div className='created-date'>发布于: {dayjs(data.CreatedAt || '').format('YYYY-MM-DD HH:mm:ss')}</div>
-        <div className='reading-words'>字数: {time.words}</div>
-        <div className='reading-time'>阅读时间: {Math.floor(time.minutes)}分钟</div>
-      </div>
-    }
-    <MarkdownRenderer data={data}></MarkdownRenderer>
+    <div>
+      {
+        time && <div className='article-info-wrap'>
+          <div className='created-date'>发布于: {dayjs(data.CreatedAt || '').format('YYYY-MM-DD HH:mm:ss')}</div>
+          <div className='reading-words'>字数: {time.words}</div>
+          <div className='reading-time'>阅读时间: {Math.floor(time.minutes)}分钟</div>
+        </div>
+      }
+      <MarkdownRenderer data={data}></MarkdownRenderer>
+    </div>
   </div>
 }
 

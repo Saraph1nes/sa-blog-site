@@ -24,8 +24,11 @@ import AuthModalBox from '@/components/AuthModalBox'
 import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
 
 import './page.scss'
+import MarkdownNavbar from "markdown-navbar";
+import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 
 function Page() {
+  const ctx = useContext(DarkModeContent);
   const [userInfo] = useContext(UserInfoContext)
   const navigate = useNavigate()
   const params = useParams()
@@ -92,84 +95,98 @@ function Page() {
 
   return <div className={
     classname({
-      'article-page': true,
+      'article-page-wrap': true,
       'dark': theme.palette.mode === 'dark',
       'is-mobile': isMobile
     })
   }>
-    <h2 className='article-title'>{article.Name}</h2>
-    <div className='article-content'>
-      <ArticleRenderer data={article} />
-    </div>
-    <div className="article-switching-wrap">
-      <h2 className='article-switching-title'>其他文章</h2>
-      <div className="article-switching">
+    <div className='article-page'>
+      <h2 className='article-title'>{article.Name}</h2>
+      <div className='article-content'>
+        <ArticleRenderer data={article}/>
+      </div>
+      <div className="article-switching-wrap">
+        <h2 className='article-switching-title'>其他文章</h2>
+        <div className="article-switching">
+          {
+            !!article?.PrevArticle?.ID &&
+            <Paper
+              elevation={1}
+              className="article-switching-item article-switching-prev"
+              onClick={() => {
+                navigate(`/article/${article.PrevArticle.ID}`)
+              }}>
+              <ChevronLeftIcon/>
+              <div>
+                <div className='article-switching-item-title'>上一篇</div>
+                <div className='article-switching-item-name'>{article.PrevArticle.Name}</div>
+              </div>
+            </Paper>
+          }
+          {
+            !!article?.NextArticle?.ID &&
+            <Paper
+              elevation={1}
+              className="article-switching-item article-switching-next"
+              onClick={() => {
+                navigate(`/article/${article.NextArticle.ID}`)
+              }}
+            >
+              <div>
+                <div className='article-switching-item-title'>下一篇</div>
+                <div className='article-switching-item-name'>{article.NextArticle.Name}</div>
+              </div>
+              <ChevronRightIcon/>
+            </Paper>
+          }
+        </div>
+      </div>
+      <div className="article-comment-wrap">
+        <h2 className='article-comment-title'>评论({comment.Count})</h2>
         {
-          !!article?.PrevArticle?.ID &&
-          <Paper
-            elevation={1}
-            className="article-switching-item article-switching-prev"
-            onClick={() => {
-              navigate(`/article/${article.PrevArticle.ID}`)
-            }}>
-            <ChevronLeftIcon />
-            <div>
-              <div className='article-switching-item-title'>上一篇</div>
-              <div className='article-switching-item-name'>{article.PrevArticle.Name}</div>
-            </div>
-          </Paper>
+          userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess}/>
         }
         {
-          !!article?.NextArticle?.ID &&
-          <Paper
-            elevation={1}
-            className="article-switching-item article-switching-next"
-            onClick={() => {
-              navigate(`/article/${article.NextArticle.ID}`)
-            }}
-          >
-            <div>
-              <div className='article-switching-item-title'>下一篇</div>
-              <div className='article-switching-item-name'>{article.NextArticle.Name}</div>
-            </div>
-            <ChevronRightIcon />
+          !userInfo && <div className='comment-need-login'>
+            <AuthModalBox>
+              <Button variant='contained'>需要登录才可评论</Button>
+            </AuthModalBox>
+          </div>
+        }
+        {
+          comment?.Comments?.length > 0 && <Paper variant='elevation' className="article-comment-list">
+            <List>
+              {
+                comment?.Comments?.map((item, index) => <div key={item.ID}>
+                  {index !== 0 && <Divider variant="inset" component="li"/>}
+                  <ListItem alignItems="flex-start" className='article-comment-list-item'>
+                    <ListItemAvatar>
+                      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={item.Content}
+                      secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+                    />
+                  </ListItem>
+                </div>)
+              }
+            </List>
           </Paper>
         }
       </div>
     </div>
-    <div className="article-comment-wrap">
-      <h2 className='article-comment-title'>评论({comment.Count})</h2>
-      {
-        userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
-      }
-      {
-        !userInfo && <div className='comment-need-login'>
-          <AuthModalBox>
-            <Button variant='contained'>需要登录才可评论</Button>
-          </AuthModalBox>
-        </div>
-      }
-      {
-        comment?.Comments?.length > 0 && <Paper variant='elevation' className="article-comment-list">
-          <List>
-            {
-              comment?.Comments?.map((item, index) => <div key={item.ID}>
-                {index !== 0 && <Divider variant="inset" component="li" />}
-                <ListItem alignItems="flex-start" className='article-comment-list-item'>
-                  <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={item.Content}
-                    secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
-                  />
-                </ListItem>
-              </div>)
-            }
-          </List>
-        </Paper>
-      }
-    </div>
+    {
+      !ctx.isMobile && <div className='page-guide-nav-content-wrap'>
+        <MarkdownNavbar
+          className='page-guide-nav-content'
+          headingTopOffset={20}
+          source={article.Content}
+          ordered={false}
+          updateHashAuto={false}
+          declarative={false}
+        />
+      </div>
+    }
   </div>
 }
 

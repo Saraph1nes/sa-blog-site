@@ -1,97 +1,174 @@
-.article-page {
-  max-width: 1400px;
-  margin: 0 auto;
+@import "src/common.scss";
+
+.article-page-wrap{
   padding: 100px 20px;
+  display: flex;
+  margin: 0 auto;
   min-height: 100vh;
+  max-width: 1200px;
 
-  .article-title {
-    font-size: 24px;
-    text-align: center;
-  }
+  .article-page {
+    flex: 1;
 
-  .article-content {}
+    .article-title {
+      font-size: 24px;
+      text-align: center;
+    }
 
-  .article-switching-wrap {
-    margin-top: 80px;
+    .article-content {
+    }
 
-    .article-switching {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    .article-switching-wrap {
+      margin-top: 80px;
 
-      .article-switching-item {
-        width: 50%;
-        text-transform: uppercase;
-        font-weight: bold;
-        position: relative;
-        outline: none;
-        box-sizing: border-box;
-        padding: 20px;
-        border-radius: 12px;
-        cursor: pointer;
+      .article-switching {
+        margin-top: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-
-        .article-switching-item-title {
-          font-size: 16px;
-        }
-
-        .article-switching-item-name {
-          font-size: 14px;
-          margin-top: 10px;
-          font-weight: normal;
-        }
-      }
-
-      .article-switching-prev {
-        text-align: right;
-        margin-right: 20px;
-      }
-
-      .article-switching-next {
-        text-align: left;
-        margin-left: 20px;
-      }
-    }
-  }
-
-  .article-comment-wrap {
-    margin-top: 60px;
-
-    .comment-need-login {
-      text-align: center;
-      padding: 50px 20px;
-    }
-
-    .article-comment-list {
-      padding-right: 20px;
-      margin-top: 20px;
-    }
-  }
-
-  &.is-mobile {
-    .article-switching-wrap {
-
-      .article-switching {
-        display: block;
 
         .article-switching-item {
-          width: 100%;
-          margin-top: 20px;
+          width: 50%;
+          text-transform: uppercase;
+          font-weight: bold;
+          position: relative;
+          outline: none;
+          box-sizing: border-box;
+          padding: 20px;
+          border-radius: 12px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+
+          .article-switching-item-title {
+            font-size: 16px;
+          }
+
+          .article-switching-item-name {
+            font-size: 14px;
+            margin-top: 10px;
+            font-weight: normal;
+          }
         }
 
         .article-switching-prev {
-          margin-right: 0;
+          text-align: right;
+          margin-right: 20px;
         }
 
         .article-switching-next {
-          margin-left: 0;
+          text-align: left;
+          margin-left: 20px;
         }
+      }
+    }
+
+    .article-comment-wrap {
+      margin-top: 60px;
+
+      .comment-need-login {
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      .article-comment-list {
+        padding-right: 20px;
+        margin-top: 20px;
+      }
+    }
+
+    &.is-mobile {
+      .article-switching-wrap {
+
+        .article-switching {
+          display: block;
+
+          .article-switching-item {
+            width: 100%;
+            margin-top: 20px;
+          }
+
+          .article-switching-prev {
+            margin-right: 0;
+          }
+
+          .article-switching-next {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+  }
+
+
+  .page-guide-nav-content-wrap {
+    position: sticky;
+    top: 20px;
+    overflow: hidden;
+    width: 200px;
+    margin-left: 20px;
+    overflow-y: auto;
+    max-height: 80vh;
+    flex-shrink: 0;
+
+    .page-guide-nav-content {
+      border-left: 1px solid #333333;
+
+      .title-anchor {
+        position: relative;
+        display: block;
+        transition: all 0.2s;
+        line-height: 2rem;
+        cursor: pointer;
+        border-left: 3px solid transparent;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &.active {
+          border-left: 3px solid $primary-color;
+        }
+      }
+
+      .title-anchor:hover,
+      .title-anchor.active {
+        text-decoration: inherit;
+      }
+
+      .title-anchor.active {
+        color: $primary-color;
+      }
+
+      .title-anchor small {
+        margin: 0 0.8em;
+      }
+
+      .title-level1 {
+        padding-left: 1em;
+      }
+
+      .title-level2 {
+        padding-left: 1em;
+      }
+
+      .title-level3 {
+        padding-left: 3em;
+      }
+
+      .title-level4 {
+        padding-left: 5em;
+      }
+
+      .title-level5 {
+        padding-left: 7em;
+      }
+
+      .title-level6 {
+        padding-left: 9em;
       }
     }
   }
