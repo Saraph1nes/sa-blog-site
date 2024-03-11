@@ -26,6 +26,7 @@ import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
 import './page.scss'
 import MarkdownNavbar from "markdown-navbar";
 import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
+import PageGuideNav from "@/components/PageGuideNav/index.jsx";
 
 function Page() {
   const ctx = useContext(DarkModeContent);
@@ -78,18 +79,27 @@ function Page() {
   if (!isMount) {
     return <div className={
       classname({
-        'article-page': true,
+        'article-page-wrap': true,
         'dark': theme.palette.mode === 'dark',
         'is-mobile': isMobile
       })
     }>
-      <Skeleton variant="rectangular" height={50} width={600} style={{ margin: '20px auto' }} />
-      <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
-      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-      <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
-      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-      <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-      <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
+      <div className='article-page'>
+        <Skeleton variant="rectangular" height={50} width={600} style={{ margin: '20px auto' }} />
+        <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
+      </div>
+      <div className="page-guide-nav-content-wrap">
+        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+      </div>
     </div>
   }
 
@@ -176,16 +186,7 @@ function Page() {
       </div>
     </div>
     {
-      !ctx.isMobile && <div className='page-guide-nav-content-wrap'>
-        <MarkdownNavbar
-          className='page-guide-nav-content'
-          headingTopOffset={20}
-          source={article.Content}
-          ordered={false}
-          updateHashAuto={false}
-          declarative={false}
-        />
-      </div>
+      !ctx.isMobile && <PageGuideNav source={article.Content} />
     }
   </div>
 }

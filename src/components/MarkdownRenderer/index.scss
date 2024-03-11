@@ -26,17 +26,9 @@
 .markdown-body-wrap.light {
   @import 'highlight.js/scss/github.scss';
   @import 'github-md-light';
-
-  .page-guide-nav-content{
-    border-left: 1px solid #e7e7e7;
-  }
 }
 
 .markdown-body-wrap.dark {
   @import 'highlight.js/scss/github-dark.scss';
   @import 'github-md-dark';
-
-  .page-guide-nav-content{
-    border-left: 1px solid #333333;
-  }
 }

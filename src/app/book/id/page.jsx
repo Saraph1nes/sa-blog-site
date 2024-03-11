@@ -9,6 +9,7 @@ import MarkdownNavbar from 'markdown-navbar'
 import {useParams} from "react-router-dom";
 
 import './page.scss'
+import PageGuideNav from "@/components/PageGuideNav/index.jsx";
 
 const Book = () => {
   const params = useParams()
@@ -87,13 +88,27 @@ const Book = () => {
         </div>
         <Divider className='divider' orientation="vertical" flexItem/>
         <div className='book-page-right'>
-          <Skeleton variant="rectangular" height={30}/>
-          <Skeleton variant="rectangular" height={80} width={200} style={{margin: '20px auto 70px'}}/>
-          <Skeleton variant="rectangular" height={20} style={{margin: '10px'}}/>
-          <Skeleton variant="rectangular" height={40} style={{margin: '10px'}}/>
-          <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
-          <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
-          <Skeleton variant="rectangular" height={30} style={{margin: '10px'}}/>
+          <IconButton sx={{ml: 1}} color="inherit" onClick={toggleMenuBtn}>
+            <MenuOpenIcon style={{transform: hideMenu ? 'rotate(180deg)' : '', transition: 'ease-in-out 200ms'}}/>
+          </IconButton>
+          <div className="article-wrap">
+            <div style={{flex: '1'}}>
+              <Skeleton variant="rectangular" height={30}/>
+              <Skeleton variant="rectangular" height={80} width={200} style={{margin: '20px auto 70px'}}/>
+              <Skeleton variant="rectangular" height={20} style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" height={40} style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" height={10} style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" height={30} style={{margin: '10px'}}/>
+            </div>
+            <div className="page-guide-nav-content-wrap">
+              <Skeleton variant="rectangular" style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" style={{margin: '10px'}}/>
+              <Skeleton variant="rectangular" style={{margin: '10px'}}/>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -149,16 +164,7 @@ const Book = () => {
                 <ArticleRenderer data={articleData}></ArticleRenderer>
               </div>
             </div>
-            <div className="page-guide-nav-content-wrap">
-              <MarkdownNavbar
-                className='page-guide-nav-content'
-                headingTopOffset={20}
-                source={articleData.Content}
-                ordered={false}
-                updateHashAuto={false}
-                declarative={false}
-              />
-            </div>
+            <PageGuideNav source={articleData.Content} />
           </div>
         </div>
       </div>
