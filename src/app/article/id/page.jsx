@@ -17,16 +17,14 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useNavigate, useParams } from "react-router-dom";
-import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
+import {useNavigate, useParams} from "react-router-dom";
 import dayjs from "dayjs";
 import AuthModalBox from '@/components/AuthModalBox'
 import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
-
-import './page.scss'
-import MarkdownNavbar from "markdown-navbar";
 import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 import PageGuideNav from "@/components/PageGuideNav/index.jsx";
+
+import './page.scss'
 
 function Page() {
   const ctx = useContext(DarkModeContent);
@@ -35,7 +33,6 @@ function Page() {
   const params = useParams()
   const theme = useTheme()
   const [isMount, setIsMount] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
   const [article, setArticle] = useState({
     Name: '',
   })
@@ -58,8 +55,6 @@ function Page() {
   }
 
   const init = async () => {
-    const isMob = window ? window.screen.width < MOBILE_JUDGING_WIDTH : false;
-    setIsMobile(isMob)
     const [fetchArticleByIdRes, fetchGetArticleCommentRes] = await Promise.all([
       await fetchArticleById(params.id),
       await fetchGetArticleComment(params.id)
@@ -81,35 +76,40 @@ function Page() {
       classname({
         'article-page-wrap': true,
         'dark': theme.palette.mode === 'dark',
-        'is-mobile': isMobile
+        'is-mobile': ctx.isMobile
       })
     }>
       <div className='article-page'>
-        <Skeleton variant="rectangular" height={50} width={600} style={{ margin: '20px auto' }} />
-        <Skeleton variant="rectangular" height={80} width={200} style={{ margin: '20px auto 70px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={50} style={{margin: '20px auto'}}/>
+        <Skeleton variant="rectangular" height={80} style={{margin: '20px auto 70px'}}/>
+        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
+        <Skeleton variant="rectangular" height={400} style={{margin: '20px'}}/>
+        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
+        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
+        <Skeleton variant="rectangular" height={300} style={{margin: '20px'}}/>
       </div>
-      <div className="page-guide-nav-content-wrap">
-        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-      </div>
+      {
+        !ctx.isMobile && <div className="page-guide-nav-content-wrap">
+          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+        </div>
+      }
     </div>
   }
 
-  return <div className={
-    classname({
-      'article-page-wrap': true,
-      'dark': theme.palette.mode === 'dark',
-      'is-mobile': isMobile
-    })
-  }>
+  return <div
+    className={
+      classname({
+        'article-page-wrap': true,
+        'dark': theme.palette.mode === 'dark',
+        'is-mobile': ctx.isMobile
+      })
+    }
+    style={{display: ctx.isMobile ? 'block' : 'flex'}}
+  >
     <div className='article-page'>
       <h2 className='article-title'>{article.Name}</h2>
       <div className='article-content'>
@@ -186,7 +186,7 @@ function Page() {
       </div>
     </div>
     {
-      !ctx.isMobile && <PageGuideNav source={article.Content} />
+      !ctx.isMobile && <PageGuideNav source={article.Content}/>
     }
   </div>
 }

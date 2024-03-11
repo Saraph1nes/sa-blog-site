@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
 import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 import service from "@/utils/http.js";
+import {isMobile} from "@/utils/common.js";
 
 const ArticleList = () => {
   const ctx = useContext(DarkModeContent);
@@ -131,7 +132,12 @@ const ArticleList = () => {
         <div className='article-item'>
           <div className='left'>
             {
-              item.Picture && <div className='article-img-wrap'>
+              item.Picture && <div className={
+                classname({
+                  'article-img-wrap': true,
+                  'isMobile': ctx.isMobile
+                })
+              }>
               <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
                   goToArticle(item.ID)
                 }}/>

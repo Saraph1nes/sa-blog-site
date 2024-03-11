@@ -2,7 +2,7 @@
 
 .article-page-wrap{
   padding: 100px 20px;
-  display: flex;
+  //display: flex;
   margin: 0 auto;
   min-height: 100vh;
   max-width: 1200px;
@@ -80,25 +80,25 @@
         margin-top: 20px;
       }
     }
+  }
 
-    &.is-mobile {
-      .article-switching-wrap {
+  &.is-mobile {
+    .article-switching-wrap {
 
-        .article-switching {
-          display: block;
+      .article-switching {
+        display: block;
 
-          .article-switching-item {
-            width: 100%;
-            margin-top: 20px;
-          }
+        .article-switching-item {
+          width: 100%;
+          margin-top: 20px;
+        }
 
-          .article-switching-prev {
-            margin-right: 0;
-          }
+        .article-switching-prev {
+          margin-right: 0;
+        }
 
-          .article-switching-next {
-            margin-left: 0;
-          }
+        .article-switching-next {
+          margin-left: 0;
         }
       }
     }

@@ -7,8 +7,6 @@ import rehypeGallery from "rehype-lightgallery";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import classname from "classname";
 import {useTheme} from "@mui/material";
-import {useContext} from "react";
-import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
 
 import './index.scss'
 
