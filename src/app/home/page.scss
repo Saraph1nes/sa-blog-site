@@ -116,12 +116,12 @@
                 border-radius: 12px;
 
                 .article-img {
-                  width: 100%;
-                  overflow: hidden;
+                  width: 850px;
+                  height: 300px;
                   object-fit: cover;
+                  overflow: hidden;
                   cursor: pointer;
                   transition: 0.3s ease-in-out;
-                  height: 300px;
 
                   &:hover {
                     transform: scale(1.05);
@@ -154,6 +154,7 @@
                 font-size: 14px;
 
                 .summary-btn {
+                  margin-left: 10px;
                   cursor: pointer;
                   color: $primary-color;
                 }
