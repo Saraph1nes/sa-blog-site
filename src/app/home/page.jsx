@@ -1,6 +1,6 @@
 import service from "@/utils/http";
 import {useLayoutEffect, useState, useContext} from "react";
-import {Chip, Divider, Paper, useTheme} from "@mui/material";
+import {Chip, Divider, Paper, Skeleton, useTheme} from "@mui/material";
 import {useNavigate, Link} from "react-router-dom";
 import dayjs from "dayjs";
 import classname from 'classname'
@@ -17,7 +17,7 @@ function Home() {
   const ctx = useContext(DarkModeContent);
   const navigate = useNavigate();
   const theme = useTheme()
-  const [isMounted, setIsMounted] = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
   const [heatmapDataset, setHeatmapDataset] = useState({
     Calendar: [],
     TotalCount: 0
@@ -39,17 +39,12 @@ function Home() {
     ])
     setTagListDataset(fetchGetAllTagsRes.Data)
     setHeatmapDataset(fetchGetArticleHeatmapRes.Data)
-    setIsMounted(true)
+    setPageLoading(false)
   }
 
   useLayoutEffect(() => {
     init()
   }, []);
-
-
-  if (!isMounted) {
-    return <main className='main'></main>
-  }
 
   return (<main
     className={classname({
@@ -98,20 +93,33 @@ function Home() {
             <div className='tag-panel-title'>标签</div>
             <Divider sx={{marginTop: '10px'}}/>
             {
-              tagListDataset.map((tag, tagIdx) => <Chip
-                key={tag.ID}
-                style={{
-                  border: `1px solid ${TAG_COLOR_ARR[tagIdx % 10]}80`,
-                  background: `${TAG_COLOR_ARR[tagIdx % 10]}33`
-                }}
-                label={tag.Name}
-                sx={{marginTop: '20px', marginRight: '10px'}}
-                size="small"
-                variant="outlined"
-                onClick={() => {
-                  navigate(`/tag/${tag.ID}`)
-                }}
-              />)
+              pageLoading ? <>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+              </> : <>
+                {
+                  tagListDataset.map((tag, tagIdx) => <Chip
+                    key={tag.ID}
+                    style={{
+                      border: `1px solid ${TAG_COLOR_ARR[tagIdx % 10]}80`,
+                      background: `${TAG_COLOR_ARR[tagIdx % 10]}33`
+                    }}
+                    label={tag.Name}
+                    sx={{marginTop: '20px', marginRight: '10px'}}
+                    size="small"
+                    variant="outlined"
+                    onClick={() => {
+                      navigate(`/tag/${tag.ID}`)
+                    }}
+                  />)
+                }
+              </>
             }
           </Paper>
 

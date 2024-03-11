@@ -14,13 +14,12 @@ const ArticleList = () => {
   const navigate = useNavigate();
   const theme = useTheme()
 
-  const showListBottomLoading = useRef(false)
-
   const [categoryList, setCategoryList] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(-1)
   const [pageIndex, setPageIndex] = useState(1)
   const [list, setList] = useState([])
   const [listOver, setListOver] = useState(false)
+  const [listLoading, setListLoading] = useState(false)
 
   const fetchArticles = async () => {
     return await service.get('/article', {
@@ -51,6 +50,7 @@ const ArticleList = () => {
   const init = async () => {
     const fetchCategoryRes = await fetchCategory()
     setCategoryList(fetchCategoryRes.Data)
+    setListLoading(true)
   }
 
   useLayoutEffect(() => {
@@ -59,9 +59,9 @@ const ArticleList = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      showListBottomLoading.current = true
+      setListLoading(true)
       const {Data} = await fetchArticles()
-      showListBottomLoading.current = false
+      setListLoading(false)
       const curListLength = Data?.List?.length || 0;
       if (curListLength === Data.Count) {
         setListOver(true)
@@ -84,7 +84,7 @@ const ArticleList = () => {
     const innerHeight = window.innerHeight;
     const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
 
-    if (htmlHeight - (innerHeight + scrollTop) < 200 && !showListBottomLoading.current) {
+    if (htmlHeight - (innerHeight + scrollTop) < 200 && !listLoading) {
       setPageIndex(c => c + 1)
     }
   };
@@ -115,10 +115,10 @@ const ArticleList = () => {
         value={selectedCategory}
         onChange={onTabsChange}
       >
-        <Tab disabled={showListBottomLoading.current} className='article-list-category-item' label='全部' value={-1}/>
+        <Tab disabled={listLoading} className='article-list-category-item' label='全部' value={-1}/>
         {categoryList.map(i => <Tab
           key={i.ID}
-          disabled={showListBottomLoading.current}
+          disabled={listLoading}
           value={i.ID}
           className='article-list-category-item'
           label={i.Name}
@@ -132,7 +132,7 @@ const ArticleList = () => {
           <div className='left'>
             {
               item.Picture && <div className='article-img-wrap'>
-                <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
+              <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
                   goToArticle(item.ID)
                 }}/>
               </div>
@@ -182,10 +182,26 @@ const ArticleList = () => {
         <Divider style={{marginTop: '20px'}}/>
       </div>)}
     </div>
-    {showListBottomLoading.current && <div className='list-bottom-loading'>
-      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-      <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+    {listLoading && <div className='list-bottom-loading'>
+      <section>
+        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+      </section>
+      <Divider style={{marginTop: '20px'}}/>
+      <section>
+        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+      </section>
+      <Divider style={{marginTop: '20px'}}/>
+      <section>
+        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+      </section>
     </div>}
     {listOver && <div className='list-bottom-over'>------ 没有更多了 ------</div>}
   </div>
