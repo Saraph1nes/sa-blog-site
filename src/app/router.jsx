@@ -1,5 +1,5 @@
-import React, { Suspense } from "react";
-import { Navigate, useRoutes } from "react-router-dom";
+import {Suspense, useEffect} from "react";
+import {Navigate, useLocation, useRoutes} from "react-router-dom";
 
 import Home from '@/app/home/page';
 import Category from '@/app/category/page';
@@ -18,6 +18,13 @@ import Loading from '@/components/Loading/index.jsx';
 
 
 const Router = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const pageViewCount = +sessionStorage.getItem('pageViewCount') || 0;
+    sessionStorage.setItem('pageViewCount', `${pageViewCount + 1}`);
+  }, [location]);
+
   const routes = [
     { path: "/", element: <Home /> },
     { path: "404", element: <PageNotFound /> },

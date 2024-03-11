@@ -1,9 +1,10 @@
 import axios from 'axios'
 import message from "@/components/Message";
+import {baseURL} from "../../config.js";
 
 const service = axios.create({
   // baseURL: 'https://api.sablogs.cn/api',
-  baseURL: import.meta.env.DEV ? 'http://localhost:8080/api' : 'https://api.sablogs.cn/api',
+  baseURL: baseURL,
   timeout: 5000,
 })
 

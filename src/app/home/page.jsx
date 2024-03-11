@@ -23,6 +23,7 @@ function Home() {
     TotalCount: 0
   })
   const [tagListDataset, setTagListDataset] = useState([])
+  const [pageViewCount, setPageViewCount] = useState(0)
 
   const fetchGetArticleHeatmap = async () => {
     return await service.get('/article/getArticleHeatmap')
@@ -32,13 +33,19 @@ function Home() {
     return await service.get('/tag/GetAllTags')
   }
 
+  const fetchGetPV = async () => {
+    return await service.get('/open/sablogs/getPV')
+  }
+
   const init = async () => {
-    const [fetchGetArticleHeatmapRes, fetchGetAllTagsRes] = await Promise.all([
+    const [fetchGetArticleHeatmapRes, fetchGetAllTagsRes, fetchGetPVRes] = await Promise.all([
       await fetchGetArticleHeatmap(),
-      await fetchGetAllTags()
+      await fetchGetAllTags(),
+      await fetchGetPV(),
     ])
     setTagListDataset(fetchGetAllTagsRes.Data)
     setHeatmapDataset(fetchGetArticleHeatmapRes.Data)
+    setPageViewCount(fetchGetPVRes.Data.PV)
     setPageLoading(false)
   }
 
@@ -68,25 +75,50 @@ function Home() {
 
       {
         !ctx.isMobile && <aside className='aside-wrap'>
-          <Paper className='statistical-panel' elevation={1}>
+          <Paper className='data-panel' elevation={1}>
+            <div className='data-panel-title'>数据</div>
+            <Divider sx={{marginTop: '10px'}}/>
             <div className='heatmap-nums'>
               <div className="heatmap-nums-item">
-                <div className='heatmap-nums-count'><CountUp end={dayjs().diff('2018-03-07', 'day')}/></div>
-                <div className='heatmap-nums-title'>天</div>
+                <div className='heatmap-nums-count'>
+                  <CountUp end={dayjs().diff('2018-03-07', 'day')}/>
+                  <span>天</span>
+                </div>
+                <div className='heatmap-nums-title'>已运行</div>
               </div>
-              {/*<Divider orientation="vertical" flexItem/>*/}
-              {/*<div className="heatmap-nums-item">*/}
-              {/*  <div className='heatmap-nums-count'><CountUp end={400}/></div>*/}
-              {/*  <div className='heatmap-nums-title'>PV</div>*/}
-              {/*</div>*/}
               <Divider orientation="vertical" flexItem/>
               <div className="heatmap-nums-item">
-                <div className='heatmap-nums-count'><CountUp end={heatmapDataset.TotalCount}/></div>
+                <div className='heatmap-nums-count'>
+                  <CountUp end={heatmapDataset.TotalCount}/>
+                  <span>篇</span>
+                </div>
                 <div className='heatmap-nums-title'>文章</div>
               </div>
             </div>
-            <Divider className='statistical-panel-standard-divider'/>
-            <Heatmap heatmapDataset={heatmapDataset.Calendar}/>
+            <Divider/>
+            <div className='heatmap-nums'>
+              <div className="heatmap-nums-item">
+                <div className='heatmap-nums-count'>
+                  <CountUp end={pageViewCount}/>
+                </div>
+                <div className='heatmap-nums-title'>PV</div>
+              </div>
+              <Divider orientation="vertical" flexItem/>
+              <div className="heatmap-nums-item">
+                <div className='heatmap-nums-count'>
+                  <CountUp end={dayjs().diff('2021-03-01', 'months')}/>
+                  <span>个月</span>
+                </div>
+                <div className='heatmap-nums-title'>秃头练习时长</div>
+              </div>
+            </div>
+            <Divider/>
+          </Paper>
+
+          <Paper className='statistical-panel' elevation={1}>
+            <div className='statistical-panel-title'>贡献</div>
+            <Divider sx={{marginTop: '10px', marginBottom: '10px'}}/>
+            <Heatmap className='heatmap-chart' heatmapDataset={heatmapDataset.Calendar}/>
           </Paper>
 
           <Paper className='tag-panel' elevation={1}>
