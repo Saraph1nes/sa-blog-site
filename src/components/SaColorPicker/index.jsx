@@ -5,7 +5,7 @@ import './index.scss'
 
 const SaColorPicker = ({onChange, value}) => {
   const colors = [
-    '#ffa41d', '#FF89B8', '#229f02', '#a34bff', '#289bec', '#e31b75',
+    '#ffa41d', '#EFA084', '#8EA063', '#BF94C1', '#55AAFA', '#C14444',
   ];
 
   return (
