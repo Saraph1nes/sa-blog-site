@@ -171,11 +171,17 @@ function Page() {
                   {index !== 0 && <Divider variant="inset" component="li"/>}
                   <ListItem alignItems="flex-start" className='article-comment-list-item'>
                     <ListItemAvatar>
-                      <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg"/>
+                      <Avatar alt="头像" src={item.Avatar}/>
                     </ListItemAvatar>
                     <ListItemText
-                      primary={item.Content}
-                      secondary={`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}
+                      primary={<span style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                        <span style={{fontWeight: 'bold'}}>{item.Name}</span>
+                        <span
+                          style={{fontSize: 'small'}}>{`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}</span>
+                      </span>}
+                      secondary={<span style={{marginTop: '10px', display: 'block'}}>
+                        {item.Content}
+                      </span>}
                     />
                   </ListItem>
                 </div>)
