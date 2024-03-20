@@ -1,5 +1,5 @@
 import service from "@/utils/http";
-import {useLayoutEffect, useState, useContext} from "react";
+import {useLayoutEffect, useState, useContext, useMemo} from "react";
 import {Chip, Divider, Paper, Skeleton, useTheme} from "@mui/material";
 import {useNavigate, Link} from "react-router-dom";
 import dayjs from "dayjs";
@@ -24,6 +24,9 @@ function Home() {
   })
   const [tagListDataset, setTagListDataset] = useState([])
   const [pageViewCount, setPageViewCount] = useState(0)
+
+  // 从tagListDataset随机取10个标签
+  const tagListDatasetRandom = useMemo(() => tagListDataset.toSorted(() => Math.random() - 0.5).slice(0, 10), [tagListDataset])
 
   const fetchGetArticleHeatmap = async () => {
     return await service.get('/article/getArticleHeatmap')
@@ -129,27 +132,25 @@ function Home() {
                 <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
                 <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
                 <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-                <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
               </> : <>
                 {
-                  tagListDataset.map((tag, tagIdx) => <Chip
-                    key={tag.ID}
-                    style={{
-                      border: `1px solid ${TAG_COLOR_ARR[tagIdx % 10]}80`,
-                      background: `${TAG_COLOR_ARR[tagIdx % 10]}33`
-                    }}
-                    label={tag.Name}
-                    sx={{marginTop: '20px', marginRight: '10px'}}
-                    size="small"
-                    variant="outlined"
-                    onClick={() => {
-                      navigate(`/tag/${tag.ID}`)
-                    }}
-                  />)
+                  tagListDatasetRandom.map((tag, tagIdx) => {
+                    if (tagIdx > 10) return null
+                    return <Chip
+                      key={tag.ID}
+                      style={{
+                        border: `1px solid ${TAG_COLOR_ARR[tagIdx % 10]}80`,
+                        background: `${TAG_COLOR_ARR[tagIdx % 10]}33`
+                      }}
+                      label={tag.Name}
+                      sx={{marginTop: '20px', marginRight: '10px'}}
+                      size="small"
+                      variant="outlined"
+                      onClick={() => {
+                        navigate(`/tag/${tag.ID}`)
+                      }}
+                    />
+                  })
                 }
               </>
             }
