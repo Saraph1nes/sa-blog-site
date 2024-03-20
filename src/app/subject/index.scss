@@ -9,8 +9,6 @@
 
     .special-subject-list {
       margin-top: 20px;
-      display: flex;
-      align-items: center;
 
       .special-subject-list-item {
         overflow: hidden;
@@ -25,6 +23,7 @@
         cursor: pointer;
         font-size: 16px;
 
+
         &.frontend {
           background: linear-gradient(rgb(0, 122, 194) 0%, rgb(0, 45, 73) 100%);
         }
@@ -37,6 +36,10 @@
           background: linear-gradient(rgb(189, 45, 0) 0%, rgb(79, 19, 0) 100%);
         }
 
+        &.designPatterns {
+          background: linear-gradient(rgb(120, 0, 189) 0%, rgb(50, 0, 79) 100%);
+        }
+
         &-img {
           position: absolute;
           right: 0;
@@ -45,7 +48,8 @@
         }
 
         &:hover {
-          transform: scale(1.05);
+          scale: 1.02;
+          font-size: 20px;
 
           .special-subject-list-item-img {
             animation: rotate 10s linear infinite alternate-reverse;
