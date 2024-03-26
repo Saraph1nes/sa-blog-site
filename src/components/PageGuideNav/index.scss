@@ -36,6 +36,8 @@
 
     .title-anchor.active {
       color: $primary-color;
+      background-color: $primary-color-10;
+      border-radius: 0 20px 20px 0;
     }
 
     .title-anchor small {
@@ -43,32 +45,32 @@
     }
 
     .title-level1 {
-      padding-left: 1em;
+      padding-left: 0.5em;
     }
 
     .title-level2 {
-      padding-left: 1em;
+      padding-left: 0.5em;
     }
 
     .title-level3 {
-      padding-left: 3em;
+      padding-left: 1em;
     }
 
     .title-level4 {
-      padding-left: 5em;
+      padding-left: 1.5em;
     }
 
     .title-level5 {
-      padding-left: 7em;
+      padding-left: 2em;
     }
 
     .title-level6 {
-      padding-left: 9em;
+      padding-left: 2.5em;
     }
   }
 }
 
-.page-guide-nav-content-wrap.dark{
+.page-guide-nav-content-wrap.dark {
   .page-guide-nav-content {
     border-left: 1px solid #333333;
   }

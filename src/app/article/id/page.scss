@@ -1,6 +1,6 @@
 @import "src/common.scss";
 
-.article-page-wrap{
+.article-page-wrap {
   padding: 100px 20px;
   //display: flex;
   margin: 0 auto;
@@ -9,14 +9,14 @@
 
   .article-page {
     flex: 1;
+    overflow: hidden;
 
     .article-title {
       font-size: 24px;
       text-align: center;
     }
 
-    .article-content {
-    }
+    .article-content {}
 
     .article-switching-wrap {
       margin-top: 80px;
