@@ -1,14 +1,14 @@
-import {createContext, useLayoutEffect, useMemo, useState} from "react";
-import {createTheme, CssBaseline, ThemeProvider, useMediaQuery} from "@mui/material";
+import { createContext, useLayoutEffect, useMemo, useState } from "react";
+import { createTheme, CssBaseline, ThemeProvider, useMediaQuery } from "@mui/material";
 import PropTypes from "prop-types";
-import {MOBILE_JUDGING_WIDTH} from "@/utils/constant";
+import { MOBILE_JUDGING_WIDTH } from "@/utils/constant";
 
 export const DarkModeContent = createContext({})
 
-const DarkModeProvider = ({children}) => {
+const DarkModeProvider = ({ children }) => {
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const [darkMode, setDarkMode] = useState('dark')
-  const [primaryMainColor, setPrimaryMainColor] = useState('#ffa41d')
+  const [primaryMainColor, setPrimaryMainColor] = useState('#8EA063')
   const [isMobile, setIsMobile] = useState(false)
 
   const theme = useMemo(() => {
@@ -93,7 +93,7 @@ const DarkModeProvider = ({children}) => {
     }}
   >
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      <CssBaseline />
       <div>{children}</div>
     </ThemeProvider>
   </DarkModeContent.Provider>

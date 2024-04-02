@@ -6,11 +6,11 @@ import rehypeSlug from "rehype-slug";
 import rehypeGallery from "rehype-lightgallery";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import classname from "classname";
-import {useTheme} from "@mui/material";
+import { useTheme } from "@mui/material";
 
 import './index.scss'
 
-const MarkdownRenderer = ({data}) => {
+const MarkdownRenderer = ({ data }) => {
   const theme = useTheme()
 
   return <article
@@ -27,7 +27,7 @@ const MarkdownRenderer = ({data}) => {
         rehypeGallery,
         rehypeHighlight,
         [rehypeSlug, {}],
-        [rehypeAutolinkHeadings, {behavior: 'wrap'}]
+        [rehypeAutolinkHeadings, { behavior: 'wrap' }]
       ]}
     >
       {data.Content}
