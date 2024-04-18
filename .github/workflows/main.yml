@@ -1,0 +1,28 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@latest
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Hosting Service
+        # Add your deployment steps here, such as deploying to Vercel, Netlify, GitHub Pages, etc.
