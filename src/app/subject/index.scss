@@ -39,7 +39,8 @@
     .page-subject-technical-section {
       display: flex;
       flex: 1;
-
+      overflow: hidden;
+      border-radius: 40px;
 
       .page-subject-technical-section-left {
         flex: 1;
@@ -53,23 +54,23 @@
         flex-flow: column;
         margin-left: 10px;
         flex: 1;
+        text-align: right;
       }
 
       .special-subject-list-item {
-        margin-top: 10px;
         position: relative;
         overflow: hidden;
         transition: all .5s;
         display: block;
         width: 100%;
-        flex: 1;
+        flex: 2;
         cursor: pointer;
 
-        &.frontend{
-          flex: 2;
+        &:not(:first-child) {
+          margin-top: 10px;
         }
 
-        &:hover {
+        &.frontend {
           flex: 3;
         }
 
@@ -78,28 +79,28 @@
           height: 100%;
           object-fit: cover;
           display: block;
+          z-index: 1;
         }
 
-        &-img {
+        .special-subject-list-item-content-words-wrap {
           position: absolute;
-          top: 48px;
-          left: 13%;
-          width: 90px;
-          height: 90px;
-        }
+          width: 100%;
+          height: 100%;
+          transition: all .3s;
+          z-index: 2;
+          color: #fff;
+          padding: 50px;
 
-        &-content-words-wrap {
-          position: absolute;
-          top: 158px;
-          left: 13%;
-          transition: top .3s, left .3s, width .3s;
-          z-index: 4;
+          .special-subject-list-item-title {
+            font-size: 28px;
+            font-weight: bold;
+          }
 
           .special-subject-list-item-desc {
             margin-top: 20px;
             overflow: hidden;
             font-size: 16px;
-            font-weight: 100;
+            font-weight: bold;
             line-height: 32px;
             color: #fff;
             text-overflow: ellipsis;
@@ -108,24 +109,13 @@
           }
         }
 
-        // &:hover {
-        //   scale: 1.02;
-        //   font-size: 20px;
+        &:hover {
+          flex: 4;
 
-        //   .special-subject-list-item-img {
-        //     animation: rotate 10s linear infinite alternate-reverse;
-
-        //     @keyframes rotate {
-        //       0% {
-        //         transform: rotate(0);
-        //       }
-
-        //       100% {
-        //         transform: rotate(360deg);
-        //       }
-        //     }
-        //   }
-        // }
+          .special-subject-list-item-content-words-wrap {
+            backdrop-filter: blur(6px);
+          }
+        }
       }
     }
   }
