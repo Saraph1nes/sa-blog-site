@@ -46,6 +46,17 @@ jobs:
           port: 22
           # 使用 || true 确保即使没有运行的 PM2 进程也不会导致构建失败
           script: cd /var/www/sa-blog-site && sudo /usr/local/bin/pm2 stop sablog-site || true
+
+      - name: Clear existing files on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.TENCENT_SERVER_HOST }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          # Clear existing files
+          script: cd /var/www/sa-blog-site && sudo rm -rf *
+
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
