@@ -23,3 +23,42 @@ jobs:
 
       - name: Build
         run: npm run build
+
+  upload:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Stop PM2 on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.TENCENT_SERVER_HOST }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          # 使用 || true 确保即使没有运行的 PM2 进程也不会导致构建失败
+          script: cd /var/www/sa-blog-site && sudo /usr/local/bin/pm2 stop sablog-site || true
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+          path: .
+      - name: Show generated files
+        run: ls -R
+      - name: deploy file to server
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: "root"
+          server: "${{ secrets.TENCENT_SERVER_HOST }}"
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          local_path: "dist"
+          remote_path: "/var/www/sa-blog-site"
+          sftpArgs: "-o ConnectTimeout=5"
+      - name: Start PM2 on Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.TENCENT_SERVER_HOST }}
+          username: "root"
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          # script: cd /var/www/sa-blog-bn && sudo /usr/local/bin/pm2 start sablog-api --watch --ignore-watch="storage"
+          script: cd /var/www/sa-blog-site && sudo /usr/local/bin/pm2 serve . 3000 --name sablog-site --spa
