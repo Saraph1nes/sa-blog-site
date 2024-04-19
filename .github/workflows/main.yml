@@ -59,7 +59,7 @@ jobs:
           username: "root"
           server: "${{ secrets.TENCENT_SERVER_HOST }}"
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          local_path: "dist"
+          local_path: "."
           remote_path: "/var/www/sa-blog-site"
           sftpArgs: "-o ConnectTimeout=5"
       - name: Start PM2 on Server
