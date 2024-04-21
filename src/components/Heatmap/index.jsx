@@ -1,12 +1,12 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import * as d3 from "d3";
-import {useTheme} from "@mui/material";
+import { useTheme } from "@mui/material";
 import dayjs from "dayjs";
 import PropTypes from "prop-types";
 
 import './index.scss'
 
-const Heatmap = ({heatmapDataset}) => {
+const Heatmap = ({ heatmapDataset }) => {
   const theme = useTheme()
 
   const init = async () => {
@@ -37,7 +37,7 @@ const Heatmap = ({heatmapDataset}) => {
           }
         })
         .reverse()
-      return {days: days}
+      return { days: days }
     }
 
     const dataset = generateDataset({
@@ -130,7 +130,7 @@ const Heatmap = ({heatmapDataset}) => {
       .style("border-radius", "5px")
       .style("padding", "5px");
 
-    const mouseover = function (event, d) {
+    const mouseover = function () {
       Tooltip
         .style("opacity", 1)
 
@@ -141,10 +141,10 @@ const Heatmap = ({heatmapDataset}) => {
     const mousemove = function (event, d) {
       Tooltip
         .html(d.total ? `${d.date}</br>发布 ${d.total || 0} 篇文章` : d.date)
-        .style("top", `${event.pageY + 20}px`)
-        .style("left", `${event.pageX + 20}px`)
+        .style("top", `${event.clientY + 20}px`)
+        .style("left", `${event.clientX + 20}px`)
     };
-    const mouseleave = function (d) {
+    const mouseleave = function () {
       Tooltip
         .style("opacity", 0)
       d3.select(this)

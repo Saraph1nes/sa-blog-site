@@ -1,14 +1,14 @@
-import {Box, Divider, Skeleton, Tab, Tabs, useTheme} from "@mui/material";
+import { Box, Divider, Skeleton, Tab, Tabs, useTheme } from "@mui/material";
 import classname from "classname";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ClassIcon from "@mui/icons-material/Class.js";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer.js";
 import CommentIcon from "@mui/icons-material/Comment.js";
 import dayjs from "dayjs";
-import {useContext, useEffect, useLayoutEffect, useRef, useState} from "react";
-import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
+import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import service from "@/utils/http.js";
-import {isMobile} from "@/utils/common.js";
+import { isMobile } from "@/utils/common.js";
 
 const ArticleList = () => {
   const ctx = useContext(DarkModeContent);
@@ -61,7 +61,7 @@ const ArticleList = () => {
   useEffect(() => {
     const fetchData = async () => {
       setListLoading(true)
-      const {Data} = await fetchArticles()
+      const { Data } = await fetchArticles()
       setListLoading(false)
       const curListLength = Data?.List?.length || 0;
       if (curListLength === Data.Count) {
@@ -99,6 +99,15 @@ const ArticleList = () => {
     };
   });
 
+
+  const articleItemWrap = document.querySelectorAll('.article-item-wrap')
+
+  useEffect(() => {
+    if (articleItemWrap.length) {
+      console.log('articleItemWrap', articleItemWrap);
+    }
+  }, [articleItemWrap])
+
   return <div className='article-list-wrap'>
     <Box
       className={classname({
@@ -116,7 +125,7 @@ const ArticleList = () => {
         value={selectedCategory}
         onChange={onTabsChange}
       >
-        <Tab disabled={listLoading} className='article-list-category-item' label='全部' value={-1}/>
+        <Tab disabled={listLoading} className='article-list-category-item' label='全部' value={-1} />
         {categoryList.map(i => <Tab
           key={i.ID}
           disabled={listLoading}
@@ -128,7 +137,7 @@ const ArticleList = () => {
     </Box>
     <div className='article-list-container'>
 
-      {list.map(item => <div key={item.ID}>
+      {list.map(item => <div key={item.ID} className="article-item-wrap">
         <div className='article-item'>
           <div className='left'>
             {
@@ -138,9 +147,9 @@ const ArticleList = () => {
                   'isMobile': ctx.isMobile
                 })
               }>
-              <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
+                <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
                   goToArticle(item.ID)
-                }}/>
+                }} />
               </div>
             }
             <h3
@@ -162,21 +171,21 @@ const ArticleList = () => {
                 to={`/category/${item.CategoryId}`}
               >
                 <div className='article-category'>
-                  <ClassIcon style={{fontSize: '18px'}}/>
-                  <span style={{marginLeft: '5px'}}>{item.CategoryName}</span>
+                  <ClassIcon style={{ fontSize: '18px' }} />
+                  <span style={{ marginLeft: '5px' }}>{item.CategoryName}</span>
                 </div>
               </Link>}
               {item.TagName && <Link
                 to={`/tag/${item.TagId}`}
               >
                 <div className='article-tag'>
-                  <LocalOfferIcon style={{fontSize: '18px'}}/>
-                  <span style={{marginLeft: '5px'}}>{item.TagName}</span>
+                  <LocalOfferIcon style={{ fontSize: '18px' }} />
+                  <span style={{ marginLeft: '5px' }}>{item.TagName}</span>
                 </div>
               </Link>}
               {item.CommentCount > 0 && <div className='article-comment-count'>
-                <CommentIcon style={{fontSize: '18px'}}/>
-                <span style={{marginLeft: '5px'}}>评论({item.CommentCount})</span>
+                <CommentIcon style={{ fontSize: '18px' }} />
+                <span style={{ marginLeft: '5px' }}>评论({item.CommentCount})</span>
               </div>}
             </div>}
             <div className='create-time'>发布于{dayjs(item.CreatedAt).format("MM-DD HH:mm")} · 作者Saraph1nes</div>
@@ -185,32 +194,34 @@ const ArticleList = () => {
           {/*  <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>*/}
           {/*</div>*/}
         </div>
-        <Divider style={{marginTop: '20px'}}/>
+        <Divider style={{ marginTop: '20px' }} />
       </div>)}
     </div>
     {listLoading && <div className='list-bottom-loading'>
       <section>
-        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
       </section>
-      <Divider style={{marginTop: '20px'}}/>
+      <Divider style={{ marginTop: '20px' }} />
       <section>
-        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
       </section>
-      <Divider style={{marginTop: '20px'}}/>
+      <Divider style={{ marginTop: '20px' }} />
       <section>
-        <Skeleton variant="rectangular" height={300} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" height={20} style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
-        <Skeleton variant="rectangular" style={{marginTop: '10px'}}/>
+        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
+        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
       </section>
     </div>}
     {listOver && <div className='list-bottom-over'>------ 没有更多了 ------</div>}
   </div>
 }
 
-export default ArticleList
+const ArticleListMemo = memo(ArticleList);
+
+export default ArticleListMemo
