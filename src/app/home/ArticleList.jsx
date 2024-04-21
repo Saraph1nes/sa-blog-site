@@ -5,10 +5,10 @@ import ClassIcon from "@mui/icons-material/Class.js";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer.js";
 import CommentIcon from "@mui/icons-material/Comment.js";
 import dayjs from "dayjs";
-import { memo, useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { memo, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import service from "@/utils/http.js";
-import { isMobile } from "@/utils/common.js";
+import { debounce } from 'lodash'
 
 const ArticleList = () => {
   const ctx = useContext(DarkModeContent);
@@ -25,7 +25,7 @@ const ArticleList = () => {
   const fetchArticles = async () => {
     return await service.get('/article', {
       params: {
-        pageIndex: pageIndex, pageSize: 20, category: selectedCategory
+        pageIndex: pageIndex, pageSize: 10, category: selectedCategory
       }
     })
   }
@@ -80,22 +80,25 @@ const ArticleList = () => {
     }
   }, [pageIndex, selectedCategory]);
 
-  const handleScroll = () => {
-    const htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
-    const innerHeight = window.innerHeight;
-    const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-
-    if (htmlHeight - (innerHeight + scrollTop) < 200 && !listLoading) {
-      setPageIndex(c => c + 1)
-    }
-  };
-
   useLayoutEffect(() => {
+
+    const handleScroll = () => {
+      const htmlHeight = document.body.scrollHeight || document.documentElement.scrollHeight;
+      const innerHeight = window.innerHeight;
+      const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+
+      if (htmlHeight - (innerHeight + scrollTop) < 20 && !listLoading) {
+        setPageIndex(c => c + 1)
+      }
+    };
+
+    const debounceHandleScroll = debounce(handleScroll, 300);
+
     // 添加滚动事件监听
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', debounceHandleScroll);
     // 组件卸载时移除事件监听
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', debounceHandleScroll);
     };
   });
 
@@ -198,19 +201,6 @@ const ArticleList = () => {
       </div>)}
     </div>
     {listLoading && <div className='list-bottom-loading'>
-      <section>
-        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
-      </section>
-      <Divider style={{ marginTop: '20px' }} />
-      <section>
-        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
-      </section>
-      <Divider style={{ marginTop: '20px' }} />
       <section>
         <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
         <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
