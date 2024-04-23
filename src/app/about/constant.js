@@ -30,14 +30,6 @@ export const PROJECT_LIST_DATA = [
     githubLink: '',
     microsoftLink: '',
     outerLink: 'https://fe-material.ezrpro.work/ezrgame/docs-site/zh/components/game-task-panel/'
-  },
-  {
-    img: 'https://assest.sablogs.cn/imgs/blog/ezrpc-analyz-cli-demo.png',
-    name: 'ezrpc-analyz-cli',
-    desc: 'ezrpc 组件库使用分析 脚手架工具',
-    githubLink: 'https://github.com/Saraph1nes/ezrpc-analyz-cli',
-    microsoftLink: '',
-    outerLink: ''
   }
 ]
 
