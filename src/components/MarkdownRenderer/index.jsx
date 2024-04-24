@@ -3,6 +3,7 @@ import rehypeHighlight from "rehype-highlight";
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown';
 import rehypeSlug from "rehype-slug";
+import rehypeToc from "rehype-toc";
 import rehypeGallery from "rehype-lightgallery";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import classname from "classname";
@@ -27,6 +28,9 @@ const MarkdownRenderer = ({ data }) => {
         rehypeGallery,
         rehypeHighlight,
         [rehypeSlug, {}],
+        [rehypeToc, {
+          headings: ["h2", "h3", "h4"]
+        }],
         [rehypeAutolinkHeadings, { behavior: 'wrap' }]
       ]}
     >
