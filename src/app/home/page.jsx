@@ -3,6 +3,7 @@ import { useLayoutEffect, useState, useContext, useMemo } from "react";
 import { Chip, Divider, Paper, Skeleton, useTheme } from "@mui/material";
 import { useNavigate, Link } from "react-router-dom";
 import dayjs from "dayjs";
+import cloneDeep from 'lodash/cloneDeep'
 import classname from 'classname'
 import CountUp from "react-countup";
 import Heatmap from "@/components/Heatmap";
@@ -26,7 +27,11 @@ function Home() {
   const [pageViewCount, setPageViewCount] = useState(0)
 
   // 从tagListDataset随机取10个标签
-  const tagListDatasetRandom = useMemo(() => tagListDataset.toSorted(() => Math.random() - 0.5).slice(0, 10), [tagListDataset])
+  const tagListDatasetRandom = useMemo(() => {
+    const tagListDatasetRandom = cloneDeep(tagListDataset)
+    tagListDatasetRandom.sort(() => Math.random() - 0.5).slice(0, 10)
+    return tagListDatasetRandom
+  }, [tagListDataset])
 
   const fetchGetArticleHeatmap = async () => {
     return await service.get('/article/getArticleHeatmap')
