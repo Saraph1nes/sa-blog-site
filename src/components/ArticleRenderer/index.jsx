@@ -1,4 +1,4 @@
-import {useLayoutEffect, useState} from "react";
+import { useLayoutEffect, useState } from "react";
 import dayjs from "dayjs";
 import { useTheme } from "@mui/material";
 import readingTime from "reading-time";

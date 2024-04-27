@@ -47,7 +47,7 @@
                 overflow: hidden;
                 margin-bottom: 20px;
                 border-radius: 12px;
-                width: 820px;
+                // width: 820px;
                 height: 300px;
 
                 &.isMobile {
@@ -148,7 +148,8 @@
           }
         }
 
-        .list-bottom-loading {}
+        .list-bottom-loading {
+        }
 
         .list-bottom-over {
           text-align: center;

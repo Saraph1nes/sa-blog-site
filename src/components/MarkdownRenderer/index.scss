@@ -1,5 +1,15 @@
 @import "src/common.scss";
 
+.markdown-body-wrap.light {
+  @import "highlight.js/scss/github.scss";
+  @import "github-md-light";
+}
+
+.markdown-body-wrap.dark {
+  @import "highlight.js/scss/github-dark.scss";
+  @import "github-md-dark";
+}
+
 .markdown-body-wrap {
   display: flex;
   padding-bottom: 20px;
@@ -13,7 +23,7 @@
 
     a {
       background-color: transparent;
-      color: $primary-color !important;
+      color: $primary-color;
       text-decoration: none;
     }
 
@@ -21,14 +31,4 @@
       max-height: 50vh;
     }
   }
-}
-
-.markdown-body-wrap.light {
-  @import 'highlight.js/scss/github.scss';
-  @import 'github-md-light';
-}
-
-.markdown-body-wrap.dark {
-  @import 'highlight.js/scss/github-dark.scss';
-  @import 'github-md-dark';
 }

@@ -1,4 +1,4 @@
-import {useContext, useLayoutEffect, useState} from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import service from "@/utils/http";
 import ArticleRenderer from "@/components/ArticleRenderer";
 import SaComment from "@/components/SaComment"
@@ -17,11 +17,11 @@ import {
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import dayjs from "dayjs";
 import AuthModalBox from '@/components/AuthModalBox'
-import {UserInfoContext} from "@/components/UserInfoProvider/index.jsx";
-import {DarkModeContent} from "@/components/DarkModeProvider/index.jsx";
+import { UserInfoContext } from "@/components/UserInfoProvider/index.jsx";
+import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import PageGuideNav from "@/components/PageGuideNav/index.jsx";
 
 import './page.scss'
@@ -80,21 +80,21 @@ function Page() {
       })
     }>
       <div className='article-page'>
-        <Skeleton variant="rectangular" height={50} style={{margin: '20px auto'}}/>
-        <Skeleton variant="rectangular" height={80} style={{margin: '20px auto 70px'}}/>
-        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-        <Skeleton variant="rectangular" height={400} style={{margin: '20px'}}/>
-        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-        <Skeleton variant="rectangular" height={100} style={{margin: '20px'}}/>
-        <Skeleton variant="rectangular" height={300} style={{margin: '20px'}}/>
+        <Skeleton variant="rectangular" height={50} style={{ margin: '20px auto' }} />
+        <Skeleton variant="rectangular" height={80} style={{ margin: '20px auto 70px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
+        <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
       </div>
       {
         !ctx.isMobile && <div className="page-guide-nav-content-wrap">
-          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
-          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
-          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
-          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
-          <Skeleton variant="rectangular" style={{margin: '20px'}}/>
+          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
+          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
         </div>
       }
     </div>
@@ -108,12 +108,15 @@ function Page() {
         'is-mobile': ctx.isMobile
       })
     }
-    style={{display: ctx.isMobile ? 'block' : 'flex'}}
+    style={{ display: ctx.isMobile ? 'block' : 'flex' }}
   >
     <div className='article-page'>
       <h2 className='article-title'>{article.Name}</h2>
       <div className='article-content'>
-        <ArticleRenderer data={article}/>
+        <ArticleRenderer data={article} />
+        <div className="article-content-toc-wrap">
+          <PageGuideNav source={article} />
+        </div>
       </div>
       <div className="article-switching-wrap">
         <h2 className='article-switching-title'>其他文章</h2>
@@ -126,7 +129,7 @@ function Page() {
               onClick={() => {
                 navigate(`/article/${article.PrevArticle.ID}`)
               }}>
-              <ChevronLeftIcon/>
+              <ChevronLeftIcon />
               <div>
                 <div className='article-switching-item-title'>上一篇</div>
                 <div className='article-switching-item-name'>{article.PrevArticle.Name}</div>
@@ -146,7 +149,7 @@ function Page() {
                 <div className='article-switching-item-title'>下一篇</div>
                 <div className='article-switching-item-name'>{article.NextArticle.Name}</div>
               </div>
-              <ChevronRightIcon/>
+              <ChevronRightIcon />
             </Paper>
           }
         </div>
@@ -154,7 +157,7 @@ function Page() {
       <div className="article-comment-wrap">
         <h2 className='article-comment-title'>评论({comment.Count})</h2>
         {
-          userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess}/>
+          userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
         }
         {
           !userInfo && <div className='comment-need-login'>
@@ -168,18 +171,18 @@ function Page() {
             <List>
               {
                 comment?.Comments?.map((item, index) => <div key={item.ID}>
-                  {index !== 0 && <Divider variant="inset" component="li"/>}
+                  {index !== 0 && <Divider variant="inset" component="li" />}
                   <ListItem alignItems="flex-start" className='article-comment-list-item'>
                     <ListItemAvatar>
-                      <Avatar alt="头像" src={item.Avatar}/>
+                      <Avatar alt="头像" src={item.Avatar} />
                     </ListItemAvatar>
                     <ListItemText
-                      primary={<span style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
-                        <span style={{fontWeight: 'bold'}}>{item.Name}</span>
+                      primary={<span style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                        <span style={{ fontWeight: 'bold' }}>{item.Name}</span>
                         <span
-                          style={{fontSize: 'small'}}>{`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}</span>
+                          style={{ fontSize: 'small' }}>{`${dayjs(item.CreatedAt).format('YYYY-MM-DD HH:mm:ss')}`}</span>
                       </span>}
-                      secondary={<span style={{marginTop: '10px', display: 'block'}}>
+                      secondary={<span style={{ marginTop: '10px', display: 'block' }}>
                         {item.Content}
                       </span>}
                     />
@@ -191,9 +194,9 @@ function Page() {
         }
       </div>
     </div>
-    {
+    {/* {
       !ctx.isMobile && <PageGuideNav source={article.Content}/>
-    }
+    } */}
   </div>
 }
 
