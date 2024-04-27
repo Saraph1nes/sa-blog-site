@@ -16,7 +16,13 @@
       text-align: center;
     }
 
-    .article-content {}
+    .article-content {
+      .article-content-toc-wrap {
+        position: fixed;
+        top: calc(50% - 25vh);
+        left: calc(50% + 600px);
+      }
+    }
 
     .article-switching-wrap {
       margin-top: 80px;
@@ -84,7 +90,6 @@
 
   &.is-mobile {
     .article-switching-wrap {
-
       .article-switching {
         display: block;
 

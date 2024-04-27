@@ -28,9 +28,6 @@ const MarkdownRenderer = ({ data }) => {
         rehypeGallery,
         rehypeHighlight,
         [rehypeSlug, {}],
-        [rehypeToc, {
-          headings: ["h2", "h3", "h4"]
-        }],
         [rehypeAutolinkHeadings, { behavior: 'wrap' }]
       ]}
     >

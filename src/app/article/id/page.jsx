@@ -114,6 +114,9 @@ function Page() {
       <h2 className='article-title'>{article.Name}</h2>
       <div className='article-content'>
         <ArticleRenderer data={article} />
+        <div className="article-content-toc-wrap">
+          <PageGuideNav source={article} />
+        </div>
       </div>
       <div className="article-switching-wrap">
         <h2 className='article-switching-title'>其他文章</h2>
