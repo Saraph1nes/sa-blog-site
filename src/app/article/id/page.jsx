@@ -118,6 +118,12 @@ function Page() {
           <PageGuideNav source={article} />
         </div>
       </div>
+      <div className="article-summary-wrap">
+        <div className="article-summary-title">
+          <span>AI 总结</span>
+        </div>
+        {article.Summary}
+      </div>
       <div className="article-switching-wrap">
         <h2 className='article-switching-title'>其他文章</h2>
         <div className="article-switching">

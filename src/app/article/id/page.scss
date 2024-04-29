@@ -17,11 +17,17 @@
     }
 
     .article-content {
+      display: flex;
+
       .article-content-toc-wrap {
         position: fixed;
-        top: calc(50% - 25vh);
+        top: 100px;
         left: calc(50% + 600px);
       }
+    }
+
+    .article-summary-wrap {
+      margin-top: 20px;
     }
 
     .article-switching-wrap {

@@ -17,18 +17,15 @@
       color: #aaa;
       cursor: pointer;
       padding: 6px;
-      text-wrap: wrap;
-      word-wrap: break-word;
+      text-wrap: nowrap;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
 
       &.active {
         color: $primary-color;
         font-weight: bold;
-        background: $primary-color-10;
         border-radius: 0 16px 16px 0;
-      }
-
-      &:not(:first-child) {
-        margin-top: 10px;
       }
     }
   }

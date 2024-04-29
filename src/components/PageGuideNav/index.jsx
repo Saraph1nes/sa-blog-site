@@ -3,9 +3,9 @@ import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import PropTypes from "prop-types";
 import cx from 'classname'
 import { useMediaQuery } from "@mui/material";
+import classname from "classname";
 
 import './index.scss'
-import classname from "classname";
 
 const PageGuideNav = ({ source }) => {
   const [toc, setToc] = useState([]);
@@ -16,11 +16,6 @@ const PageGuideNav = ({ source }) => {
   const themeDarkMode = ctx.darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : ctx.darkMode
 
   useLayoutEffect(() => {
-    const observer = new IntersectionObserver((e) => {
-      if (e[0].isIntersecting) {
-        setTocActiveId(e[0].target.id)
-      }
-    });
     const articlePageDom = document.querySelector('.markdown-body')
     const children = articlePageDom.childNodes
     const arr = []
@@ -30,20 +25,26 @@ const PageGuideNav = ({ source }) => {
         const name = item.firstChild.innerText;
         const type = +item.tagName.slice(1);
 
-        observer.observe(item)
-
         arr.push({
           type,
           id,
           name,
-          element: item
+          element: item,
+          boundingClientRectTop: item.getBoundingClientRect().top
         })
       }
     })
-    setToc(arr)
-    return () => {
-      observer.disconnect()
+
+    window.onscroll = () => {
+      const currentY = window.scrollY;
+      for (let i = 0; i < arr.length; i++) {
+        if (currentY > arr[i].boundingClientRectTop && currentY < arr[i + 1].boundingClientRectTop) {
+          setTocActiveId(arr[i].id)
+        }
+      }
     }
+
+    setToc(arr)
   }, [])
 
   const handleTocItemClick = (item) => {
