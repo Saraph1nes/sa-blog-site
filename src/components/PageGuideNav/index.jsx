@@ -52,9 +52,15 @@ const PageGuideNav = ({ source }) => {
   useEffect(() => {
     window.onscroll = throttle(() => {
       const currentY = window.scrollY;
-      for (let i = 0; i < toc.length; i++) {
-        if (currentY > toc[i].boundingClientRectTop && currentY < toc[i + 1].boundingClientRectTop) {
-          setTocActiveId(toc[i].id)
+      if (currentY > toc[toc.length - 1].boundingClientRectTop) {
+        setTocActiveId(toc[toc.length - 1].id)
+      } else {
+        for (let i = 0; i < toc.length - 1; i++) {
+          const currentHeaderArea = currentY > toc[i].boundingClientRectTop;
+          const nextHeaderArea = currentY < toc[i + 1].boundingClientRectTop;
+          if (currentHeaderArea && nextHeaderArea) {
+            setTocActiveId(toc[i].id)
+          }
         }
       }
     }, 80)

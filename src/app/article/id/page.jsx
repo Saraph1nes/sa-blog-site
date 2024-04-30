@@ -92,7 +92,7 @@ function Page() {
         </div>
       </div>
       <div className="article-switching-wrap">
-        <h2 className='article-switching-title'>其他文章</h2>
+        <h2 className='article-switching-title'>文章推荐</h2>
         <div className="article-switching">
           {
             !!article?.PrevArticle?.ID &&

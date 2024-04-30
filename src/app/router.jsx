@@ -21,10 +21,6 @@ const Router = () => {
   const location = useLocation();
 
   useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
     const pageViewCount = +sessionStorage.getItem('pageViewCount') || 0;
     sessionStorage.setItem('pageViewCount', `${pageViewCount + 1}`);
   }, [location]);
