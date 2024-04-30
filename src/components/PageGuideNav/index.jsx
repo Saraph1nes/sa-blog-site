@@ -1,4 +1,4 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState, useRef, useMemo } from "react";
 import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import PropTypes from "prop-types";
 import cx from 'classname'
@@ -12,17 +12,23 @@ const PageGuideNav = ({ source }) => {
   const [toc, setToc] = useState([]);
   const [tocActiveId, setTocActiveId] = useState('')
 
+  const tocActiveIndex = useMemo(() => toc.findIndex(item => item.id === tocActiveId), [toc, tocActiveId])
+
+  const tocRef = useRef(null)
+
   const ctx = useContext(DarkModeContent)
   const osDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
   const themeDarkMode = ctx.darkMode === 'auto' ? (osDarkMode ? 'dark' : 'light') : ctx.darkMode
 
   // 初始化标题数组
   useLayoutEffect(() => {
+    window.scrollTo({ top: 0 })
     if (!source) return
     const articlePageDom = document.querySelector('.markdown-body')
     const children = articlePageDom.childNodes
     const arr = []
-    children.forEach(item => {
+
+    for (const item of children) {
       if (['h2', 'h3', 'h4'].includes(item.localName)) {
         const id = item.id;
         const name = item.firstChild.innerText;
@@ -36,8 +42,9 @@ const PageGuideNav = ({ source }) => {
           boundingClientRectTop: item.getBoundingClientRect().top
         })
       }
-    })
+    }
 
+    setTocActiveId(arr[0]?.id || '')
     setToc(arr)
   }, [source])
 
@@ -53,15 +60,34 @@ const PageGuideNav = ({ source }) => {
     }, 80)
   }, [toc])
 
+  // 根据页面的滚动位置，设置标题列表的滚动位置
+  useEffect(() => {
+    const ins = tocRef.current
+    if (tocActiveIndex >= 10) {
+      ins.scrollTo({
+        top: (tocActiveIndex - 10) * 36,
+        behavior: 'smooth'
+      })
+    } else {
+      ins.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
+    }
+
+  }, [tocActiveIndex, toc])
+
   const handleTocItemClick = (item) => {
     const offsetTop = item.element.offsetTop
     window.scrollTo({ top: offsetTop, behavior: 'smooth' })
   }
 
-  return <div className={cx({
-    'page-guide-nav-content-wrap': true,
-    'dark': themeDarkMode === 'dark'
-  })}>
+  return <div
+    ref={tocRef}
+    className={cx({
+      'page-guide-nav-content-wrap': true,
+      'dark': themeDarkMode === 'dark'
+    })}>
     <div className="page-guide-nav-content" >
       {
         toc.map(item => {
