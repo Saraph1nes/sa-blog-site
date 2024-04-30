@@ -122,7 +122,9 @@ function Page() {
         <div className="article-summary-title">
           <span>AI 总结</span>
         </div>
-        {article.Summary}
+        <div className="article-summary-content">
+          {article.Summary}
+        </div>
       </div>
       <div className="article-switching-wrap">
         <h2 className='article-switching-title'>其他文章</h2>

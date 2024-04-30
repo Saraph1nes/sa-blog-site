@@ -27,7 +27,25 @@
     }
 
     .article-summary-wrap {
+      color: #ffffff;
       margin-top: 20px;
+      border-radius: 20px;
+      padding: 20px;
+      background: linear-gradient(
+        102deg,
+        #ff6ed6 -1.72%,
+        rgba(179, 107, 244, 0.94) 25.36%,
+        #a66bff 96.67%
+      );
+
+      .article-summary-title {
+        font-size: 22px;
+        font-weight: bold;
+      }
+
+      .article-summary-content {
+        margin-top: 20px;
+      }
     }
 
     .article-switching-wrap {
