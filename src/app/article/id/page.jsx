@@ -1,4 +1,4 @@
-import { useContext, useLayoutEffect, useState } from "react";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import service from "@/utils/http";
 import ArticleRenderer from "@/components/ArticleRenderer";
 import SaComment from "@/components/SaComment"
@@ -12,7 +12,6 @@ import {
   ListItemAvatar,
   ListItemText,
   Paper,
-  Skeleton,
   useTheme
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -32,7 +31,6 @@ function Page() {
   const navigate = useNavigate()
   const params = useParams()
   const theme = useTheme()
-  const [isMount, setIsMount] = useState(false)
   const [article, setArticle] = useState({
     Name: '',
   })
@@ -61,44 +59,11 @@ function Page() {
     ])
     setArticle(fetchArticleByIdRes.Data)
     setComment(fetchGetArticleCommentRes.Data)
-    setIsMount(true)
   }
 
   useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-    })
     init()
-  }, [params.id])
-
-  if (!isMount) {
-    return <div className={
-      classname({
-        'article-page-wrap': true,
-        'dark': theme.palette.mode === 'dark',
-        'is-mobile': ctx.isMobile
-      })
-    }>
-      <div className='article-page'>
-        <Skeleton variant="rectangular" height={50} style={{ margin: '20px auto' }} />
-        <Skeleton variant="rectangular" height={80} style={{ margin: '20px auto 70px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
-      </div>
-      {
-        !ctx.isMobile && <div className="page-guide-nav-content-wrap">
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        </div>
-      }
-    </div>
-  }
+  }, [])
 
   return <div
     className={
@@ -202,9 +167,6 @@ function Page() {
         }
       </div>
     </div>
-    {/* {
-      !ctx.isMobile && <PageGuideNav source={article.Content}/>
-    } */}
   </div>
 }
 

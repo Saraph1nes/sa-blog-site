@@ -1,5 +1,5 @@
-import {Suspense, useEffect} from "react";
-import {Navigate, useLocation, useRoutes} from "react-router-dom";
+import { Suspense, useEffect, useLayoutEffect } from "react";
+import { Navigate, useLocation, useRoutes } from "react-router-dom";
 
 import Home from '@/app/home/page';
 import Category from '@/app/category/page';
@@ -20,7 +20,10 @@ import Loading from '@/components/Loading/index.jsx';
 const Router = () => {
   const location = useLocation();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    window.scrollTo({
+      top: 0,
+    });
     const pageViewCount = +sessionStorage.getItem('pageViewCount') || 0;
     sessionStorage.setItem('pageViewCount', `${pageViewCount + 1}`);
   }, [location]);
@@ -34,7 +37,7 @@ const Router = () => {
     { path: "book/:id", element: <BookId /> },
     { path: "article/:id", element: <ArticleId /> },
     { path: "about", element: <About /> },
-    {path: 'subject', element: <Subject />},
+    { path: 'subject', element: <Subject /> },
     { path: "photoAlbum", element: <PhotoAlbum /> },
     {
       path: "user",

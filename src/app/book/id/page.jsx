@@ -59,9 +59,6 @@ const Book = () => {
     const { Success, Data } = await fetchArticleById(id);
     setArticleData(Data);
     setArticleSelectedId(id);
-    window.scrollTo({
-      top: 0,
-    });
   };
 
   const foldTagItem = (tagId) => {

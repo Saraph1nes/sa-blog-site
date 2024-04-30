@@ -35,9 +35,7 @@ const ArticleList = () => {
   }
 
   const onTabsChange = (event, newValue) => {
-    window.scrollTo({
-      top: 0
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     setPageIndex(1)
     setList([])
     setListOver(false)
