@@ -1,4 +1,4 @@
-import { useContext, useEffect, useLayoutEffect, useState } from "react";
+import { useContext, useLayoutEffect, useState } from "react";
 import service from "@/utils/http";
 import ArticleRenderer from "@/components/ArticleRenderer";
 import SaComment from "@/components/SaComment"
@@ -63,7 +63,7 @@ function Page() {
 
   useLayoutEffect(() => {
     init()
-  }, [])
+  }, [params.id])
 
   return <div
     className={

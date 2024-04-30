@@ -3,7 +3,6 @@ import { DarkModeContent } from "@/components/DarkModeProvider/index.jsx";
 import PropTypes from "prop-types";
 import cx from 'classname'
 import { useMediaQuery } from "@mui/material";
-import throttle from 'lodash/throttle'
 import classname from "classname";
 
 import './index.scss'
@@ -50,8 +49,9 @@ const PageGuideNav = ({ source }) => {
 
   // 处理滚动事件，根据滚动位置，设置当前高亮的标题
   useEffect(() => {
-    window.onscroll = throttle(() => {
+    window.onscroll = () => {
       const currentY = window.scrollY;
+      // 处理最后一项
       if (currentY > toc[toc.length - 1].boundingClientRectTop) {
         setTocActiveId(toc[toc.length - 1].id)
       } else {
@@ -63,25 +63,27 @@ const PageGuideNav = ({ source }) => {
           }
         }
       }
-    }, 80)
+    }
   }, [toc])
+
+  const tocRefIns = tocRef.current
 
   // 根据页面的滚动位置，设置标题列表的滚动位置
   useEffect(() => {
-    const ins = tocRef.current
-    if (tocActiveIndex >= 10) {
-      ins.scrollTo({
-        top: (tocActiveIndex - 10) * 36,
-        behavior: 'smooth'
-      })
-    } else {
-      ins.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-    }
+    const displayTocNums = tocRefIns.getBoundingClientRect().height / 33
 
-  }, [tocActiveIndex, toc])
+    const rollingThreshold = ~~(displayTocNums / 2);
+
+    // 大于滚动阈值（一般是中间）时，滚动并保持高亮元素在中间
+    let top = 0
+    if (tocActiveIndex >= rollingThreshold) {
+      top = (tocActiveIndex - rollingThreshold) * 33
+    }
+    tocRefIns.scrollTo({
+      top,
+      behavior: 'smooth'
+    })
+  }, [tocActiveIndex, toc, tocRefIns])
 
   const handleTocItemClick = (item) => {
     const offsetTop = item.element.offsetTop
