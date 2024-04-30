@@ -22,11 +22,13 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      border-left: 3px solid transparent;
 
       &.active {
         color: $primary-color;
         font-weight: bold;
         border-radius: 0 16px 16px 0;
+        border-color: $primary-color;
       }
     }
   }

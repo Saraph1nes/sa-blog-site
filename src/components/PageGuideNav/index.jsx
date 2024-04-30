@@ -51,6 +51,7 @@ const PageGuideNav = ({ source }) => {
   useEffect(() => {
     window.onscroll = () => {
       const currentY = window.scrollY;
+
       // 处理最后一项
       if (currentY > toc[toc.length - 1].boundingClientRectTop) {
         setTocActiveId(toc[toc.length - 1].id)
@@ -70,6 +71,7 @@ const PageGuideNav = ({ source }) => {
 
   // 根据页面的滚动位置，设置标题列表的滚动位置
   useEffect(() => {
+    if (!tocRefIns) return
     const displayTocNums = tocRefIns.getBoundingClientRect().height / 33
 
     const rollingThreshold = ~~(displayTocNums / 2);
@@ -90,6 +92,10 @@ const PageGuideNav = ({ source }) => {
     window.scrollTo({ top: offsetTop, behavior: 'smooth' })
   }
 
+  if (!source) {
+    return null
+  }
+
   return <div
     ref={tocRef}
     className={cx({
@@ -104,7 +110,7 @@ const PageGuideNav = ({ source }) => {
             style={{ paddingLeft: `${(item.type - 1) * 15}px` }}
             className={classname({
               "nav-content-item": true,
-              'active': tocActiveId === item.id
+              'active': tocActiveId === item.id,
             })}
             onClick={() => handleTocItemClick(item)}
           >

@@ -65,6 +65,10 @@ function Page() {
     init()
   }, [params.id])
 
+  if (!article.Name) {
+    return null
+  }
+
   return <div
     className={
       classname({
