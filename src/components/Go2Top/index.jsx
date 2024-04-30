@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {Box, Fab} from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Fab } from "@mui/material";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 import './index.scss'
@@ -27,9 +27,7 @@ const Go2Top = () => {
   }, []);
 
   const handleClick = () => {
-    window.scrollTo({
-      top: 0,
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   };
 
   return <>
@@ -37,10 +35,10 @@ const Go2Top = () => {
       isVisible && <Box
         onClick={handleClick}
         role="presentation"
-        sx={{position: 'fixed', bottom: 120, right: 20}}
+        sx={{ position: 'fixed', bottom: 120, right: 20 }}
       >
         <Fab size='small' aria-label="go to top" color="primary">
-          <ArrowDropUpIcon/>
+          <ArrowDropUpIcon />
         </Fab>
       </Box>
     }

@@ -12,7 +12,6 @@ import {
   ListItemAvatar,
   ListItemText,
   Paper,
-  Skeleton,
   useTheme
 } from "@mui/material";
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
@@ -32,7 +31,6 @@ function Page() {
   const navigate = useNavigate()
   const params = useParams()
   const theme = useTheme()
-  const [isMount, setIsMount] = useState(false)
   const [article, setArticle] = useState({
     Name: '',
   })
@@ -61,43 +59,14 @@ function Page() {
     ])
     setArticle(fetchArticleByIdRes.Data)
     setComment(fetchGetArticleCommentRes.Data)
-    setIsMount(true)
   }
 
   useLayoutEffect(() => {
-    window.scrollTo({
-      top: 0,
-    })
     init()
   }, [params.id])
 
-  if (!isMount) {
-    return <div className={
-      classname({
-        'article-page-wrap': true,
-        'dark': theme.palette.mode === 'dark',
-        'is-mobile': ctx.isMobile
-      })
-    }>
-      <div className='article-page'>
-        <Skeleton variant="rectangular" height={50} style={{ margin: '20px auto' }} />
-        <Skeleton variant="rectangular" height={80} style={{ margin: '20px auto 70px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={400} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={100} style={{ margin: '20px' }} />
-        <Skeleton variant="rectangular" height={300} style={{ margin: '20px' }} />
-      </div>
-      {
-        !ctx.isMobile && <div className="page-guide-nav-content-wrap">
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-          <Skeleton variant="rectangular" style={{ margin: '20px' }} />
-        </div>
-      }
-    </div>
+  if (!article.Name) {
+    return null
   }
 
   return <div
@@ -118,8 +87,16 @@ function Page() {
           <PageGuideNav source={article} />
         </div>
       </div>
+      <div className="article-summary-wrap">
+        <div className="article-summary-title">
+          <span>AI 总结</span>
+        </div>
+        <div className="article-summary-content">
+          {article.Summary}
+        </div>
+      </div>
       <div className="article-switching-wrap">
-        <h2 className='article-switching-title'>其他文章</h2>
+        <h2 className='article-switching-title'>文章推荐</h2>
         <div className="article-switching">
           {
             !!article?.PrevArticle?.ID &&
@@ -194,9 +171,6 @@ function Page() {
         }
       </div>
     </div>
-    {/* {
-      !ctx.isMobile && <PageGuideNav source={article.Content}/>
-    } */}
   </div>
 }
 
