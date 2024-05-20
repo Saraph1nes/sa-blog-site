@@ -99,9 +99,6 @@ const DarkModeProvider = ({ children }) => {
   </DarkModeContent.Provider>
 }
 
-DarkModeProvider.defaultProps = {
-  children: null
-}
 
 DarkModeProvider.propTypes = {
   children: PropTypes.node

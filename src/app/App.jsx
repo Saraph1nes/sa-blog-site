@@ -4,25 +4,27 @@ import Go2Top from "@/components/Go2Top";
 import DarkModeProvider from "@/components/DarkModeProvider";
 import Router from "@/app/router";
 import UserInfoProvider from "@/components/UserInfoProvider/index.jsx";
-import {useEffect} from "react";
-import {baseURL} from "../../config.js";
+import { useEffect } from "react";
+import { baseURL } from "../../config.js";
 
 function App() {
-
   useEffect(() => {
     const handleUnload = () => {
-      const pageViewCount = sessionStorage.getItem('pageViewCount');
+      const pageViewCount = sessionStorage.getItem("pageViewCount");
       const form = new FormData();
-      form.append('count', pageViewCount)
-      const sendBeaconRes = navigator.sendBeacon(`${baseURL}/open/sablogs/updatePV`, form);
-      console.log(`已上报本次的PV ===> ${pageViewCount}`, sendBeaconRes)
-      sessionStorage.removeItem('pageViewCount');
+      form.append("count", pageViewCount);
+      const sendBeaconRes = navigator.sendBeacon(
+        `${baseURL}/open/sablogs/updatePV`,
+        form,
+      );
+      console.log(`已上报本次的PV ===> ${pageViewCount}`, sendBeaconRes);
+      sessionStorage.removeItem("pageViewCount");
     };
 
-    window.addEventListener('unload', handleUnload);
+    window.addEventListener("unload", handleUnload);
 
     return () => {
-      window.removeEventListener('unload', handleUnload);
+      window.removeEventListener("unload", handleUnload);
     };
   }, []);
 
@@ -34,16 +36,7 @@ function App() {
   //   });
   // };
 
-  return (
-    <DarkModeProvider>
-      <UserInfoProvider>
-        <Navbar/>
-        <Router/>
-        <Footer/>
-        <Go2Top/>
-      </UserInfoProvider>
-    </DarkModeProvider>
-  )
+  return <Router />;
 }
 
-export default App
+export default App;

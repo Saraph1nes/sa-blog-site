@@ -3,7 +3,7 @@ import {useTheme} from "@mui/material";
 import classname from 'classname'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-import './welcome.scss'
+import './Welcome.scss'
 
 const Welcome = () => {
   const theme = useTheme();
@@ -69,16 +69,16 @@ const Welcome = () => {
         id='welcome-text'
         style={{backgroundPositionX: `calc(100% - ${welcomeTxtPercentage}%)`}}
       >
-        <div>Hello, Welcome To Saraph1nes Blog</div>
-        {/*<div>你好，欢迎来到我的博客</div>*/}
+        <div>Hello, Welcome To My Blog</div>
+        <div>你好，欢迎来到我的博客</div>
       </div>
       {
         showArrowDownwardIcon && <div className='drop-down-icon'>
           <div>
             <div>Scroll Down</div>
-            {/*<div>向下滑动</div>*/}
+            <div>向下滑动</div>
           </div>
-          <ArrowDownwardIcon sx={{fontSize: '40px'}}/>
+          <ArrowDownwardIcon sx={{marginLeft:'20px',fontSize: '30px'}}/>
         </div>
       }
     </div>
