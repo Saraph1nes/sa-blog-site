@@ -1,13 +1,13 @@
-@import "src/common.scss";
+@import 'src/common.scss';
 
 .markdown-body-wrap.light {
-  @import "highlight.js/scss/github.scss";
-  @import "github-md-light";
+  @import 'highlight.js/scss/github.scss';
+  @import 'github-md-light';
 }
 
 .markdown-body-wrap.dark {
-  @import "highlight.js/scss/github-dark.scss";
-  @import "github-md-dark";
+  @import 'highlight.js/scss/github-dark.scss';
+  @import 'github-md-dark';
 }
 
 .markdown-body-wrap {
@@ -28,7 +28,9 @@
     }
 
     img {
-      height: 30vh;
+      object-fit: contain;
+      max-height: 50vh;
+      width: auto;
     }
   }
 }
