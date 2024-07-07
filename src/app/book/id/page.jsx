@@ -1,244 +1,142 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import service from "@/utils/http";
-import { Divider, IconButton, Skeleton } from "@mui/material";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import classname from "classname";
-import ArticleRenderer from "@/components/ArticleRenderer";
-import MenuOpenIcon from "@mui/icons-material/MenuOpen";
-import { useParams } from "react-router-dom";
-import PageGuideNav from "@/components/PageGuideNav/index.jsx";
+import { useLayoutEffect, useState } from 'react'
+import service from '@/utils/http'
+import { Divider, IconButton } from '@mui/material'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import classname from 'classname'
+import ArticleRenderer from '@/components/ArticleRenderer'
+import MenuOpenIcon from '@mui/icons-material/MenuOpen'
+import { useParams } from 'react-router-dom'
+import PageGuideNav from '@/components/PageGuideNav/index.jsx'
 
-import "./page.scss";
+import './page.scss'
 
 const Book = () => {
-  const dividerRef = useRef();
-  const params = useParams();
-  const [navData, setNavData] = useState([]);
+  const params = useParams()
+  const [navData, setNavData] = useState([])
   const [articleData, setArticleData] = useState({
     CategoryId: 0,
     Content: null,
-    CreatedAt: "",
-    DeletedAt: "",
+    CreatedAt: '',
+    DeletedAt: '',
     ID: 0,
-    Name: "",
-    UpdatedAt: "",
-  });
-  const [hideMenu, setHideMenu] = useState(false);
-  const [articleSelectedId, setArticleSelectedId] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
+    Name: '',
+    UpdatedAt: '',
+  })
+  const [hideMenu, setHideMenu] = useState(false)
+  const [articleSelectedId, setArticleSelectedId] = useState(0)
 
   const getTagsByCategoryId = async () => {
-    return await service.get(`/tag/getTagsByCategoryId?id=${params.id}`);
-  };
+    return await service.get(`/tag/getTagsByCategoryId?id=${params.id}`)
+  }
 
   const fetchArticleById = async (id) => {
-    return await service.get(`/article/${id}`);
-  };
-
-  console.log("dividerRef", dividerRef.current);
+    return await service.get(`/article/${id}`)
+  }
 
   const init = async () => {
-    const { Data, Success } = await getTagsByCategoryId();
-    const resData = [];
+    const { Data } = await getTagsByCategoryId()
+    const resData = []
     for (let data of Data) {
-      data.isShow = true;
+      data.isShow = true
       if (data.ArticleCount > 0) {
-        resData.push(data);
+        resData.push(data)
       }
     }
-    const firstArticleId = resData[0].ArticleList[0].ID;
-    const { Success: fetchArticleByIdSuccess, Data: fetchArticleByIdData } =
-      await fetchArticleById(firstArticleId);
-    setArticleSelectedId(firstArticleId);
-    setArticleData(fetchArticleByIdData);
-    setNavData(resData);
-    setIsMounted(true);
-  };
+    const firstArticleId = resData[0].ArticleList[0].ID
+    const { Data: fetchArticleByIdData } = await fetchArticleById(
+      firstArticleId
+    )
+    setArticleSelectedId(firstArticleId)
+    setArticleData(fetchArticleByIdData)
+    setNavData(resData)
+  }
 
   const onSelectArticle = async (id) => {
-    const { Success, Data } = await fetchArticleById(id);
-    setArticleData(Data);
-    setArticleSelectedId(id);
+    const { Data } = await fetchArticleById(id)
+    setArticleData(Data)
+    setArticleSelectedId(id)
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
-    });
-  };
-
-  const foldTagItem = (tagId) => {
-    const idx = navData.findIndex((i) => i.ID === tagId);
-    navData[idx].isShow = !navData[idx].isShow;
-    setNavData(JSON.parse(JSON.stringify(navData)));
-  };
-
-  const toggleMenuBtn = () => {
-    setHideMenu((p) => !p);
-  };
-
-  useLayoutEffect(() => {
-    init();
-  }, []);
-
-  if (!isMounted) {
-    return (
-      <div className="book-page-wrap">
-        <div className="book-page">
-          <div className="book-page-left">
-            <Divider />
-            <Skeleton
-              style={{ margin: "10px" }}
-              variant="rectangular"
-              height={60}
-            />
-            <Divider />
-            <Skeleton
-              style={{ margin: "10px" }}
-              variant="rectangular"
-              height={60}
-            />
-            <Divider />
-            <Skeleton
-              style={{ margin: "10px" }}
-              variant="rectangular"
-              height={60}
-            />
-          </div>
-          <Divider className="divider" orientation="vertical" flexItem />
-          <div className="book-page-right">
-            <IconButton sx={{ ml: 1 }} color="inherit" onClick={toggleMenuBtn}>
-              <MenuOpenIcon
-                style={{
-                  transform: hideMenu ? "rotate(180deg)" : "",
-                  transition: "ease-in-out 200ms",
-                }}
-              />
-            </IconButton>
-            <div className="article-wrap">
-              <div style={{ flex: "1" }}>
-                <Skeleton variant="rectangular" height={30} />
-                <Skeleton
-                  variant="rectangular"
-                  height={80}
-                  width={200}
-                  style={{ margin: "20px auto 70px" }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  height={20}
-                  style={{ margin: "10px" }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  height={40}
-                  style={{ margin: "10px" }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  height={10}
-                  style={{ margin: "10px" }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  height={10}
-                  style={{ margin: "10px" }}
-                />
-                <Skeleton
-                  variant="rectangular"
-                  height={30}
-                  style={{ margin: "10px" }}
-                />
-              </div>
-              <div className="page-guide-nav-content-wrap">
-                <Skeleton variant="rectangular" style={{ margin: "10px" }} />
-                <Skeleton variant="rectangular" style={{ margin: "10px" }} />
-                <Skeleton variant="rectangular" style={{ margin: "10px" }} />
-                <Skeleton variant="rectangular" style={{ margin: "10px" }} />
-                <Skeleton variant="rectangular" style={{ margin: "10px" }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
+    })
   }
 
+  const foldTagItem = (tagId) => {
+    const idx = navData.findIndex((i) => i.ID === tagId)
+    navData[idx].isShow = !navData[idx].isShow
+    setNavData(JSON.parse(JSON.stringify(navData)))
+  }
+
+  const toggleMenuBtn = () => {
+    setHideMenu((p) => !p)
+  }
+
+  useLayoutEffect(() => {
+    init()
+  }, [])
+
   return (
-    <>
-      <div className="book-page-wrap">
-        <div className="book-page">
-          <section
-            className="book-page-left"
-            style={{
-              display: hideMenu ? "none" : "block",
-              transition: "ease-in-out 200ms",
-            }}
-          >
-            {navData.map((navItem, index) => (
-              <div key={navItem.ID}>
-                {index !== 0 && <Divider />}
-                <div className="tag-item">
-                  <div
-                    className="tag-item-title-wrap"
-                    onClick={() => foldTagItem(navItem.ID)}
-                  >
-                    <div className="title">{navItem.Name}</div>
-                    <KeyboardArrowRightIcon
+    <div className="book-page">
+      <div
+        className="book-page-left"
+        style={{
+          width: hideMenu ? '0' : '200px',
+          padding: hideMenu ? '0' : '10px',
+        }}
+      >
+        {navData.map((navItem, index) => (
+          <div key={navItem.ID}>
+            {index !== 0 && <Divider />}
+            <div className="tag-item">
+              <div
+                className="tag-item-title-wrap"
+                onClick={() => foldTagItem(navItem.ID)}
+              >
+                <div className="title">{navItem.Name}</div>
+                <KeyboardArrowRightIcon
+                  className={classname({
+                    arrow: true,
+                    show: navItem.isShow,
+                  })}
+                ></KeyboardArrowRightIcon>
+              </div>
+              {navItem.isShow && navItem.ArticleCount > 0 && (
+                <div className="tag-article-list">
+                  {navItem.ArticleList.map((article) => (
+                    <div
                       className={classname({
-                        arrow: true,
-                        show: navItem.isShow,
+                        'tag-article-item': true,
+                        selected: article.ID === articleSelectedId,
                       })}
-                    ></KeyboardArrowRightIcon>
-                  </div>
-                  {navItem.isShow && navItem.ArticleCount > 0 && (
-                    <div className="tag-article-list">
-                      {navItem.ArticleList.map((article) => (
-                        <div
-                          className={classname({
-                            "tag-article-item": true,
-                            selected: article.ID === articleSelectedId,
-                          })}
-                          onClick={() => onSelectArticle(article.ID)}
-                          key={article.ID}
-                        >
-                          {article.Name}
-                        </div>
-                      ))}
+                      onClick={() => onSelectArticle(article.ID)}
+                      key={article.ID}
+                    >
+                      {article.Name}
                     </div>
-                  )}
+                  ))}
                 </div>
-              </div>
-            ))}
-          </section>
-          <Divider
-            ref={dividerRef}
-            className="divider"
-            orientation="vertical"
-            flexItem
-            style={{ display: hideMenu ? "none" : "block" }}
-          />
-          <div className="book-page-right">
-            <IconButton sx={{ ml: 1 }} color="inherit" onClick={toggleMenuBtn}>
-              <MenuOpenIcon
-                style={{
-                  transform: hideMenu ? "rotate(180deg)" : "",
-                  transition: "ease-in-out 200ms",
-                }}
-              />
-            </IconButton>
-            <div className="article-wrap">
-              <div style={{ flex: "1" }}>
-                <h1 className="article-title">{articleData.Name}</h1>
-                <div className="article-content">
-                  <ArticleRenderer data={articleData}></ArticleRenderer>
-                </div>
-              </div>
-              <PageGuideNav source={articleData.Content} />
+              )}
             </div>
           </div>
+        ))}
+      </div>
+      <div className="book-page-main">
+        <IconButton color="inherit" onClick={toggleMenuBtn}>
+          <MenuOpenIcon
+            style={{
+              transform: hideMenu ? 'rotate(180deg)' : '',
+              transition: 'ease-in-out 200ms',
+            }}
+          />
+        </IconButton>
+        <h1 className="article-title">{articleData.Name}</h1>
+        <div className="article-content">
+          <ArticleRenderer data={articleData}></ArticleRenderer>
         </div>
       </div>
-    </>
-  );
-};
+      <PageGuideNav className="book-page-right" source={articleData.Content} />
+    </div>
+  )
+}
 
-export default Book;
+export default Book

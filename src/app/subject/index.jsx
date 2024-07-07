@@ -1,9 +1,11 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 import './index.scss'
+import { useTheme } from '@mui/material'
+import classname from 'classname'
 
 const Subject = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const onPaperClick = (type) => {
     if (type === 'frontend') {
@@ -20,23 +22,30 @@ const Subject = () => {
     }
   }
 
-  return <div className='page-subject'>
-    <div className="page-subject-left">
-      <div className="page-subject-divider"></div>
-      <h2 className="page-subject-en-title">Technical</h2>
-      <h2 className="page-subject-cn-title">技术专题</h2>
-      {/* <div className="page-subject-cn-desc">我的技术小册</div> */}
-    </div>
-    <div className="page-subject-right">
-      <section className='page-subject-technical-section'>
+  const theme = useTheme()
 
+  return (
+    <div
+      className={classname({
+        'page-subject': true,
+        dark: theme.palette.mode === 'dark',
+      })}
+    >
+      <div className="page-subject-left">
+        <div className="page-subject-divider"></div>
+        <h2 className="page-subject-en-title">Technical</h2>
+        <h2 className="page-subject-cn-title">技术专题</h2>
+        {/* <div className="page-subject-cn-desc">我的技术小册</div> */}
+      </div>
+      <div className="page-subject-right">
+        <section className="page-subject-technical-section">
           <div className="page-subject-technical-section-left">
             <div
               className={`special-subject-list-item frontend`}
               onClick={() => onPaperClick('frontend')}
             >
               <div className="special-subject-list-item-content-words-wrap">
-                <h3 className='special-subject-list-item-title'>前端专题</h3>
+                <h3 className="special-subject-list-item-title">前端专题</h3>
                 <div className="special-subject-list-item-desc">
                   <ul>
                     <li>浏览器</li>
@@ -47,14 +56,18 @@ const Subject = () => {
                   </ul>
                 </div>
               </div>
-              <img className="special-subject-list-item-bg" src="http://assest.sablogs.cn/img/typora/bright-2178848_1280.jpg" alt=''></img>
+              <img
+                className="special-subject-list-item-bg"
+                src="http://assest.sablogs.cn/img/typora/bright-2178848_1280.jpg"
+                alt=""
+              ></img>
             </div>
             <div
               className={`special-subject-list-item backend`}
               onClick={() => onPaperClick('backend')}
             >
               <div className="special-subject-list-item-content-words-wrap">
-                <h3 className='special-subject-list-item-title'>后端专题</h3>
+                <h3 className="special-subject-list-item-title">后端专题</h3>
                 <div className="special-subject-list-item-desc">
                   <ul>
                     <li>GO</li>
@@ -64,8 +77,10 @@ const Subject = () => {
                   </ul>
                 </div>
               </div>
-              <img className="special-subject-list-item-bg"
-                   src="http://assest.sablogs.cn/img/typora/blooming-2178785_1280.jpg"></img>
+              <img
+                className="special-subject-list-item-bg"
+                src="http://assest.sablogs.cn/img/typora/blooming-2178785_1280.jpg"
+              ></img>
             </div>
           </div>
 
@@ -75,7 +90,7 @@ const Subject = () => {
               onClick={() => onPaperClick('algorithm')}
             >
               <div className="special-subject-list-item-content-words-wrap">
-                <h3 className='special-subject-list-item-title'>算法专题</h3>
+                <h3 className="special-subject-list-item-title">算法专题</h3>
                 <div className="special-subject-list-item-desc">
                   <ul>
                     <li>双指针</li>
@@ -86,15 +101,19 @@ const Subject = () => {
                   </ul>
                 </div>
               </div>
-              <img className="special-subject-list-item-bg"
-                   src="http://assest.sablogs.cn/img/typora/art-2178683_1280.jpg"></img>
+              <img
+                className="special-subject-list-item-bg"
+                src="http://assest.sablogs.cn/img/typora/art-2178683_1280.jpg"
+              ></img>
             </div>
             <div
               className={`special-subject-list-item designPatterns`}
               onClick={() => onPaperClick('designPatterns')}
             >
               <div className="special-subject-list-item-content-words-wrap">
-                <h3 className='special-subject-list-item-title'>设计模式专题</h3>
+                <h3 className="special-subject-list-item-title">
+                  设计模式专题
+                </h3>
                 <div className="special-subject-list-item-desc">
                   <ul>
                     <li>行为型模式</li>
@@ -105,13 +124,16 @@ const Subject = () => {
                   </ul>
                 </div>
               </div>
-              <img className="special-subject-list-item-bg"
-                   src="http://assest.sablogs.cn/img/typora/champagne-2178775_1280.jpg"></img>
+              <img
+                className="special-subject-list-item-bg"
+                src="http://assest.sablogs.cn/img/typora/champagne-2178775_1280.jpg"
+              ></img>
             </div>
           </div>
-      </section>
+        </section>
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default Subject
