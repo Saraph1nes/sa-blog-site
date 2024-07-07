@@ -167,7 +167,7 @@ function Home() {
                         sx={{
                           marginTop: '10px',
                           marginRight: '6px',
-                          fontSize: '10px',
+                          fontSize: '12px',
                         }}
                         size="small"
                         variant="outlined"

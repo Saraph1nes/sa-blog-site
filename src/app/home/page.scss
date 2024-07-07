@@ -11,7 +11,7 @@
 
     .container {
       flex: 1;
-      max-width: 700px;
+      max-width: 900px;
       width: 100%;
 
       .article-list-wrap {
@@ -162,7 +162,7 @@
       padding: 0 10px;
 
       flex-shrink: 0;
-      width: 240px;
+      max-width: 290px;
       box-sizing: border-box;
       position: sticky;
       top: 20px;
@@ -200,7 +200,7 @@
 
             .heatmap-nums-title {
               margin-top: 10px;
-              font-size: 12px;
+              font-size: 14px;
               color: #8a8a8a;
             }
           }

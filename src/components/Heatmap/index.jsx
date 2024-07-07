@@ -57,8 +57,8 @@ const Heatmap = ({ heatmapDataset }) => {
     })
 
     // 设置图表参数
-    const width = 195
-    const height = 120
+    const width = 240
+    const height = 143
     const margin = 0
     const weekBoxWidth = 0
     const monthBoxHeight = 15
