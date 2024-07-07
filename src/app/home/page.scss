@@ -1,22 +1,20 @@
-@import "src/common.scss";
+@import 'src/common.scss';
 
 .main {
-  min-height: 100vh;
-  height: inherit;
-  margin: 0 auto;
-  max-width: 1200px;
+  display: flex;
 
   .container-wrap {
+    justify-content: center;
+    width: 100%;
     display: flex;
-    max-width: 800px;
+    margin: 0 auto;
 
     .container {
-      width: 100%;
       flex: 1;
+      max-width: 700px;
+      width: 100%;
 
       .article-list-wrap {
-        margin: 0 auto;
-
         .article-list-category {
           position: sticky;
           top: 0;
@@ -158,42 +156,33 @@
           color: #666666;
         }
       }
-
-      .pagination-wrap {
-        max-width: 1000px;
-        margin: 50px auto;
-
-        .pagination {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-      }
     }
 
     .aside-wrap {
+      padding: 0 10px;
+
+      flex-shrink: 0;
+      width: 240px;
+      box-sizing: border-box;
       position: sticky;
       top: 20px;
       max-height: 90vh;
       margin-left: 10px;
       overflow: hidden;
-      flex-shrink: 0;
-      padding: 5px;
-      width: 322px;
 
       .data-panel {
-        margin-top: 20px;
-        border-radius: 13px;
-        padding: 16px;
+        margin-top: 10px;
+        border-radius: 12px;
+        padding: 12px;
 
         .data-panel-title {
           user-select: none;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 14px;
         }
 
         .heatmap-nums {
-          padding: 0 10px;
+          padding: 0 6px;
 
           .heatmap-nums-item {
             display: flex;
@@ -205,13 +194,13 @@
 
             .heatmap-nums-count {
               margin: 0 20px;
-              font-size: 20px;
+              font-size: 18px;
               color: $primary-color;
             }
 
             .heatmap-nums-title {
               margin-top: 10px;
-              font-size: 14px;
+              font-size: 12px;
               color: #8a8a8a;
             }
           }
@@ -223,14 +212,14 @@
       }
 
       .statistical-panel {
-        margin-top: 20px;
-        border-radius: 13px;
-        padding: 16px 16px 0;
+        margin-top: 10px;
+        border-radius: 12px;
+        padding: 12px 12px 0;
 
         .statistical-panel-title {
           user-select: none;
           font-weight: bold;
-          font-size: 16px;
+          font-size: 14px;
         }
 
         .heatmap-chart {
@@ -239,21 +228,21 @@
       }
 
       .tag-panel {
-        margin-top: 20px;
-        border-radius: 13px;
-        padding: 16px;
+        margin-top: 10px;
+        border-radius: 12px;
+        padding: 12px;
 
         .tag-panel-title {
           font-weight: bold;
-          font-size: 16px;
+          font-size: 14px;
           user-select: none;
         }
       }
 
       .time-flies-panel {
-        margin-top: 20px;
-        border-radius: 13px;
-        padding: 20px 16px;
+        margin-top: 10px;
+        border-radius: 12px;
+        padding: 12px;
       }
 
       .aside-footer {
