@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
@@ -49,5 +48,13 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 </body>
-
+<!-- <script type="module">
+    import {getFCP, getLCP, getFID} from 'https://unpkg.com/web-vitals@0.2.4/dist/web-vitals.es5.min.js?module';
+    // 获取 First Contentful Paint
+    getFCP(({ name, value }) => console.log(name, value));
+    // 获取 Largest Contentful Paint
+    getLCP(({ name, value }) => console.log(name, value));
+    // 获取 First Input Delay
+    getFID(({ name, value }) => console.log(name, value));
+</script> -->
 </html>

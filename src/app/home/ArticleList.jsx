@@ -109,105 +109,154 @@ const ArticleList = () => {
     }
   }, [articleItemWrap])
 
-  return <div className='article-list-wrap'>
-    <Box
-      className={classname({
-        "article-list-category": true, "isMobile": ctx.isMobile
-      })}
-      sx={{
-        borderBottom: 1,
-        borderColor: 'divider',
-        background: ctx.isMobile ? theme.palette.background.paper : theme.palette.background.default,
-        color: theme.palette.color.default
-      }}
-    >
-      <Tabs
-        variant="scrollable"
-        value={selectedCategory}
-        onChange={onTabsChange}
+  return (
+    <div className="article-list-wrap">
+      <Box
+        className={classname({
+          'article-list-category': true,
+          isMobile: ctx.isMobile,
+        })}
+        sx={{
+          borderBottom: 1,
+          borderColor: 'divider',
+          background: ctx.isMobile
+            ? theme.palette.background.paper
+            : theme.palette.background.default,
+          color: theme.palette.color.default,
+        }}
       >
-        <Tab disabled={listLoading} className='article-list-category-item' label='全部' value={-1} />
-        {categoryList.map(i => <Tab
-          key={i.ID}
-          disabled={listLoading}
-          value={i.ID}
-          className='article-list-category-item'
-          label={i.Name}
-        />)}
-      </Tabs>
-    </Box>
-    <div className='article-list-container'>
-
-      {list.map(item => <div key={item.ID} className="article-item-wrap">
-        <div className='article-item'>
-          <div className='left'>
-            {
-              item.Picture && <div className={
-                classname({
-                  'article-img-wrap': true,
-                  'isMobile': ctx.isMobile
-                })
-              }>
-                <img className='article-img' src={item.Picture} alt="" loading='lazy' onClick={() => {
-                  goToArticle(item.ID)
-                }} />
+        <Tabs
+          variant="scrollable"
+          value={selectedCategory}
+          onChange={onTabsChange}
+        >
+          <Tab
+            disabled={listLoading}
+            className="article-list-category-item"
+            label="全部"
+            value={-1}
+          />
+          {categoryList.map((i) => (
+            <Tab
+              key={i.ID}
+              disabled={listLoading}
+              value={i.ID}
+              className="article-list-category-item"
+              label={i.Name}
+            />
+          ))}
+        </Tabs>
+      </Box>
+      <div className="article-list-container">
+        {list.map((item) => (
+          <div key={item.ID} className="article-item-wrap">
+            <div className="article-item">
+              <div className="left">
+                {item.Picture && (
+                  <div
+                    className={classname({
+                      'article-img-wrap': true,
+                      isMobile: ctx.isMobile,
+                    })}
+                  >
+                    <img
+                      className="article-img"
+                      src={item.Picture}
+                      alt=""
+                      loading="lazy"
+                      onClick={() => {
+                        goToArticle(item.ID)
+                      }}
+                    />
+                  </div>
+                )}
+                <h2
+                  className="article-title"
+                  onClick={() => {
+                    goToArticle(item.ID)
+                  }}
+                >
+                  {item.Name}
+                </h2>
+                <div className="summary">
+                  {item.Summary}
+                  <span
+                    className="summary-btn"
+                    onClick={() => {
+                      goToArticle(item.ID)
+                    }}
+                  >
+                    阅读全文
+                  </span>
+                </div>
+                {(item.CategoryName || item.TagName) && (
+                  <div className="title-desc-wrap">
+                    {item.CategoryName && (
+                      <Link to={`/category/${item.CategoryId}`}>
+                        <div className="article-category">
+                          <ClassIcon style={{ fontSize: '18px' }} />
+                          <span style={{ marginLeft: '5px' }}>
+                            {item.CategoryName}
+                          </span>
+                        </div>
+                      </Link>
+                    )}
+                    {item.TagName && (
+                      <Link to={`/tag/${item.TagId}`}>
+                        <div className="article-tag">
+                          <LocalOfferIcon style={{ fontSize: '18px' }} />
+                          <span style={{ marginLeft: '5px' }}>
+                            {item.TagName}
+                          </span>
+                        </div>
+                      </Link>
+                    )}
+                    {item.CommentCount > 0 && (
+                      <div className="article-comment-count">
+                        <CommentIcon style={{ fontSize: '18px' }} />
+                        <span style={{ marginLeft: '5px' }}>
+                          评论({item.CommentCount})
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="create-time">
+                  发布于{dayjs(item.CreatedAt).format('MM-DD HH:mm')} ·
+                  作者Saraph1nes
+                </div>
               </div>
-            }
-            <h3
-              className="article-title"
-              onClick={() => {
-                goToArticle(item.ID)
-              }}
-            >
-              {item.Name}
-            </h3>
-            <div className='summary'>
-              {item.Summary}
-              <span className='summary-btn' onClick={() => {
-                goToArticle(item.ID)
-              }}>阅读全文</span>
+              {/*<div className='right'>*/}
+              {/*  <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>*/}
+              {/*</div>*/}
             </div>
-            {(item.CategoryName || item.TagName) && <div className='title-desc-wrap'>
-              {item.CategoryName && <Link
-                to={`/category/${item.CategoryId}`}
-              >
-                <div className='article-category'>
-                  <ClassIcon style={{ fontSize: '18px' }} />
-                  <span style={{ marginLeft: '5px' }}>{item.CategoryName}</span>
-                </div>
-              </Link>}
-              {item.TagName && <Link
-                to={`/tag/${item.TagId}`}
-              >
-                <div className='article-tag'>
-                  <LocalOfferIcon style={{ fontSize: '18px' }} />
-                  <span style={{ marginLeft: '5px' }}>{item.TagName}</span>
-                </div>
-              </Link>}
-              {item.CommentCount > 0 && <div className='article-comment-count'>
-                <CommentIcon style={{ fontSize: '18px' }} />
-                <span style={{ marginLeft: '5px' }}>评论({item.CommentCount})</span>
-              </div>}
-            </div>}
-            <div className='create-time'>发布于{dayjs(item.CreatedAt).format("MM-DD HH:mm")} · 作者Saraph1nes</div>
+            <Divider style={{ marginTop: '20px' }} />
           </div>
-          {/*<div className='right'>*/}
-          {/*  <div className='create-time'>{dayjs(item.CreatedAt).format("MM-DD")}</div>*/}
-          {/*</div>*/}
+        ))}
+      </div>
+      {listLoading && (
+        <div className="list-bottom-loading">
+          <section>
+            <Skeleton
+              variant="rectangular"
+              height={300}
+              style={{ marginTop: '10px' }}
+            />
+            <Skeleton
+              variant="rectangular"
+              height={20}
+              style={{ marginTop: '10px' }}
+            />
+            <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
+            <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
+          </section>
         </div>
-        <Divider style={{ marginTop: '20px' }} />
-      </div>)}
+      )}
+      {listOver && (
+        <div className="list-bottom-over">------ 没有更多了 ------</div>
+      )}
     </div>
-    {listLoading && <div className='list-bottom-loading'>
-      <section>
-        <Skeleton variant="rectangular" height={300} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" height={20} style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
-        <Skeleton variant="rectangular" style={{ marginTop: '10px' }} />
-      </section>
-    </div>}
-    {listOver && <div className='list-bottom-over'>------ 没有更多了 ------</div>}
-  </div>
+  )
 }
 
 const ArticleListMemo = memo(ArticleList);
