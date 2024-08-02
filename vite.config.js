@@ -30,7 +30,7 @@ export default defineConfig({
     'process.env': {},
   },
   build: {
-    sourcemap: true,
+    sourcemap: false,
     rollupOptions: {
       onwarn(warning, defaultHandler) {
         if (warning.code === 'SOURCEMAP_ERROR') {
