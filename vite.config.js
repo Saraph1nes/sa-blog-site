@@ -15,8 +15,8 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    compression(),
     terser(),
+    compression(),
     // analyze(),
     // visualizer({
     //   gzipSize: true,
