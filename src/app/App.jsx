@@ -10,20 +10,23 @@ import {baseURL} from "../../config.js";
 function App() {
 
   useEffect(() => {
-    const handleUnload = () => {
-      const pageViewCount = sessionStorage.getItem('pageViewCount');
-      const form = new FormData();
+    const handlePageHide = () => {
+      const pageViewCount = sessionStorage.getItem('pageViewCount')
+      const form = new FormData()
       form.append('count', pageViewCount)
-      const sendBeaconRes = navigator.sendBeacon(`${baseURL}/open/sablogs/updatePV`, form);
+      const sendBeaconRes = navigator.sendBeacon(
+        `${baseURL}/open/sablogs/updatePV`,
+        form
+      )
       console.log(`已上报本次的PV ===> ${pageViewCount}`, sendBeaconRes)
-      sessionStorage.removeItem('pageViewCount');
-    };
+      sessionStorage.removeItem('pageViewCount')
+    }
 
-    window.addEventListener('unload', handleUnload);
+    window.addEventListener('pagehide', handlePageHide)
 
     return () => {
-      window.removeEventListener('unload', handleUnload);
-    };
+      window.removeEventListener('pagehide', handlePageHide)
+    }
   }, []);
 
   // const fetchUpdatePV = async (count) => {
