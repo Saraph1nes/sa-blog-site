@@ -51,6 +51,7 @@
     "util": "^0.12.5"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.4",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react-swc": "^3.5.0",
@@ -58,6 +59,8 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.69.7",
     "vite": "5.1.5",
     "vite-plugin-compression2": "^1.1.3"
