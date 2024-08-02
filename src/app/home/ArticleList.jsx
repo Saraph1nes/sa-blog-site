@@ -163,7 +163,7 @@ const ArticleList = () => {
                       className="article-img"
                       src={item.Picture}
                       alt=""
-                      loading="lazy"
+                      // loading="lazy"
                       onClick={() => {
                         goToArticle(item.ID)
                       }}
