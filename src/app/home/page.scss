@@ -10,9 +10,11 @@
     margin: 0 auto;
 
     .container {
-      flex: 1;
-      max-width: 900px;
-      width: 100%;
+      width: 800px;
+
+      @media all and (max-width: 1200px) {
+        width: 100%;
+      }
 
       .article-list-wrap {
         .article-list-category {
@@ -169,6 +171,10 @@
       max-height: 90vh;
       margin-left: 10px;
       overflow: hidden;
+      
+      @media all and (max-width: 1200px) {
+        display: none;
+      }
 
       .data-panel {
         margin-top: 10px;
