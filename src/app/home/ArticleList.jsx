@@ -161,7 +161,7 @@ const ArticleList = () => {
                   >
                     <img
                       className="article-img"
-                      src={`${item.Picture}?imageView2/1/w/760/h/300/q/70`}
+                      src={`${item.Picture}?imageView2/1/w/760/h/300/q/70/format/webp`}
                       alt=""
                       // loading="lazy"
                       onClick={() => {
