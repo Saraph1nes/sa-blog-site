@@ -3,7 +3,6 @@ import rehypeHighlight from 'rehype-highlight'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import rehypeSlug from 'rehype-slug'
-import rehypeGallery from 'rehype-lightgallery'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import classname from 'classname'
 import { useTheme } from '@mui/material'
@@ -25,7 +24,6 @@ const MarkdownRenderer = ({ data }) => {
         className="markdown-body"
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[
-          rehypeGallery,
           rehypeHighlight,
           [rehypeSlug, {}],
           [rehypeAutolinkHeadings, { behavior: 'wrap' }],
