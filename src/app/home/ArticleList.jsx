@@ -222,8 +222,7 @@ const ArticleList = () => {
                   </div>
                 )}
                 <div className="create-time">
-                  发布于{dayjs(item.CreatedAt).format('MM-DD HH:mm')} ·
-                  作者Saraph1nes
+                  发布于{dayjs(item.CreatedAt).format(dayjs(item.CreatedAt).isSame('year') ? 'MM-DD HH:mm' : 'YYYY-MM-DD HH:mm')}
                 </div>
               </div>
               {/*<div className='right'>*/}

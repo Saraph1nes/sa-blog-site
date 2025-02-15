@@ -79,7 +79,7 @@ const Subject = () => {
               </div>
               <img
                 className="special-subject-list-item-bg"
-                src="http://assest.sablogs.cn/img/typora/blooming-2178785_1280.jpg"
+                src="https://assest.sablogs.cn/img/typora/Green Palm Tree.jpg"
               ></img>
             </div>
           </div>
@@ -126,7 +126,7 @@ const Subject = () => {
               </div>
               <img
                 className="special-subject-list-item-bg"
-                src="http://assest.sablogs.cn/img/typora/champagne-2178775_1280.jpg"
+                src="https://assest.sablogs.cn/img/typora/Sunflower in Field.jpg"
               ></img>
             </div>
           </div>

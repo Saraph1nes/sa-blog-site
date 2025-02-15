@@ -47,9 +47,9 @@ const UserInfo = () => {
   }
 
   return <div className='user-info-area' style={{color: theme.palette.primary.main}}>
-    {!userInfo && <AuthModalBox>
+    {/* {!userInfo && <AuthModalBox>
       <Button variant='contained'>登录</Button>
-    </AuthModalBox>}
+    </AuthModalBox>} */}
     {userInfo && <Tooltip title="帐户设置">
       <IconButton
         onClick={handleClick}

@@ -96,7 +96,7 @@ function Page() {
         </div>
       </div>
       <div className="article-switching-wrap">
-        <h2 className='article-switching-title'>文章推荐</h2>
+        {/* <h2 className='article-switching-title'>文章推荐</h2> */}
         <div className="article-switching">
           {
             !!article?.PrevArticle?.ID &&
@@ -131,7 +131,7 @@ function Page() {
           }
         </div>
       </div>
-      <div className="article-comment-wrap">
+      {/* <div className="article-comment-wrap">
         <h2 className='article-comment-title'>评论({comment.Count})</h2>
         {
           userInfo && <SaComment articleData={article} onCommentSuccess={onCommentSuccess} />
@@ -169,7 +169,7 @@ function Page() {
             </List>
           </Paper>
         }
-      </div>
+      </div> */}
     </div>
   </div>
 }
