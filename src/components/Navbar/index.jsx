@@ -2,6 +2,7 @@ import { useContext, useLayoutEffect, useState } from 'react'
 import { DarkModeContent } from '@/components/DarkModeProvider'
 import CategoryIcon from '@mui/icons-material/Category'
 import Person4Icon from '@mui/icons-material/Person4'
+import LabelRounded from '@mui/icons-material/LabelRounded'
 import HouseIcon from '@mui/icons-material/House'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
@@ -88,12 +89,12 @@ const Navbar = () => {
                 <span className="nav-item-txt">分类</span>
               </Link>
               <Link to={'/subject'} className="nav-item">
-                <Person4Icon style={{ fontSize: '16px' }} />
+                <LabelRounded style={{ fontSize: '16px' }} />
                 <span className="nav-item-txt">专题</span>
               </Link>
               <Link to={'/about'} className="nav-item">
                 <Person4Icon style={{ fontSize: '16px' }} />
-                <span className="nav-item-txt">介绍</span>
+                <span className="nav-item-txt">关于</span>
               </Link>
             </nav>
           </div>
