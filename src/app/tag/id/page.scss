@@ -1,4 +1,4 @@
-@import "src/common.scss";
+@import 'src/common.scss';
 $prefix: tag-detail-page;
 
 .#{$prefix} {
@@ -21,19 +21,25 @@ $prefix: tag-detail-page;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      cursor: pointer;
+      padding: 0 20px;
+      border-radius: 4px;
+
+      &:hover {
+        background: $primary-color;
+        color: #ffffff;
+        padding-left: 40px;
+        transition: all 0.3s;
+      }
 
       .#{$prefix}_list-item-title {
-        cursor: pointer;
-        transition: ease-out 300ms;
-
-        &:hover {
-          color: $primary-color;
-        }
+        font-size: 14px;
       }
 
       .#{$prefix}_list-item-date {
-        color: #aaaaaa;
         font-size: 12px;
+        flex-shrink: 0;
+        margin-left: 20px;
       }
     }
   }

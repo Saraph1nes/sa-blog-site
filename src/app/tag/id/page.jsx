@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
-import service from "@/utils/http";
-import dayjs from "dayjs";
-import {Link, useParams} from "react-router-dom";
-import loading from "@/components/Loading";
+import { useEffect, useState } from 'react'
+import service from '@/utils/http'
+import dayjs from 'dayjs'
+import { Link, useParams } from 'react-router-dom'
+import loading from '@/components/Loading'
 
 import './page.scss'
 
@@ -12,7 +12,7 @@ function Page() {
   const params = useParams()
   const [data, setData] = useState({
     Name: '',
-    ArticleList: []
+    ArticleList: [],
   })
 
   const fetchGetTagById = async (id) => {
@@ -20,26 +20,33 @@ function Page() {
   }
 
   const init = async () => {
-    const {Success, Data} = await fetchGetTagById(params.id)
+    const { Success, Data } = await fetchGetTagById(params.id)
     setData(Data)
   }
 
   useEffect(() => {
     init()
-  }, []);
+  }, [])
 
-  return <div className={classPrefix}>
-    <div className={`${classPrefix}_title`}>{data.Name}</div>
-    <div className={`${classPrefix}_list`}>
-      {
-        data.ArticleList.map(item => <div className={`${classPrefix}_list-item`} key={item.ID}>
-          <Link to={`/article/${item.ID}`}><span
-            className={`${classPrefix}_list-item-title`}>{item.Name}</span></Link>
-          <span className={`${classPrefix}_list-item-date`}>{dayjs(item.CreatedAt).format('YYYY-MM-DD')}</span>
-        </div>)
-      }
+  return (
+    <div className={classPrefix}>
+      <div className={`${classPrefix}_title`}>{data.Name}</div>
+      <div className={`${classPrefix}_list`}>
+        {data.ArticleList.map((item) => (
+          <Link to={`/article/${item.ID}`}>
+            <div className={`${classPrefix}_list-item`} key={item.ID}>
+              <span className={`${classPrefix}_list-item-title`}>
+                {item.Name}
+              </span>
+              <span className={`${classPrefix}_list-item-date`}>
+                {dayjs(item.CreatedAt).format('YYYY-MM-DD')}
+              </span>
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
-  </div>
+  )
 }
 
 export default Page
