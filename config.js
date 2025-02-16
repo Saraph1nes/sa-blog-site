@@ -1,4 +1,4 @@
-const baseURL = import.meta.env.DEV ? 'https://api.sablogs.cn/api' : 'https://api.sablogs.cn/api';
+const baseURL = import.meta.env.DEV ? '/apis/api' : 'https://api.sablogs.cn/api';
 
 const blogThemes = [
   {

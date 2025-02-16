@@ -59,4 +59,15 @@ export default defineConfig({
     },
   },
   cacheDir: 'node_modules/.vite', // Specify cache directory
+  server: {
+    port: 3000,
+    open: true,
+    proxy: {
+      '/apis': {
+        target: 'https://api.sablogs.cn/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/apis/, ''),
+      },
+    },
+  },
 })
